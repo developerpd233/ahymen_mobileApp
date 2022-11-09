@@ -1,0 +1,10 @@
+const CartConstant = {
+    ADD_TO_CART: "ADD_TO_CART",
+    REMOVE_CART: "REMOVE_CART",
+    REMOVE_ALL_CART: "REMOVE_ALL_CART",
+    REMOVE_ALL_CART: "REMOVE_ALL_CART",
+    REMOVE_SPECIFIC_CART: "REMOVE_SPECIFIC_CART",
+
+
+};
+export default CartConstant;
