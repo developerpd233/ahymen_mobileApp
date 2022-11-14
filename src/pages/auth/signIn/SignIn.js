@@ -50,20 +50,22 @@ function SignIn(props) {
                 : selectedCountry?.idd?.suffixes[0]
         }`;
         let payload = _.omit(values, ["phone"]);
-        payload.phone = `${perifix.replace(
-            /[^\w\s]/gi,
-            ""
-        )}${values.phone.replace(/\s+/g, "")}`;
+        payload.phone =  selectedCountry.detail.code+values.phone;
+        console.log(payload);
         const data = await dispatch(
             sendOtp({ phone: `+${payload.phone}` })
         ).then((response) => {
-            console.log(response);
+            console.log(response,payload.phone);
+            // alert(response.data.message)
             if (response?.response.data?.success) {
                 navigation.navigate("otp_verification", {
                     phone: `+${payload.phone}`,
                 });
             }
-        });
+        }).catch(function (error) {
+            
+            console.log(error , "66666666666666666");  
+       });
 
         // handleCode(payload);
         // navigation.navigate("otp_verification", {
@@ -137,4 +139,5 @@ function SignIn(props) {
         </Container>
     );
 }
+
 export default SignIn;

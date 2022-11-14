@@ -10,7 +10,7 @@ import Icons from "../../../assets/icons/CustomIcon";
 import { addProduct, removeProduct, removeSpecificProduct } from "../../../store/actions/Cart.action";
 
 function Cart(props) {
-    console.log(props?.route?.params);
+    // console.log(props?.route?.params);
     const dispatch = useDispatch()
     const navigation = useNavigation();
     const [isModal, updateIsModal] = useState(false);
