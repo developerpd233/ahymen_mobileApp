@@ -66,7 +66,7 @@ function GuestCheckout(props) {
         .then(function (response) {
 
         console.log(response.data.data.token+"60");    
-        _storeData(response.data.data.token)
+        // _storeData(response.data.data.token)
       
         alert(response.data.message)
         navigation.navigate("Store", {
@@ -86,31 +86,31 @@ function GuestCheckout(props) {
             alert(error.data.message+emailError+phoneError)    
        });
     }
-      const _storeData = async (token) => {
-        console.log("Sssss" , token)
-          try {
-            await AsyncStorage.setItem(
-              'guestToken',
-              token
-            );
-_retrieveData()
-          } catch (error) {
-            console.log(error+"68");
-          }
-        };
+//       const _storeData = async (token) => {
+//         console.log("Sssss" , token)
+//           try {
+//             await AsyncStorage.setItem(
+//               'guestToken',
+//               token
+//             );
+// _retrieveData()
+//           } catch (error) {
+//             console.log(error+"68");
+//           }
+//         };
 
-        const _retrieveData = async () => {
-          try {
-            const value = await AsyncStorage.getItem('guestToken');
-            if (value !== null) {
-              // We have data!!
-              console.log(value+"76");
-            }
-          } catch (error) {
-            // Error retrieving data
-            console.log(error+"80");
-          }
-        };
+//         const _retrieveData = async () => {
+//           try {
+//             const value = await AsyncStorage.getItem('guestToken');
+//             if (value !== null) {
+//               // We have data!!
+//               console.log(value+"76");
+//             }
+//           } catch (error) {
+//             // Error retrieving data
+//             console.log(error+"80");
+//           }
+//         };
 
 
     const headerProps = {

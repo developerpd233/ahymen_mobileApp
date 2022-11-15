@@ -31,7 +31,7 @@ function Auth({ initial }) {
         })();
     }, []);
 
-    // Layout /
+    /** Layout */
     const Layout = (initialRouteName) => {
         if (initialRouteName !== null) {
             return (

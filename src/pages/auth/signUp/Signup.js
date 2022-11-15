@@ -48,11 +48,11 @@ function Signup(props) {
                 : selectedCountry?.idd?.suffixes[0]
         }`;
         let payload = _.omit(values, ["phone"]);
-        payload.phone = `${perifix.replace(
-            /[^\w\s]/gi,
-            ""
-        )}${values.phone.replace(/\s+/g, "")}`;
+
+        payload.phone =  selectedCountry.detail.code+values.phone;
+        payload.registerType = "user";
         handleCode(payload);
+        
         // navigation.navigate("otp_verification");
 
         console.log("payload", payload);

@@ -10,7 +10,7 @@ const App = () => {
     const dispatch = useDispatch();
 
         const reduxState = useSelector(({ auth }) => {
-            //console.log("🚀  file: App.js  line 13  reduxState  auth", auth);
+            console.log("🚀 ~ file: App.js ~ line 13 ~ reduxState ~ auth", auth);
             return {
                 getUserProfileLoading: auth.getUserProfileLoading,
                 isLoggedIn: auth.isLoggedIn,
@@ -37,17 +37,12 @@ const App = () => {
         }
     };
 
-    // const isUser = typeof(reduxState.user.token) != "undefined"? true : false;
-
-    // console.log('+++++++++++++',isUser);
-
     return (
         <View style={{ backgroundColor: "white", flex: 1 }}>
-            {!reduxState?.getUserProfileLoading ? (
+            {reduxState?.getUserProfileLoading ? (
                 <CLoading loading={reduxState?.getUserProfileLoading} />
             ) : (
-                renderRouting(true)
-                // renderRouting(isUser, reduxState?.isIntialRoute)
+                renderRouting(reduxState?.isLoggedIn, reduxState?.isIntialRoute)
             )}
         </View>
     );

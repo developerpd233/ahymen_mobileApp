@@ -28,8 +28,7 @@ function Header(props) {
         }
     });
     const addCart = useSelector(state => state.cart); 
-    // console.log("🚀 ~ file: Header.js ~ line 31 ~ Header ~ addCart", addCart)
-    console.log("🚀 ~ file: Header.js ~ line 31 ~ Header ~ addCart")
+    console.log("🚀 ~ file: Header.js ~ line 31 ~ Header ~ addCart", addCart)
     
 
     const renderHeaderTitle = (title) => {

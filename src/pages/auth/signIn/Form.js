@@ -14,7 +14,7 @@ function CForm(props) {
         phoneErr,
         onLoginPress,
     } = props;
-
+    
     const form = useRef(null);
     const phone = useRef(null);
 
@@ -50,7 +50,7 @@ function CForm(props) {
                                     keyboardType={"numeric"}
                                     inputLabel={"Phone Number"}
                                     placeholder={"000-000-0000"}
-                                    value={values?.phone || "+923308351234"}
+                                    value={values?.phone || "3126479019"}
                                     onChangeText={(val) => {
                                         let phone = val;
                                         let reg = /^0+/gi;

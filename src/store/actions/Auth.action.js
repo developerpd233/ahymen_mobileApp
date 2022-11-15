@@ -13,14 +13,14 @@ import { LOGIN, REGISTER, SEND_CODE, VERIFY_CODE } from "../../config/webservice
 
 export const login = (payload, CB) => async (dispatch) => {
     console.log(
-        "🚀  file: Auth.action.js  line 12  login  payload",
+        "🚀 ~ file: Auth.action.js ~ line 12 ~ login ~ payload",
         payload
     );
      dispatch({ type: AUTH.LOGIN_USER_API, loading: false,});
     // dispatch({ type: AUTH.LOGIN_USER_API, loading: true, isLoggedIn: false});
     try {
         let response = await post(LOGIN, payload);
-        console.log("🚀  file: Auth.action.js  line 23  login  response", response)
+        console.log("🚀 ~ file: Auth.action.js ~ line 23 ~ login ~ response", response)
         // if (response?.data?.error) {
         //     dispatch({ type: AUTH.LOGIN_USER_API, loading: false });
         //     handleError(response?.data?.data?.message || "");
@@ -42,12 +42,10 @@ export const login = (payload, CB) => async (dispatch) => {
 export const sendOtp = (payload, CB) => async (dispatch) => {
     dispatch({ type: AUTH.SEND_OTP, loading: true });
 
-    try {
+    // try {
+        console.log('----------');
         let response = await post(SEND_CODE, payload);
-        console.log(
-            "🚀  file: Auth.action.js  line 45  sendOtp  response",
-            response
-        );
+        
         if (response?.data?.error) {
             handleError(response?.data?.data?.message || "");
             CB && CB(response?.data);
@@ -68,12 +66,14 @@ export const sendOtp = (payload, CB) => async (dispatch) => {
 
             CB && CB({ ...response?.data?.data, ...payload });
         }
+        console.log('-------*********');
         dispatch({ type: AUTH.SEND_OTP, loading: false });
-    } catch (error) {
-        return error
-        handleError(error?.data?.error, { autoHide: false });
-        dispatch({ type: AUTH.SEND_OTP, loading: false });
-    }
+    // } catch (error) {
+    //     console.log(error);
+    //     alert(error.data.message.invalid+' | '+error.data.message.response)
+    //     handleError(error?.data?.error, { autoHide: false });
+    //     dispatch({ type: AUTH.SEND_OTP, loading: false });
+    // }
 };
 
 export const resendOtp = (payload, CB) => async (dispatch) => {};
@@ -84,7 +84,7 @@ export const verifyOtp = (payload, CB) => async (dispatch) => {
     try {
         let response = await post(VERIFY_CODE, payload);
         console.log(
-            "🚀  file: Auth.action.js  line 90  verifyOtp  response",
+            "🚀 ~ file: Auth.action.js ~ line 90 ~ verifyOtp ~ response",
             response
         );
 
@@ -109,7 +109,7 @@ export const verifyOtp = (payload, CB) => async (dispatch) => {
         dispatch({ type: AUTH.VERIFY_OTP, loading: false });
     } catch (error) {
         console.log(
-            "🚀  file: Auth.action.js  line 58  sendOtp  error",
+            "🚀 ~ file: Auth.action.js ~ line 58 ~ sendOtp ~ error",
             error
         );
         handleError(error?.data?.error, { autoHide: false });
@@ -135,7 +135,7 @@ export const signUp = (payload, CB) => async (dispatch) => {
         }
     } catch (error) {
         console.log(
-            "🚀  file: Auth.action.js  line 116  signUp  error",
+            "🚀 ~ file: Auth.action.js ~ line 116 ~ signUp ~ error",
             error?.data?.message
         );
         handleError(error?.data?.message, { autoHide: true });

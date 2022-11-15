@@ -10,18 +10,20 @@ import Icons from "../../../assets/icons/CustomIcon";
 import { addProduct, removeProduct, removeSpecificProduct } from "../../../store/actions/Cart.action";
 
 function Cart(props) {
-    // console.log(props?.route?.params);
+    console.log(props?.route?.params);
     const dispatch = useDispatch()
     const navigation = useNavigation();
     const [isModal, updateIsModal] = useState(false);
 
     const reduxState = useSelector(({ auth  , root , cart}) => {
+        
         return {
             loading: false,
             data: cart,
             user:auth.user
         };
     });
+    console.log("🚀 ~ file: Cart.js ~ line 26 ~ reduxState ~ reduxState", reduxState)
 
     let totalSum = 0;
   reduxState?.data?.forEach(obj => {
