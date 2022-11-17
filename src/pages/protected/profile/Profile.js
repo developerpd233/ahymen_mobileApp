@@ -6,6 +6,8 @@ import Styles from "./Profile.style";
 import Icon from '../../../assets/icons/CustomIcon';
 import {MappedElement} from "../../../utils/methods";
 import {useNavigation} from "@react-navigation/native";
+import { useDispatch } from 'react-redux';
+import Auth from '../../../store/constants/Auth.constant';
 
 function Profile(props) {
 
@@ -13,6 +15,18 @@ function Profile(props) {
 
     const headerProps = {
         headerTitle: 'Profile',
+    };
+
+    const dispatch = useDispatch()
+
+    const logout = () => {
+    
+        dispatch({
+            type: Auth.LOGOUT_USER_API,
+            loading: false,
+            user: null,
+            isLoggedIn: false,
+        });
     };
 
 
@@ -45,6 +59,11 @@ function Profile(props) {
         {
             title: 'Settings',
             onPress: () => null,
+            icon: 'setting'
+        },
+        {
+            title: 'Logout',
+            onPress: () => {logout()},
             icon: 'setting'
         }
     ];

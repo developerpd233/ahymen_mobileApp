@@ -5,6 +5,8 @@ import { View } from "react-native";
 import { CButton, CInput, CText } from "../../../uiComponents";
 import AuthStyle from "../Auth.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useDispatch } from "react-redux";
+import Auth from "../../../store/constants/Auth.constant";
 
 function CForm(props) {
     const {
@@ -18,6 +20,18 @@ function CForm(props) {
     
     const form = useRef(null);
     const phone = useRef(null);
+
+    const dispatch = useDispatch()
+
+    const continueWithoutLogin = () => {
+    
+        dispatch({
+            type: Auth.LOGIN_USER_API,
+            loading: false,
+            user: null,
+            isLoggedIn: true,
+        });
+    };
 
     return (
         <Formik
@@ -69,6 +83,16 @@ function CForm(props) {
                                     title={"Continue"}
                                     loading={loading}
                                     onPress={() => handleSubmit()}
+                                />
+
+                                <CText style={AuthStyle.cardBottomText2}>
+                                    OR
+                                </CText>
+
+                                <CButton
+                                    title={"Continue without login"}
+                                    loading={loading}
+                                    onPress={() => continueWithoutLogin()}
                                 />
                             </View>
 

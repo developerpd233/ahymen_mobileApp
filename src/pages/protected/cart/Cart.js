@@ -138,8 +138,8 @@ function Cart(props) {
                         title="Proceed To Checkout"
                         onPress={() =>
                             {
-                                console.log('line 141 ----------',reduxState?.user?.token);
-                                !reduxState?.user?.token  ?  navigation.navigate("proceed", {
+                                console.log('line 141 ----------',reduxState?.user?.data?.token);
+                                !reduxState?.user?.data?.token  ?  navigation.navigate("proceed", {
                                     isGoBack: true,
                                 }):
                                 navigation.navigate("checkout", {
@@ -189,9 +189,16 @@ function Cart(props) {
                         iconName={"arrow-forward"}
                         title="Proceed To Checkout"
                         onPress={() =>
-                            navigation.navigate("proceed", {
-                                isGoBack: true,
-                            })
+                            {
+                                console.log('line 141 ----------',reduxState?.user?.data?.token);
+                                !reduxState?.user?.data?.token  ?  navigation.navigate("proceed", {
+                                    isGoBack: true,
+                                }):
+                                navigation.navigate("checkout", {
+                                    isGoBack: true,
+                                })
+                            }
+                           
                         }
                     />}
                       <CButton
