@@ -12,15 +12,27 @@ import {
 import { LOGIN, REGISTER, SEND_CODE, VERIFY_CODE } from "../../config/webservices";
 
 export const login = (payload, CB) => async (dispatch) => {
+    
     console.log(
-        "🚀 ~ file: Auth.action.js ~ line 12 ~ login ~ payload",
+        "🚀 ~ file: Auth.action.js ~ line 17 ~ login ~ payload",
         payload
     );
-     dispatch({ type: AUTH.LOGIN_USER_API, loading: false,});
-    // dispatch({ type: AUTH.LOGIN_USER_API, loading: true, isLoggedIn: false});
+
+    // dispatch({ type: AUTH.LOGIN_USER_API, loading: false,});
+    
+    dispatch({ type: AUTH.LOGIN_USER_API, loading: true, isLoggedIn: false});
+
     try {
         let response = await post(LOGIN, payload);
-        console.log("🚀 ~ file: Auth.action.js ~ line 23 ~ login ~ response", response)
+        console.log("🚀 ~ file: Auth.action.js ~ line 26 ~ login ~ response", response)
+
+        dispatch({
+            type: AUTH.LOGIN_USER_API,
+            loading: false,
+            user: response?.data,
+            isLoggedIn: true,
+        });
+
         // if (response?.data?.error) {
         //     dispatch({ type: AUTH.LOGIN_USER_API, loading: false });
         //     handleError(response?.data?.data?.message || "");
@@ -35,10 +47,13 @@ export const login = (payload, CB) => async (dispatch) => {
         //     // });
         // }
     } catch (error) {
+        console.log("🚀 ~ file: Auth.action.js ~ line 42 ~ login ~ error", error)
+        alert(error?.data?.message);
         // handleError(error?.data?.error, { autoHide: false });
         // dispatch({ type: AUTH.LOGIN_USER_API, loading: false });
     }
 };
+
 export const sendOtp = (payload, CB) => async (dispatch) => {
     dispatch({ type: AUTH.SEND_OTP, loading: true });
 

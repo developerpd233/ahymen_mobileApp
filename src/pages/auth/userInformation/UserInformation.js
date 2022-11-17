@@ -30,35 +30,48 @@ function UserInformation({ route }) {
     );
 
     const submit = async (values) => {
+        
+
         const payload = {
             name: values?.name,
             email: values?.email,
             password: values?.password,
             c_password: values?.c_password,
             phone: phone,
-            // phone: '+923308351234',
             registerType:'user',
             bypassPhone:true
         };
-        const rep  = await ApiSauce.post(REGISTER, payload)
 
         console.log("values", payload);
+
+        
+
         try {
+        const rep  = await ApiSauce.post(REGISTER, payload)
+        // alert(rep)
+        console.log("🚀 ~ file: UserInformation.js ~ line 52 ~ submit ~ rep", rep)
+
+
         dispatch({
                     type: Auth.LOGIN_USER_API,
                     loading: false,
                     user: rep?.data,
                     isLoggedIn: true,
                 });
-            console.log("🚀 ~ file: UserInformation.js ~ line 44 ~ submit ~ rep", rep)
+            // console.log("🚀 ~ file: UserInformation.js ~ line 44 ~ submit ~ rep", rep)
+            // console.log("🚀 ~ line 35 phone eeeeeeeeeeeeeeeeeee",phone)
             
         } catch (error) {
-            dispatch({
-                    type: Auth.LOGIN_USER_API,
-                    loading: false,
-                    user: rep?.data,
-                    isLoggedIn: true,
-                });
+        alert(error.data)
+        console.log("🚀 ~ file: UserInformation.js ~ line 64 ~ submit ~ error", error)
+
+            // dispatch({
+            //         type: Auth.LOGIN_USER_API,
+            //         loading: false,
+            //         user: rep?.data,
+            //         isLoggedIn: true,
+            //     });
+            // alert(error.data);    
             console.log("🚀 ~ file: UserInformation.js ~ line 47 ~ submit ~ error", error)
             
         }

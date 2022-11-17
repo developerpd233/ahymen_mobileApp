@@ -43,9 +43,7 @@ function OtpVerification({ route }) {
 
             
         } catch (error) {
-        navigation.navigate("user_information" ,{
-            phone:phone
-        })
+        alert(error.message.response);
 
             // dispatch({
             //     type: Auth.LOGIN_USER_API,

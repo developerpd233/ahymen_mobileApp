@@ -138,6 +138,7 @@ function Cart(props) {
                         title="Proceed To Checkout"
                         onPress={() =>
                             {
+                                console.log('line 141 ----------',reduxState?.user?.token);
                                 !reduxState?.user?.token  ?  navigation.navigate("proceed", {
                                     isGoBack: true,
                                 }):

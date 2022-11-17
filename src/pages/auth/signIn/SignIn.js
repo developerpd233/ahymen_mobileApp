@@ -51,6 +51,7 @@ function SignIn(props) {
         }`;
         let payload = _.omit(values, ["phone"]);
         payload.phone =  selectedCountry.detail.code+values.phone;
+        payload.loginType =  'user';
         console.log(payload);
         handleCode(payload)
     //     const data = await dispatch(
@@ -80,18 +81,20 @@ function SignIn(props) {
         setIsLoading(true);
         try {
             const sendCodeRes = await ApiSauce.post(SEND_CODE, {
-               phone: "+923308351234"
+               phone: `${payload.phone}`
             });
+            console.log(sendCodeRes,'85');
             if (sendCodeRes.success) {
                 showTowst(
                     "success",
                     sendCodeRes.message,
                     sendCodeRes.data.response
                 );
-                navigation.navigate("otp_verification", {phone:"+923308351234"});
+                navigation.navigate("otp_verification", {phone:`${payload.phone}`});
             }
         } catch (error) {
-            console.log('error', error , payload)
+            console.log('error ----- 94   ', error , payload)
+            alert(error.message.invalid);
             // if (!error.success) {
             //     setPhoneError(error.message.invalid);
             // }

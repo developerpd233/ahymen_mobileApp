@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { CButton, CInput, CText } from "../../../uiComponents";
 import AuthStyle from "../Auth.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 function CForm(props) {
     const {
         submit,
@@ -50,7 +51,7 @@ function CForm(props) {
                                     keyboardType={"numeric"}
                                     inputLabel={"Phone Number"}
                                     placeholder={"000-000-0000"}
-                                    value={values?.phone || "3126479019"}
+                                    value={values?.phone}
                                     onChangeText={(val) => {
                                         let phone = val;
                                         let reg = /^0+/gi;
