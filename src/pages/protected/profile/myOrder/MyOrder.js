@@ -1,54 +1,61 @@
-import React, {useState} from 'react';
-import {Container} from "../../../../containers";
+import React, {useState , useEffect} from 'react';
+import { Container, CountriesModal } from "../../../../containers";
 import {useSelector} from "react-redux";
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
 import {CList, CListItem} from "../../../../uiComponents";
 import Styles from "../Profile.style";
+import { GET_ORDERS } from "../../../../config/webservices";
+import ApiSauce from "../../../../utils/network";
 
 function MyOrder(props) {
-
+   const [orderData , setOrderData] = useState([])
     const headerProps = {
         headerTitle: 'My Order',
     };
 
-
     const reduxState = useSelector(({auth}) => {
         return {
             loading: false,
-            data: [
-                {
-                    image: require('../../../../assets/images/flowers/one.png'),
-                    title: 'Flower',
-                    price: '$ 299'
-                },
-                {
-                    image: require('../../../../assets/images/flowers/two.png'),
-                    title: 'Flower',
-                    price: '$ 299'
-                },
-                {
-                    image: require('../../../../assets/images/flowers/three.png'),
-                    title: 'Flower',
-                    price: '$ 299'
-                },
-                {
-                    image: require('../../../../assets/images/flowers/four.png'),
-                    title: 'Flower',
-                    price: '$ 299'
-                },
-                {
-                    image: require('../../../../assets/images/flowers/five.png'),
-                    title: 'Flower',
-                    price: '$ 299'
-                },
-                {
-                    image: require('../../../../assets/images/flowers/six.png'),
-                    title: 'Flower',
-                    price: '$ 299'
-                }
-            ],
+            user:auth.user,
+            // data: getOrders(),
         }
     });
+
+    useEffect(()=>{
+        getOrders()
+    },[])
+
+    const getOrders = async () => {
+    
+        // let orders = []
+
+        try {
+            const res = await ApiSauce.getWithToken(GET_ORDERS , reduxState?.user?.data?.token);
+            //  setData(res)
+            console.log('MyOrders  ----- 35   ', res)
+
+            if (res.success == true && res?.data?.order?.length > 0) {
+                setOrderData(res?.data?.order) 
+            }
+
+        } catch (error) {
+            console.log('error MyOrders  ----- 42   ', error)
+            // alert(error.message);
+        }
+
+        console.log('MyOrders  ----- 80   ', orders)
+
+    };
+
+    const goToSingleOrder = (orderNumber) => {
+    
+        alert('goToSingleOrder-'+orderNumber)
+
+    };
+
+    let myuser = reduxState?.user?.data?.token ? reduxState?.user : null ;
+
+    console.log('MyOrder line 52 -----', myuser);
 
     const [searchText, updateSearchText] = useState('');
 
@@ -60,20 +67,21 @@ function MyOrder(props) {
     };
 
     const renderItem = ({item, index}) => {
+        console.log('****',index);
         return (
             <CListItem
                 activeOpacity={1}
                 type={'horizontal'}
-                orderNumber={'Item # 01010'}
-                image={item?.image}
-                title={item?.title}
-                price={item?.price}
+                orderNumber={'Item # '+item?.orderNumber}
+                image={require('../../../../assets/images/trolly2.jpg')}
+                title={'Order '+item?.order_status}
+                price={item?.order_amount}
                 listItemView={Styles.orderItemView}
                 imageStyle={Styles.orderImageStyle}
                 priceStyle={Styles.orderPriceStyle}
                 buttonIcon={'Tracking'}
                 buttonText={'Track order'}
-                buttonFunc={() => alert('run')}
+                buttonFunc={() => goToSingleOrder(item?.orderNumber)}
             />
         )
     };
@@ -87,7 +95,7 @@ function MyOrder(props) {
             <CList
                 numColumns={1}
                 contentContainerStyle={{ paddingHorizontal: 20 }}
-                data={reduxState.data}
+                data={orderData}
                 loading={reduxState.loading}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}

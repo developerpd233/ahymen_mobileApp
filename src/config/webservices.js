@@ -13,3 +13,5 @@ export const GET_TRENDING = `${BASE_URL}trending`;
 export const SEARCH_CATEGORY = `${BASE_URL}search-categories`;
 export const SEARCH_SUB_CATEGORY = `${BASE_URL}search-subcategories`;
 export const SEARCH_PRODUCTS = `${BASE_URL}search-products`;
+
+export const GET_ORDERS = `${BASE_URL}userOrders`;
