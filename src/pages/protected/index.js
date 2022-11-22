@@ -12,6 +12,9 @@ import Location from './location/Location'
 import Profile from './profile/Profile'
 import MyInfo from './profile/myInfo/MyInfo'
 import MyOrder from './profile/myOrder/MyOrder'
+import Setting from './profile/setting/Setting'
+
+
 
 export  {
     Home,
@@ -27,5 +30,6 @@ export  {
     Profile,
     MyInfo,
     MyOrder,
-    AddGiftCard
+    AddGiftCard,
+    Setting
 }
