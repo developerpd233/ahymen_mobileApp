@@ -30,7 +30,7 @@ function Products({ route }) {
     const navigation = useNavigation();
 
     const headerProps = {
-        headerTitle: "Flower type",
+        headerTitle: "Flower Type",
         showCart: true,
     };
 
