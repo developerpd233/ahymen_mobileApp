@@ -5,6 +5,7 @@ import { Auth, Root } from "./src/routing";
 import { getCountries } from "./src/store/actions/Global.action";
 import { CLoading } from "./src/uiComponents";
 import SplashScreen from "react-native-splash-screen";
+import { Setting } from "./src/pages/protected";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const App = () => {
             ) : (
                 renderRouting(reduxState?.isLoggedIn, reduxState?.isIntialRoute)
             )}
+            {/* <Setting /> */}
         </View>
     );
 };
