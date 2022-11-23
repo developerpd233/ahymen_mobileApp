@@ -60,7 +60,7 @@ const Setting = () => {
     <View style={Styles.container}>
         <View style={Styles.header}>
             <CText style={Styles.headerSubTitle}>Welcome</CText>
-            <CText style={Styles.headerTitle}>Account Setting</CText>
+            <CText style={Styles.headerTitle}>Ayhman</CText>
         </View>
 
         <View style={Styles.list}>

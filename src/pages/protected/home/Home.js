@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useRef ,useState} from "react";
-import { Dimensions, View } from "react-native";
+import React, { useLayoutEffect, useRef ,useState , useEffect} from "react";
+import { Dimensions, View , Text } from "react-native";
 import { CText, ProgressiveImage } from "../../../uiComponents";
 import Swiper from "react-native-swiper";
 import Styles from "./Home.style";
@@ -8,8 +8,13 @@ import { Header } from "../../../containers";
 import { getTrending } from "../../../store/actions/Root.action";
 import VideoPlayer from "react-native-video-player";
 const { width, height } = Dimensions.get("window");
-
+import ApiSauce  from "../../../utils/network"
+import {GET_TRENDING, TRENDING} from "../../../config/webservices"
 function Home(props) {
+
+ const [data, setData] = useState()
+    console.log("🚀 ~ file: Home.js ~ line 16 ~ Home ~ data", data?.length > 0)
+    
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         handleTrending();
@@ -20,6 +25,7 @@ function Home(props) {
     };
 
     const slider = useRef();
+
     const [video , setVideo] = useState([
         {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'},
         {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
@@ -30,26 +36,48 @@ function Home(props) {
         {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
         {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
     ])
+    useEffect(()=>{
+        handleApi()
+    },[])
+    // , '24|p52iuFDApHZCYPuy0MmjFp7igWQbWMq2RmtrYbby'
+    const handleApi = async() => {
+        try{
+            const trendData = await ApiSauce.getWithoutToken(GET_TRENDING)
+            setData(trendData.data.trending)
+            console.log("🚀 ~ file: Home.js ~ line 45 ~ handleApi ~ trendData", trendData)
+
+        }
+        catch(err){
+            console.log("🚀 ~ file: Home.js ~ line 46 ~ handleApi ~ err", err)
+        }
+    }
    
 
     const renderSlides = () => {
-        if (video && video?.length) {
-            return video?.map((val, index) => {
-                return (
-                    <VideoPlayer
-                        video={{ uri: val?.uri }}
-                        style={{ height:'98.5%' , width:'100%' , alignSelf:'center'}}
-                        // videoWidth={1600}
-                        // videoHeight={3190}
-                        thumbnail={{ uri: 'https://i.picsum.photos/id/866/1600/900.jpg' }}
-                        pauseOnPress="true"
-                        // videoHeight={2000}
-                        resizeMode="cover"
-                    />
-                );
-            });
+        if(data?.length > 0 ){
+            return(
+                data?.map((val, index) => {
+                    console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
+                    return (
+                        <VideoPlayer
+                            video={{ uri: val }}
+                            style={{ height:'100%' , width:'100%' , alignSelf:'center'}}
+                            thumbnail={{ uri: 'https://img.freepik.com/free-photo/full-length-image-smiling-african-woman-leather-jacket_171337-14041.jpg' }}
+                            pauseOnPress="true"
+                            resizeMode="cover"
+                        />
+                    );
+                })
+            )
+        }else{
+            return(
+                <View>
+                    <Text>No Data</Text>
+                </View>
+            )
         }
-        return null;
+        
+             
     };
 
     const headerProps = {
