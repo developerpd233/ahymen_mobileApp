@@ -6,7 +6,8 @@ import Styles from "./Home.style";
 import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../../../containers";
 import { getTrending } from "../../../store/actions/Root.action";
-import VideoPlayer from "react-native-video-player";
+// import VideoPlayer from "react-native-video-player";
+import VideoPlayer from 'react-native-video-controls';
 const { width, height } = Dimensions.get("window");
 import ApiSauce  from "../../../utils/network"
 import {GET_TRENDING, TRENDING} from "../../../config/webservices"
@@ -60,18 +61,20 @@ function Home(props) {
                     console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
                     return (
                         <VideoPlayer
-                            video={{ uri: val }}
-                            style={{ height:'100%' , width:'100%' , alignSelf:'center'}}
-                            thumbnail={{ uri: 'https://img.freepik.com/free-photo/full-length-image-smiling-african-woman-leather-jacket_171337-14041.jpg' }}
-                            pauseOnPress="true"
+                        source={{ uri: val }}
+                            // thumbnail={{ uri: 'https://img.freepik.com/free-photo/full-length-image-smiling-african-woman-leather-jacket_171337-14041.jpg' }}
+                            tapAnywhereToPause="true"
+                            disableVolume='false'
+                            disableFullscreen='false'
                             resizeMode="cover"
                         />
-                    );
+                  
+                        );
                 })
             )
         }else{
             return(
-                <View>
+                <View style={{justifyContent:'center', alignItems:'center'}}>
                     <Text>No Data</Text>
                 </View>
             )
@@ -95,7 +98,7 @@ function Home(props) {
     };
 
     return (
-        <View style={{ position: "relative", flex: 1 }}>
+        <View style={{  flex: 1 }}>
 
             <Header {...headerProps} />
             <Swiper
