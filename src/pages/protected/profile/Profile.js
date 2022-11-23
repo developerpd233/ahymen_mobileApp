@@ -61,6 +61,18 @@ function Profile(props) {
         })
     };
 
+    const myWishlist = () => {
+    
+        console.log('line 66 myWishlist ------------',reduxState?.user?.data?.token)
+        reduxState?.user?.data?.token  ?  navigation.navigate("my_wishlist", {
+            isGoBack: true,
+        }) :
+        dispatch({
+            type: Auth.LOGOUT_USER_API,
+            loading: false
+        })
+    };
+
     const menu = [
         {
             title: 'My Info',
@@ -74,7 +86,7 @@ function Profile(props) {
         },
         {
             title: 'My Wishlist',
-            onPress: () => null,
+            onPress: () => myWishlist(),
             icon: 'heart'
         },
         {

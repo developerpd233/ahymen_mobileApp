@@ -12,9 +12,7 @@ import Location from './location/Location'
 import Profile from './profile/Profile'
 import MyInfo from './profile/myInfo/MyInfo'
 import MyOrder from './profile/myOrder/MyOrder'
-import Setting from './profile/setting/Setting'
-
-
+import MyWishlist from './profile/myWishlist/MyWishlist'
 
 export  {
     Home,
@@ -30,6 +28,6 @@ export  {
     Profile,
     MyInfo,
     MyOrder,
-    AddGiftCard,
-    Setting
+    MyWishlist,
+    AddGiftCard
 }
