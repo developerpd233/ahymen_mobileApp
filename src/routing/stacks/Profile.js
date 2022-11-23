@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Profile, MyInfo, MyOrder} from "../../pages/protected";
+import {Profile, MyInfo, MyOrder, MyWishlist} from "../../pages/protected";
 import {createStackNavigator} from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
@@ -14,6 +14,7 @@ function ProfileStack() {
             <Stack.Screen name="profile" component={Profile} />
             <Stack.Screen name="my_info" component={MyInfo} />
             <Stack.Screen name="my_order" component={MyOrder} />
+            <Stack.Screen name="my_wishlist" component={MyWishlist} />
         </Stack.Navigator>
     );
 }

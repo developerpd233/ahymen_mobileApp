@@ -19,8 +19,9 @@ function Signup(props) {
     const dispatch = useDispatch()
 
     const reduxState = useSelector(({ auth, global }) => {
+        console.log("🚀 ~ file: Signup.js ~ line 22 ~ reduxState ~ auth", auth)
         return {
-            loading: false,
+            loading: auth.isLoggedIn,
             currentCountry: global.currentCountry,
             countries: global.countries,
         };
@@ -48,14 +49,15 @@ function Signup(props) {
                 : selectedCountry?.idd?.suffixes[0]
         }`;
         let payload = _.omit(values, ["phone"]);
-        payload.phone = `${perifix.replace(
-            /[^\w\s]/gi,
-            ""
-        )}${values.phone.replace(/\s+/g, "")}`;
+
+        payload.phone =  selectedCountry.detail.code+values.phone;
+        payload.registerType = "user";
+        payload.loginType = "user";
         handleCode(payload);
+        
         // navigation.navigate("otp_verification");
 
-        console.log("payload", payload);
+        console.log("-------------------payload", payload);
     };
 
     const handleCode = async (payload) => {
