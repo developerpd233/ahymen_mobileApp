@@ -158,8 +158,8 @@ class ApiSauce {
     async getWithoutToken(url) {
         const Header = {
             headers: {
-                "Content-Type": "application/json",
                 Accept: "application/json",
+                "Content-Type": "application/json",
             },
         };
         const response = await api.get(url, {}, Header);

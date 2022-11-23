@@ -51,6 +51,15 @@ export default StyleSheet.create({
         marginTop: 12
     },
 
+    cardBottomText2: {
+        fontSize: 14,
+        fontFamily: theme.font.regular,
+        color: theme['light'].colors.lightGray,
+        textAlign: 'center',
+        marginBottom: 12,
+        marginTop: 12
+    },
+
     orContainer: {
         justifyContent: 'center',
         flexDirection: 'row',

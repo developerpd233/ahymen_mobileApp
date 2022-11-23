@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useEffect ,useState, Fragment } from "react";
 import { Container } from "../../../../containers";
 import {
     ProgressiveImage,
@@ -17,13 +17,16 @@ import { navigate } from "../../../../routing/Ref";
 import { useNavigation } from "@react-navigation/native";
 import { AddCart, addProduct, removeProduct } from "../../../../store/actions/Cart.action";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-
+import { GET_WISHLIST, Add_DELETE_WISHLIST } from "../../../../config/webservices";
+import ApiSauce from "../../../../utils/network";
 
 function ProductDetail({ route }) {
+    
     const { item } = route?.params;
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [wishlistData , setWishlistData] = useState([])
+    const dispatch = useDispatch()
 
-const dispatch = useDispatch()
     console.log(
         "🚀 ~ file: ProductDetail.js ~ line 21 ~ ProductDetail ~ item",
         item
@@ -33,16 +36,18 @@ const dispatch = useDispatch()
     const headerProps = {
         headerTitle: "Flower",
         showCart: true,
+        // backOnPress:(navigation?.goBack())
     };
 
     const [slideIndex, updateSlideIndex] = useState(0);
     const [isFav, updateIsFav] = useState(false);
     const [quantity, setQunatity] = useState(1);
 
-
     const reduxState = useSelector(({ auth }) => {
         return {
             loading: false,
+            user:auth.user,
+            slides: item?.ProductImage,
             // slides: [
             //     {
             //         image: require("../../../../assets/images/flowers/one.png"),
@@ -69,20 +74,57 @@ const dispatch = useDispatch()
             //         id: 6,
             //     },
             // ],
-            slides: item?.ProductImage,
         };
     });
+
+    let myuser = reduxState?.user?.data?.token ? reduxState?.user : null ;
+
+    useEffect(()=>{
+        console.log(myuser);
+        if (myuser != null) {
+            getWishlist()
+        }
+    },[])
+
+    const getWishlist = async () => {
+
+        try {
+            const res = await ApiSauce.getWithToken(GET_WISHLIST , myuser?.data?.token);
+            //  setData(res)
+            console.log('MyWishlist  ----- 94   ', item)
+
+            if (res.success == true && res?.data?.wishlist?.length > 0) {
+
+                setWishlistData(res?.data?.wishlist)
+                
+                const productExists = wishlistData.some(product => product.ProductId === item.ProductId);
+
+                if(productExists) {
+                    updateIsFav(true)
+                }
+            }
+
+        } catch (error) {
+            console.log('error MyWishlist  ----- 102   ', error)
+            // alert(error.message);
+        }
+
+    };
+
+    console.log('favProducts',reduxState?.favProducts);
+
     const showDatePicker = () => {
         setDatePickerVisibility(true);
-      };
+    };
     
-      const hideDatePicker = () => {
+    const hideDatePicker = () => {
         setDatePickerVisibility(false);
-      };
-      const handleConfirm = ()=> {
+    };
+
+    const handleConfirm = ()=> {
         setDatePickerVisibility(false)
         addToBasket()
-      }
+    }
 
     const onSelect = (item, i) => {
         updateSlideIndex(i);
@@ -122,6 +164,7 @@ const dispatch = useDispatch()
             </TouchableOpacity>
         );
     };
+
     const renderMiniSlider = () => {
         return (
             <ScrollView
@@ -138,14 +181,45 @@ const dispatch = useDispatch()
         );
     };
 
+    const updateIsFavWithApi = async (isFav) => {
+
+        if (myuser?.data?.token) {
+            
+            let action = isFav == false ? 'add' : 'delete';
+
+            const payload = {
+                product_id: item.ProductId,
+                action: action
+            }
+
+            try {
+                const res = await ApiSauce.postWithToken(Add_DELETE_WISHLIST , payload, myuser?.data?.token);
+                //console.log('Add_DELETE_WISHLIST  ----- 207   ', res.data)
+                res?.data?.data ? alert(res.data.data) : alert(res.data.response);
+                updateIsFav(!isFav)
+            } 
+            catch (error) {
+                alert(error.data);
+            }
+        } 
+        else {
+            dispatch({
+                type: Auth.LOGOUT_USER_API,
+                loading: false
+            })
+        }
+    };
+
     const renderFavButton = () => {
         return (
             <Fragment>
                 <Icons style={Styles.sliderArrowRight} name="arrow-forward" />
+
                 <View style={Styles.favButtonContainer}>
                     <TouchableOpacity
                         style={Styles.favButton}
-                        onPress={() => updateIsFav(!isFav)}
+                        onPress={() => updateIsFavWithApi(isFav)}
+                        // onPress={() => updateIsFav(!isFav)}
                     >
                         <AntDesign
                             style={Styles.favButtonIcon}
@@ -153,9 +227,11 @@ const dispatch = useDispatch()
                         />
                     </TouchableOpacity>
                 </View>
+
             </Fragment>
         );
     };
+
     const renderSliderContainer = () => {
         return reduxState?.slides?.length ? (
             <View style={Styles.sliderContainer}>
@@ -174,18 +250,17 @@ const dispatch = useDispatch()
         // });
         dispatch(addProduct(item))
     };
+    
     const increment = async (val) => {
         dispatch(addProduct(val))
         setQunatity(quantity+1)
-      }
+    }
     
-      const decrement = async (val) => {
+    const decrement = async (val) => {
         dispatch(removeProduct(val))
         setQunatity(quantity <= 1 ?  1:   quantity-1 )
-
-      }
+    }
     
-
     return (
         <Container
             bottomSpace
@@ -193,12 +268,14 @@ const dispatch = useDispatch()
             edges={["left", "right"]}
             headerProps={headerProps}
         >
-             <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
+            
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+            />
+
             <View style={Styles.container}>
                 {renderSliderContainer()}
 

@@ -4,58 +4,54 @@ import {useSelector} from "react-redux";
 import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
 import {CList, CListItem} from "../../../../uiComponents";
 import Styles from "../Profile.style";
-import { GET_ORDERS } from "../../../../config/webservices";
+import { GET_WISHLIST } from "../../../../config/webservices";
 import ApiSauce from "../../../../utils/network";
+import { useNavigation } from "@react-navigation/core";
 
-function MyOrder(props) {
-   const [orderData , setOrderData] = useState([])
+function MyWishlist(props) {
+   
+    const [wishlistData , setWishlistData] = useState()
+    const navigation = useNavigation();
+
+    console.log("🚀 ~ file: myWishlist.js ~ line 13 ~ MyWishlist ~ wishlistData", wishlistData)
+    
     const headerProps = {
-        headerTitle: 'My Order',
+        headerTitle: 'My Wishlist',
+        backOnPress:false
     };
 
     const reduxState = useSelector(({auth}) => {
         return {
             loading: false,
             user:auth.user,
-            // data: getOrders(),
         }
     });
 
     useEffect(()=>{
-        getOrders()
+        getWishlist()
     },[])
 
-    const getOrders = async () => {
-    
-        // let orders = []
+    const getWishlist = async () => {
 
         try {
-            const res = await ApiSauce.getWithToken(GET_ORDERS , reduxState?.user?.data?.token);
+            const res = await ApiSauce.getWithToken(GET_WISHLIST , reduxState?.user?.data?.token);
             //  setData(res)
-            console.log('MyOrders  ----- 35   ', res)
+            console.log('MyWishlist  ----- 35   ', res)
 
-            if (res.success == true && res?.data?.order?.length > 0) {
-                setOrderData(res?.data?.order) 
+            if (res.success == true && res?.data?.wishlist?.length > 0) {
+                setWishlistData(res?.data?.wishlist) 
             }
 
         } catch (error) {
-            console.log('error MyOrders  ----- 42   ', error)
+            console.log('error MyWishlist  ----- 42   ', error)
             // alert(error.message);
         }
-
-        console.log('MyOrders  ----- 80   ', orders)
-
-    };
-
-    const goToSingleOrder = (orderNumber) => {
-    
-        alert('goToSingleOrder-'+orderNumber)
 
     };
 
     let myuser = reduxState?.user?.data?.token ? reduxState?.user : null ;
 
-    console.log('MyOrder line 52 -----', myuser);
+    console.log('MyProduct line 52 -----', myuser);
 
     const [searchText, updateSearchText] = useState('');
 
@@ -66,22 +62,26 @@ function MyOrder(props) {
         updateSearchText(val);
     };
 
+    const select = (item) => {
+        navigation.navigate("product_detail", { item });
+    };
+
     const renderItem = ({item, index}) => {
-        console.log('****',index);
+        console.log('****',item?.ProductImage?.[0]);
         return (
             <CListItem
                 activeOpacity={1}
                 type={'horizontal'}
-                orderNumber={'Item # '+item?.orderNumber}
-                image={require('../../../../assets/images/trolly2.jpg')}
-                title={'Order '+item?.order_status}
-                price={item?.order_amount}
+                orderNumber={'Item # '+item?.ProductId}
+                image={{uri :item?.ProductImage?.[0]}} 
+                title={item?.ProductName}
+                price={item?.ProductPrice}
                 listItemView={Styles.orderItemView}
                 imageStyle={Styles.orderImageStyle}
                 priceStyle={Styles.orderPriceStyle}
                 buttonIcon={'Tracking'}
-                buttonText={'Track order'}
-                buttonFunc={() => goToSingleOrder(item?.orderNumber)}
+                buttonText={'Show Product'}
+                buttonFunc={() => select(item)}
             />
         )
     };
@@ -95,7 +95,7 @@ function MyOrder(props) {
             <CList
                 numColumns={1}
                 contentContainerStyle={{ paddingHorizontal: 20 }}
-                data={orderData}
+                data={wishlistData}
                 loading={reduxState.loading}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
@@ -115,4 +115,4 @@ function MyOrder(props) {
         </Container>
     )
 }
-export default MyOrder;
+export default MyWishlist;

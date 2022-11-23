@@ -6,6 +6,7 @@ import { CButton, CInput, CText } from "../../../uiComponents";
 import AuthStyle from "../Auth.style";
 
 function CForm(props) {
+
     const { submit, loading, selectedCountry, toggleCountryModal } = props;
 
     const form = useRef(null);
@@ -14,10 +15,48 @@ function CForm(props) {
     const phone = useRef(null);
     const password = useRef(null);
 
+    function loginCustom(values) {
+
+        //values = JSON.stringify(values, null, 2)
+
+        alert(values.phone);
+
+        // console.log("🚀 ~ file: SignIn.js ~ line 22 ~ handleCode ~ payload", payload)
+        // setIsLoading(true);
+        // try {
+        //     const sendCodeRes = await ApiSauce.post(SEND_CODE, {
+        //        phone: `${payload.phone}`
+        //        password: `${payload.phone}`
+        //     });
+        //     console.log(sendCodeRes,'85');
+        //     if (sendCodeRes.success) {
+        //         showTowst(
+        //             "success",
+        //             sendCodeRes.message,
+        //             sendCodeRes.data.response
+        //         );
+        //         navigation.navigate("otp_verification", {phone:`${payload.phone}`});
+        //     }
+        // } catch (error) {
+        //     console.log('error ----- 94   ', error , payload)
+        //     alert(error.message.invalid);
+        //     // if (!error.success) {
+        //     //     setPhoneError(error.message.invalid);
+        //     // }
+        // } finally {
+        //     setIsLoading(false);
+        // }
+    }
+
     return (
         <Formik
             innerRef={form}
             onSubmit={(values) => submit(values)}
+            // onSubmit={async (values) => {
+            //     // await new Promise((resolve) => setTimeout(resolve, 500));
+            //     // alert(JSON.stringify(values, null, 2));
+            //     loginCustom(values)
+            // }}
             initialValues={{
                 phone: "",
                 password: "",

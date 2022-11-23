@@ -5,7 +5,7 @@ buildscript {
         buildToolsVersion = "31.0.0"
         minSdkVersion = 21
         compileSdkVersion = 31
-        targetSdkVersion = 31
+        targetSdkVersion = 29
 
         if (System.properties['os.arch'] == "aarch64") {
             // For M1 Users we need to use the NDK 24 which added support for aarch64
@@ -47,5 +47,11 @@ allprojects {
         }
         google()
         maven { url 'https://www.jitpack.io' }
+         configurations.all {
+        resolutionStrategy {
+            // Remove this override in 0.66, as a proper fix is included in react-native itself.
+            force "com.facebook.react:react-native:" + "0.70.0"
+        }
+    }
     }
 }

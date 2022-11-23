@@ -16,12 +16,14 @@ function Cart(props) {
     const [isModal, updateIsModal] = useState(false);
 
     const reduxState = useSelector(({ auth  , root , cart}) => {
+        
         return {
             loading: false,
             data: cart,
             user:auth.user
         };
     });
+    console.log("🚀 ~ file: Cart.js ~ line 26 ~ reduxState ~ reduxState", reduxState)
 
     let totalSum = 0;
   reduxState?.data?.forEach(obj => {
@@ -136,7 +138,8 @@ function Cart(props) {
                         title="Proceed To Checkout"
                         onPress={() =>
                             {
-                                !reduxState?.user?.token  ?  navigation.navigate("proceed", {
+                                console.log('line 141 ----------',reduxState?.user?.data?.token);
+                                !reduxState?.user?.data?.token  ?  navigation.navigate("proceed", {
                                     isGoBack: true,
                                 }):
                                 navigation.navigate("checkout", {
@@ -186,9 +189,16 @@ function Cart(props) {
                         iconName={"arrow-forward"}
                         title="Proceed To Checkout"
                         onPress={() =>
-                            navigation.navigate("proceed", {
-                                isGoBack: true,
-                            })
+                            {
+                                console.log('line 141 ----------',reduxState?.user?.data?.token);
+                                !reduxState?.user?.data?.token  ?  navigation.navigate("proceed", {
+                                    isGoBack: true,
+                                }):
+                                navigation.navigate("checkout", {
+                                    isGoBack: true,
+                                })
+                            }
+                           
                         }
                     />}
                       <CButton

@@ -21,6 +21,7 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 loginLoading: action.loading,
                 isLoggedIn: action.isLoggedIn,
+                user: action.user
             };
 
         case AUTH.LOGOUT_USER_API:

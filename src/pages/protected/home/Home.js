@@ -1,14 +1,21 @@
-import React, { useLayoutEffect, useRef } from "react";
-import { Dimensions, View } from "react-native";
+import React, { useLayoutEffect, useRef ,useState , useEffect} from "react";
+import { Dimensions, View , Text } from "react-native";
 import { CText, ProgressiveImage } from "../../../uiComponents";
 import Swiper from "react-native-swiper";
 import Styles from "./Home.style";
 import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../../../containers";
 import { getTrending } from "../../../store/actions/Root.action";
+// import VideoPlayer from "react-native-video-player";
+import VideoPlayer from 'react-native-video-controls';
 const { width, height } = Dimensions.get("window");
-
+import ApiSauce  from "../../../utils/network"
+import {GET_TRENDING, TRENDING} from "../../../config/webservices"
 function Home(props) {
+
+ const [data, setData] = useState()
+    console.log("🚀 ~ file: Home.js ~ line 16 ~ Home ~ data", data?.length > 0)
+    
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         handleTrending();
@@ -20,46 +27,60 @@ function Home(props) {
 
     const slider = useRef();
 
-    const reduxState = useSelector(({ root }) => {
-        console.log("🚀 ~ file: Home.js ~ line 24 ~ reduxState ~ root", root?.trendingProduct);
-        return {
-            loading: root.trendingLoading,
-            data: [
-                {
-                    image: "https://ayhman.webappcart.com/storage/9/632ecf528a…682_2397_b4608225-232b-4ea0-a8af-5b941bf37a46.jpg" ,
-                },
-                {
-                    image: require("../../../assets/images/trending/slide_two.png"),
-                },
-                {
-                    image: require("../../../assets/images/trending/slide.png"),
-                },
-                {
-                    image: require("../../../assets/images/trending/slide_two.png"),
-                },
-            ],
-            // data: root?.trendingProduct,
-        };
-    });
+    const [video , setVideo] = useState([
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'},
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+        {uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'},
+    ])
+    useEffect(()=>{
+        handleApi()
+    },[])
+    // , '24|p52iuFDApHZCYPuy0MmjFp7igWQbWMq2RmtrYbby'
+    const handleApi = async() => {
+        try{
+            const trendData = await ApiSauce.getWithoutToken(GET_TRENDING)
+            setData(trendData.data.trending)
+            console.log("🚀 ~ file: Home.js ~ line 45 ~ handleApi ~ trendData", trendData)
 
-    const renderSlides = (slides) => {
-        if (slides && slides.length) {
-            return slides.map((slide, index) => {
-                return (
-                    <View
-                        key={index}
-                        style={[Styles.slide, { width: width, height: height }]}
-                    >
-                        <ProgressiveImage
-                            source={slide?.image}
-                            resizeMode={"cover"}
-                            style={Styles.listItemImage}
-                        />
-                    </View>
-                );
-            });
         }
-        return null;
+        catch(err){
+            console.log("🚀 ~ file: Home.js ~ line 46 ~ handleApi ~ err", err)
+        }
+    }
+   
+
+    const renderSlides = () => {
+        if(data?.length > 0 ){
+            return(
+                data?.map((val, index) => {
+                    console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
+                    return (
+                        <VideoPlayer
+                        source={{ uri: val }}
+                            // thumbnail={{ uri: 'https://img.freepik.com/free-photo/full-length-image-smiling-african-woman-leather-jacket_171337-14041.jpg' }}
+                            tapAnywhereToPause="true"
+                            disableVolume='false'
+                            disableFullscreen='false'
+                            resizeMode="cover"
+                        />
+                  
+                        );
+                })
+            )
+        }else{
+            return(
+                <View style={{justifyContent:'center', alignItems:'center'}}>
+                    <Text>No Data</Text>
+                </View>
+            )
+        }
+        
+             
     };
 
     const headerProps = {
@@ -77,7 +98,8 @@ function Home(props) {
     };
 
     return (
-        <View style={{ position: "relative", flex: 1 }}>
+        <View style={{  flex: 1 }}>
+
             <Header {...headerProps} />
             <Swiper
                 ref={slider}
@@ -87,7 +109,7 @@ function Home(props) {
                 horizontal={false}
                 loop={false}
             >
-                {renderSlides(reduxState?.data)}
+                {renderSlides()}
             </Swiper>
         </View>
     );
