@@ -205,7 +205,7 @@ function Location(props) {
         
         return {
             loading: root.addressLoading,
-            addressData :root.
+            // addressData :root.
         };
     });
 

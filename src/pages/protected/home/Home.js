@@ -1,11 +1,13 @@
 import React, { useLayoutEffect, useRef ,useState , useEffect} from "react";
-import { Dimensions, View , Text } from "react-native";
+import { Dimensions, View , Text , StyleSheet } from "react-native";
 import { CText, ProgressiveImage } from "../../../uiComponents";
 import Swiper from "react-native-swiper";
 import Styles from "./Home.style";
 import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../../../containers";
 import { getTrending } from "../../../store/actions/Root.action";
+import Video from 'react-native-video';
+
 // import VideoPlayer from "react-native-video-player";
 import VideoPlayer from 'react-native-video-controls';
 const { width, height } = Dimensions.get("window");
@@ -14,7 +16,7 @@ import {GET_TRENDING, TRENDING} from "../../../config/webservices"
 function Home(props) {
 
  const [data, setData] = useState()
-    console.log("🚀 ~ file: Home.js ~ line 16 ~ Home ~ data", data?.length > 0)
+    console.log("🚀 ~ file: Home.js ~ line 16 ~ Home ~ data", data)
     
     const dispatch = useDispatch();
     useLayoutEffect(() => {
@@ -60,14 +62,21 @@ function Home(props) {
                 data?.map((val, index) => {
                     console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
                     return (
-                        <VideoPlayer
-                        source={{ uri: val }}
-                            // thumbnail={{ uri: 'https://img.freepik.com/free-photo/full-length-image-smiling-african-woman-leather-jacket_171337-14041.jpg' }}
-                            tapAnywhereToPause="true"
-                            disableVolume='false'
-                            disableFullscreen='false'
-                            resizeMode="cover"
-                        />
+                        <Video source={{uri:val }}   // Can be a URL or a local file.
+    //    ref={(ref) => {
+    //      this.player = ref
+    //    }}                                      // Store reference
+    //    onBuffer={this.onBuffer}                // Callback when remote video is buffering
+    //    onError={this.videoError}               // Callback when video cannot be loaded
+       style={styles.backgroundVideo} />
+                        // <VideoPlayer
+                        // source={{uri: 'https://vjs.zencdn.net/v/oceans.mp4'}}
+                        //     // thumbnail={{ uri: 'https://img.freepik.com/free-photo/full-length-image-smiling-african-woman-leather-jacket_171337-14041.jpg' }}
+                        //     tapAnywhereToPause="true"
+                        //     disableVolume='false'
+                        //     disableFullscreen='false'
+                        //     resizeMode="cover"
+                        // />
                   
                         );
                 })
@@ -115,3 +124,12 @@ function Home(props) {
     );
 }
 export default Home;
+var styles = StyleSheet.create({
+    backgroundVideo: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+    },
+  });
