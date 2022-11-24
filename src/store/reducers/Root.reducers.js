@@ -61,6 +61,12 @@ export default (state = initialState, action = {}) => {
                 categoryLoadingproduct: action.loading,
                 subcategoryProduct: action.data,
             };
+            case Root.SAVE_ADDRESS:
+                return {
+                    ...state,
+                    addressLoading: action.loading,
+                    addressData: action.data,
+                };
        
   
         default:

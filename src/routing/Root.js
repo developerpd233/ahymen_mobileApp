@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 const Root = ({rootIntial}) => {
     return (
         <Tab.Navigator
-            initialRouteName={rootIntial ? "Home" : "Cart"}
+            initialRouteName={!rootIntial ? "Home" : "Cart"}
             tabBar={(props) => <TabBar {...props} />}
             screenOptions={{ headerShown: false }}
         >

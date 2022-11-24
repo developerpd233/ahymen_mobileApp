@@ -83,11 +83,13 @@ function Store(props) {
 
         clearTimeout(timer);
         const newTimer = setTimeout(() => {
+        dispatch(searchCategory({ category: val }));
+
             // fakeApi()
         }, 1000);
         setTimer(newTimer);
-        dispatch(searchCategory({ category: val }));
     };
+    
 
     const select = (item) => {
         navigation.navigate("product_types", {

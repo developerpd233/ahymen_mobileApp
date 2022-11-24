@@ -27,11 +27,16 @@ export const getValueIntoAsyncStorage = async (key) => {
 
 export const getTokenAndSetIntoHeaders = async (token) => {
     if (token) {
-        axios.defaults.headers.common['Authorization'] = `${token}`;
+        axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+        // axios.defaults.headers.common['Authorization'] = `${token}`;
     } else {
         let accessToken = await getValueIntoLocalStorage(TOKEN);
+
         if (accessToken) {
-            axios.defaults.headers.common['Authorization'] = `${accessToken}`;
+            axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+
+            // axios.defaults.headers.common['Authorization'] = `${accessToken}`;
         }
     }
 };

@@ -6,17 +6,21 @@ import {
     getTokenAndSetIntoHeaders,
     getValueIntoLocalStorage,
     removeUserDetail,
+    getValueIntoAsyncStorage,
 } from "../../utils/asyncStorage/Functions";
 import {
     GET_CATEGEORY,
     GET_CAT_PRODUCT,
     GET_SUB_CATEGEORY,
     GET_TRENDING,
+    SAVE_ADDRESS,
     SEARCH_CATEGORY,
     SEARCH_PRODUCTS,
     SEARCH_SUB_CATEGORY,
     SEND_CODE,
 } from "../../config/webservices";
+import { useSelector } from "react-redux";
+
 
 export const getCategory = (payload, CB) => async (dispatch) => {
     dispatch({
@@ -206,5 +210,35 @@ export const searchProducts = (payload, CB) => async (dispatch) => {
     } catch (error) {
         handleError(error?.data?.message, { autoHide: true });
         dispatch({ type: Root.SEARCH_PRODUCTS, loading: false });
+    }
+};
+
+export const saveAddress = (payload, CB) => async (dispatch) => {
+    dispatch({
+        type: Root.SAVE_ADDRESS,
+        loading: true,
+    });
+
+    getTokenAndSetIntoHeaders(false)
+    try {
+        let response = await post(SAVE_ADDRESS, payload);
+        console.log("🚀 ~ file: Root.action.js ~ line 226 ~ saveAddress ~ response", response)
+        if (response?.data?.error) {
+            handleError(response?.data?.message || "");
+            dispatch({ type: Root.SAVE_ADDRESS, loading: false });
+        } else {
+            dispatch({
+                type: Root.SAVE_ADDRESS,
+                loading: false,
+                data:
+                    typeof response?.data?.data !== "string"
+                        ? response?.data?.data
+                        : [],
+            });
+        }
+    } catch (error) {
+        console.log("🚀 ~ file: Root.action.js ~ line 234 ~ saveAddress ~ error", error)
+        handleError(error?.data?.message, { autoHide: true });
+        dispatch({ type: Root.SAVE_ADDRESS, loading: false });
     }
 };

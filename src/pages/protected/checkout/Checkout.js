@@ -8,13 +8,22 @@ import CForm from "./Form";
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 import ThanksForOrdering from "./../cart/thanksForOrdering/ThanksForOrdering";
 import {useNavigation} from "@react-navigation/native";
+import { MappedElement } from '../../../utils/methods';
+import { useSelector } from 'react-redux';
 
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
 function Checkout(props) {
 
     const navigation = useNavigation();
-
+    const reduxState = useSelector(({ auth  , root , cart}) => {
+        
+        return {
+            loading: false,
+            data: cart,
+            user:auth.user
+        };
+    });
     const [selectedMethod, updateMethod] = useState('VISA');
     const [thanksModal, updateThanksModal] = useState(false);
 
@@ -44,22 +53,57 @@ function Checkout(props) {
            isGoBack: true
        })
    }
+ const  renderItem = ({item})=>{
+    return(
+        <CListItem
+        activeOpacity={1}
+        type={'horizontal'}
+        image={require('../../../assets/images/flowers/one.png')}
+        // orderNumber={'Item # 01010'}
+        title={'Flower type'}
+        price={'$299'}
+        qun={2}
+        // listItemView={{margin: 0}}
+        imageStyle={{minHeight: 80, minWidth: 85}}
+        priceStyle={Styles.orderPriceStyle}
+    />
+    )
+   }
 
     return(
         <Container bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>
             <View style={[Styles.container, {marginBottom: 30}]}>
                 <CText style={Styles.title}>Check out</CText>
-                <CListItem
+                {/* <CListItem
                     activeOpacity={1}
                     type={'horizontal'}
                     image={require('../../../assets/images/flowers/one.png')}
-                    orderNumber={'Item # 01010'}
+                    // orderNumber={'Item # 01010'}
                     title={'Flower type'}
                     price={'$299'}
+                    qun={2}
                     // listItemView={{margin: 0}}
-                    imageStyle={{minHeight: 120, minWidth: 105}}
+                    imageStyle={{minHeight: 80, minWidth: 85}}
                     priceStyle={Styles.orderPriceStyle}
                 />
+                  <CListItem
+                    activeOpacity={1}
+                    type={'horizontal'}
+                    image={require('../../../assets/images/flowers/one.png')}
+                    // orderNumber={'Item # 01010'}
+                    title={'Flower type'}
+                    price={'$299'}
+                    qun={2}
+                    // listItemView={{margin: 0}}
+                    imageStyle={{minHeight: 80, minWidth: 85}}
+                    priceStyle={Styles.orderPriceStyle}
+                /> */}
+                 <View style={Styles.orderList}>
+                    <MappedElement
+                        data={reduxState?.data}
+                        renderElement={renderItem}
+                    />
+                </View>
 
                 <View style={Styles.addLocationContainer}>
                     <CText style={Styles.addLocationTitle}>Delivery Address</CText>

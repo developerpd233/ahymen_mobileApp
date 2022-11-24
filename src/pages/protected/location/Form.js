@@ -58,9 +58,9 @@ function CForm(props) {
                             ref={pincode}
                             inputLabel={'Pincode'}
                             placeholder={'000000'}
-                            value={values.pincode}
-                            onChangeText={handleChange('pincode')}
-                            error={errors.pincode}
+                            value={values.postalCode}
+                            onChangeText={handleChange('postalCode')}
+                            error={errors.postalCode}
                             returnKeyType="next"
                             onSubmitEditing={() => handleSubmit()}
                         />

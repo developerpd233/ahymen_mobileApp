@@ -22,6 +22,7 @@ function CListItem(props) {
         buttonFunc,
         buttonIcon,
         buttonText,
+        qun
     } = props;
     return (
         <TouchableOpacity
@@ -71,14 +72,25 @@ function CListItem(props) {
                     <CText style={Styles.listItemTitle} numberOfLines={1}>
                         {title}
                     </CText>
+                    <View style={{flexDirection:'row-reverse' , justifyContent:'space-between', flex:1 ,width:160, marginTop:8}}>
+
                     {price ? (
                         <CText
                             style={[Styles.listItemSubTitle, priceStyle]}
                             numberOfLines={1}
                         >
-                            {price}
+                         {price}
                         </CText>
                     ) : null}
+                    {qun ? (
+                        <CText
+                            style={[Styles.listItemSubTitle, priceStyle]}
+                            numberOfLines={1}
+                        >
+                             Qt:{qun}
+                        </CText>
+                    ) : null}
+                    </View>
 
                     {buttonText ? (
                         <TouchableOpacity

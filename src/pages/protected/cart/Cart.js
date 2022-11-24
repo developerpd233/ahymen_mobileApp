@@ -23,7 +23,6 @@ function Cart(props) {
             user:auth.user
         };
     });
-    console.log("🚀 ~ file: Cart.js ~ line 26 ~ reduxState ~ reduxState", reduxState)
 
     let totalSum = 0;
   reduxState?.data?.forEach(obj => {
@@ -204,7 +203,7 @@ function Cart(props) {
                       <CButton
                         buttonStyle={Styles.linkButton}
                         buttonText={Styles.linkButtonText}
-                        onPress={() => navigation.navigate("store")}
+                        onPress={() => navigation.navigate("Store")}
                         title="Continue Shopping"
                     />
                     <CButton

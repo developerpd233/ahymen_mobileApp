@@ -25,13 +25,25 @@ export const login = (payload, CB) => async (dispatch) => {
     try {
         let response = await post(LOGIN, payload);
         console.log("🚀 ~ file: Auth.action.js ~ line 26 ~ login ~ response", response)
-
-        dispatch({
-            type: AUTH.LOGIN_USER_API,
-            loading: false,
-            user: response?.data,
-            isLoggedIn: true,
-        });
+        if (response?.data?.error) {
+            dispatch({ type: AUTH.LOGIN_USER_API, loading: false });
+            handleError(response?.data?.data?.message || "");
+        } else {
+            await _setDataToAsyncStorage(TOKEN, response?.data?.data?.token);
+            await getTokenAndSetIntoHeaders(response?.data?.data?.token);
+            dispatch({
+                type: AUTH.LOGIN_USER_API,
+                loading: false,
+                user: response?.data,
+                isLoggedIn: true,
+            });
+        }
+        // dispatch({
+        //     type: AUTH.LOGIN_USER_API,
+        //     loading: false,
+        //     user: response?.data,
+        //     isLoggedIn: true,
+        // });
 
         // if (response?.data?.error) {
         //     dispatch({ type: AUTH.LOGIN_USER_API, loading: false });

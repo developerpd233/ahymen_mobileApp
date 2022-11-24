@@ -8,6 +8,8 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER
 import PolylineDirection from '@react-native-maps/polyline-direction';
 import Icons from '../../../assets/icons/CustomIcon';
 import {useNavigation} from "@react-navigation/native";
+import { useDispatch, useSelector } from 'react-redux';
+import { saveAddress } from '../../../store/actions/Root.action';
 
 const origin = { latitude: 19.363631, longitude: -99.182545 };
 const destination = { latitude: 19.2932543, longitude: -99.1794758 };
@@ -177,6 +179,7 @@ const customStyle = [
 
 
 function Location(props) {
+    const dispatch = useDispatch()
 
     const navigation = useNavigation()
 
@@ -195,6 +198,22 @@ function Location(props) {
             }
         }
     };
+
+
+
+    const reduxState = useSelector(({ auth  , root , cart}) => {
+        
+        return {
+            loading: root.addressLoading,
+            addressData :root.
+        };
+    });
+
+    const submit = (values)=>{
+        dispatch(saveAddress(values))
+        console.log('values', values)
+
+    }
 
     return(
         <Container bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>
@@ -232,7 +251,7 @@ function Location(props) {
                 </View>
 
 
-                <CForm />
+                <CForm  loading={reduxState?.loading} submit={submit} />
 
             </View>
 

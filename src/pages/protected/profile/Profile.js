@@ -89,16 +89,16 @@ function Profile(props) {
             onPress: () => myWishlist(),
             icon: 'heart'
         },
-        {
-            title: 'Loremipsum',
-            onPress: () => null,
-            icon: 'hand-heart'
-        },
-        {
-            title: 'Loremipsum',
-            onPress: () => null,
-            icon: 'book'
-        },
+        // {
+        //     title: 'Loremipsum',
+        //     onPress: () => null,
+        //     icon: 'hand-heart'
+        // },
+        // {
+        //     title: 'Loremipsum',
+        //     onPress: () => null,
+        //     icon: 'book'
+        // },
         {
             title: 'Settings',
             onPress: () => null,

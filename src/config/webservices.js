@@ -17,3 +17,4 @@ export const SEARCH_PRODUCTS = `${BASE_URL}search-products`;
 export const GET_ORDERS = `${BASE_URL}userOrders`;
 export const GET_WISHLIST = `${BASE_URL}WishList`;
 export const Add_DELETE_WISHLIST = `${BASE_URL}AddtToWishlist`;
+export const SAVE_ADDRESS = `${BASE_URL}saveAddress`;

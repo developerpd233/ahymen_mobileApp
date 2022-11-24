@@ -94,7 +94,7 @@ function SignIn(props) {
             }
         } catch (error) {
             console.log('error ----- 94   ', error , payload)
-            alert(error.message.invalid);
+            alert(error.message);
             // if (!error.success) {
             //     setPhoneError(error.message.invalid);
             // }
