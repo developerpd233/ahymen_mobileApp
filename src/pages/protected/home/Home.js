@@ -39,7 +39,7 @@ function Home(props) {
         { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
         { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
         { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
+        { uri: 'http://commondatastorage.googleapitvs.com/g-videos-bucket/sample/BigBuckBunny.mp4' },
     ])
     useEffect(() => {
         handleApi()
@@ -65,7 +65,8 @@ function Home(props) {
                     console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
                     return (
                         <VideoPlayer
-source={{uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'}}
+                        
+source={{uri: "https://ayhman.webappcart.com/storage/trendingVideos/q59jepzdtbry0ax2u3k6ns4lfhvmo17icgw.mp4"}}
 />
                         // <Video source={{ uri: 'https://ayhman.webappcart.com/storage/trendingVideos/jpw8exb5afyvqtc641h3irzgms2k0d9lun7.mp4' }}   // Can be a URL or a local file.
                         //     //    ref={(ref) => {
@@ -121,16 +122,14 @@ source={{uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/
             <Header {...headerProps} />
             <Swiper
                 ref={slider}
-                style={{ backgroundColor: "transparent"  , height:'95%'}}
+                style={{ backgroundColor: "transparent"  }}
                 showsButtons={false}
                 showsPagination={false}
                 horizontal={false}
                 loop={false}
             >
-                             <VideoPlayer
-source={{uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'}}
-/>
-                {/* {renderSlides()} */}
+ 
+                {renderSlides()}
             </Swiper>
         </View>
     );

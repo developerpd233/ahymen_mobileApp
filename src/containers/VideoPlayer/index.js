@@ -1220,10 +1220,8 @@ export default class VideoPlayer extends Component {
           {this.renderError()}
           {this.renderLoader()}
           {this.renderTopControls()}
-          <View style={{ marginTop:50 , backgroundColor:'red' }}>
 
           {this.renderBottomControls()}
-          </View>
         </View>
       </TouchableWithoutFeedback>
     );
@@ -1352,6 +1350,7 @@ const styles = {
       position: 'relative',
       width: 80,
       zIndex: 0,
+      marginTop:-200,
     },
     title: {
       alignItems: 'center',
