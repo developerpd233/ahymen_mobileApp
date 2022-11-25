@@ -22,11 +22,11 @@ export default class VideoPlayer extends Component {
     doubleTapTime: 130,
     playInBackground: false,
     playWhenInactive: false,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     isFullscreen: false,
     showOnStart: true,
-    paused: true,
-    repeat: false,
+    paused: false,
+    repeat: true,
     muted: false,
     volume: 1,
     title: '',
@@ -1203,7 +1203,7 @@ export default class VideoPlayer extends Component {
           <Video
             {...this.props}
             ref={videoPlayer => (this.player.ref = videoPlayer)}
-            resizeMode={this.state.resizeMode}
+            resizeMode={'cover'}
             volume={this.state.volume}
             paused={this.state.paused}
             muted={this.state.muted}
@@ -1219,9 +1219,9 @@ export default class VideoPlayer extends Component {
           />
           {this.renderError()}
           {this.renderLoader()}
-          {this.renderTopControls()}
+          {/* {this.renderTopControls()} */}
 
-          {this.renderBottomControls()}
+          {/* {this.renderBottomControls()} */}
         </View>
       </TouchableWithoutFeedback>
     );

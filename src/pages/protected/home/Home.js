@@ -65,8 +65,7 @@ function Home(props) {
                     console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
                     return (
                         <VideoPlayer
-                        
-source={{uri: "https://ayhman.webappcart.com/storage/trendingVideos/q59jepzdtbry0ax2u3k6ns4lfhvmo17icgw.mp4"}}
+source={{uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'}}
 />
                         // <Video source={{ uri: 'https://ayhman.webappcart.com/storage/trendingVideos/jpw8exb5afyvqtc641h3irzgms2k0d9lun7.mp4' }}   // Can be a URL or a local file.
                         //     //    ref={(ref) => {
