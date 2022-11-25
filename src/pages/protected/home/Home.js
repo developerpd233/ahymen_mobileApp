@@ -7,10 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../../../containers";
 import VideoPlayer from '../../../containers/VideoPlayer'
 // import VideoPlayer from 'react-native-video-controls';
-
+// import moduleName from '../../../assets/videos/1.mp4'
 import { getTrending } from "../../../store/actions/Root.action";
 import Video from 'react-native-video';
-
 // import VideoPlayer from "react-native-video-player";
 const { width, height } = Dimensions.get("window");
 import ApiSauce from "../../../utils/network"
@@ -18,6 +17,11 @@ import { GET_TRENDING, TRENDING } from "../../../config/webservices"
 function Home(props) {
 
     const [data, setData] = useState()
+    const videosData =[
+        { uri: require('../../../assets/videos/1.mp4') },
+        { uri: require('../../../assets/videos/2.mp4') },
+        { uri: require('../../../assets/videos/3.mp4')},
+    ]
     console.log("🚀 ~ file: Home.js ~ line 16 ~ Home ~ data", data)
 
     const dispatch = useDispatch();
@@ -32,14 +36,9 @@ function Home(props) {
     const slider = useRef();
 
     const [video, setVideo] = useState([
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' },
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-        { uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
-        { uri: 'http://commondatastorage.googleapitvs.com/g-videos-bucket/sample/BigBuckBunny.mp4' },
+       
+
+    
     ])
     useEffect(() => {
         handleApi()
@@ -59,13 +58,13 @@ function Home(props) {
 
 
     const renderSlides = () => {
-        if (data?.length > 0) {
+        if (videosData?.length > 0) {
             return (
-                data?.map((val, index) => {
+                videosData?.map((val, index) => {
                     console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
                     return (
                         <VideoPlayer
-source={{uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'}}
+source={val?.uri}
 />
                         // <Video source={{ uri: 'https://ayhman.webappcart.com/storage/trendingVideos/jpw8exb5afyvqtc641h3irzgms2k0d9lun7.mp4' }}   // Can be a URL or a local file.
                         //     //    ref={(ref) => {
