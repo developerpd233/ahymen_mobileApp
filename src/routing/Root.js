@@ -13,10 +13,11 @@ import {
 
 const Tab = createBottomTabNavigator();
 
-const Root = ({rootIntial}) => {
+const Root = ({initial}) => {
+    console.log("🚀 ~ file: Root.js ~ line 17 ~ Root ~ rootIntial", initial)
     return (
         <Tab.Navigator
-            initialRouteName={!rootIntial ? "Home" : "Cart"}
+            initialRouteName={!initial ? "Home" : "Cart"}
             tabBar={(props) => <TabBar {...props} />}
             screenOptions={{ headerShown: false }}
         >

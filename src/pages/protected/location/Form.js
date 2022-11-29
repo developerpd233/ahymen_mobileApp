@@ -9,9 +9,8 @@ import Validations from "./Validations";
 
 function CForm(props) {
 
-    const {submit, loading} = props;
+    const {submit, loading, form} = props;
 
-    const form = useRef(null);
     const name = useRef(null);
     const address = useRef(null);
     const pincode = useRef(null);
@@ -20,7 +19,11 @@ function CForm(props) {
         <Formik
             innerRef={form}
             onSubmit={(values) => submit(values)}
-            initialValues={{}}
+            initialValues={{
+                name:'',
+                address:'',
+                pincode:''
+            }}
             validationSchema={Validations}
         >
             {({handleChange, values, handleSubmit, errors}) => {

@@ -191,6 +191,37 @@ export const getProfile = (payload, CB) => async (dispatch) => {
     // }
 };
 
+export const guestCheckout = (payload, CB) => async (dispatch) => {
+    dispatch({ type: AUTH.GUEST_CHECKOUT, loading: true });
+    try {
+        let response = await post(REGISTER, payload);
+        console.log("🚀 ~ file: Auth.action.js ~ line 198 ~ guestCheckout ~ response", response)
+        if (response?.data?.error) {
+            handleError(response?.data?.message || "");
+            dispatch({ type: AUTH.GUEST_CHECKOUT, loading: false });
+        } else {
+            dispatch({
+                type: AUTH.GUEST_CHECKOUT,
+                guestLogin:true,
+                loading:false,
+                user: response?.data,
+            });
+        }
+        await _setDataToAsyncStorage(TOKEN, response?.data?.data?.token);
+        await getTokenAndSetIntoHeaders(response?.data?.data?.token);
+        handleSuccess(response?.data?.data?.message);
+
+        CB && CB(response?.data)
+        
+    } catch (error) {
+        console.log(
+            error
+        );
+        handleError(error?.data?.data, { autoHide: true });
+        dispatch({ type: AUTH.GUEST_CHECKOUT, loading: false });
+    }
+};
+
 export const logout =
     (showToast = true, type, message = "Successfully logout!") =>
     async (dispatch) => {

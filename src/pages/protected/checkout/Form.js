@@ -9,13 +9,12 @@ import Validations from "./Validations";
 
 function CForm(props) {
 
-    const {submit, loading} = props;
+    const {submit, loading, form , cardNumber , nameOnCard, expiry , cvv} = props;
+    const creditCardMask = [/\d/, /\d/, /\d/, /\d/," ",[/\d/], [/\d/], [/\d/], [/\d/], " ", [/\d/], [/\d/], [/\d/], [/\d/], " ", /\d/, /\d/, /\d/, /\d/];
+    const expiMask = [/\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
 
-    const form = useRef(null);
-    const cardNumber = useRef(null);
-    const nameOnCard = useRef(null);
-    const expiry = useRef(null);
-    const cvv = useRef(null);
+
+
 
     return (
         <Formik
@@ -29,6 +28,9 @@ function CForm(props) {
                     <View>
                         <CInput
                             ref={cardNumber}
+                            mask={creditCardMask}
+                            keyboardType={"numeric"}
+
                             inputLabel={'Card Number'}
                             placeholder={' 0 0 0 0  - 0 0 0 0 - 0 0 0 '}
                             value={values.cardNumber}
@@ -52,8 +54,11 @@ function CForm(props) {
                        <View style={GlobalStyle.twoInputsView}>
                            <CInput
                                ref={expiry}
+                               mask={expiMask}
                                inputLabel={'Expiry'}
-                               placeholder={'MM/YY'}
+                               keyboardType={"numeric"}
+
+                               placeholder={'MM/YYYY'}
                                value={values.expiry}
                                onChangeText={handleChange('expiry')}
                                error={errors.expiry}
@@ -65,7 +70,8 @@ function CForm(props) {
                            <CInput
                                ref={cvv}
                                inputLabel={'CVV'}
-                               placeholder={'0000'}
+                               placeholder={'000'}
+                               keyboardType={"numeric"}
                                value={values.cvc}
                                onChangeText={handleChange('cvc')}
                                error={errors.nameOnCard}

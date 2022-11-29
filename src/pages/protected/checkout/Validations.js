@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 const scheme = Yup.object().shape({
     cardNumber: Yup.string()
         .label('Card number')
-        .max(16)
+        .max(20)
         .required(),
     cvc: Yup.string()
         .label('CVC')

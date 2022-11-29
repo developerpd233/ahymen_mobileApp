@@ -11,8 +11,8 @@ const initialState = {
     reSendOtpLoading: false,
     verifyOtpLoading: false,
     isIntialRootRoute: true,
-
-};
+    guestLoading:false,
+    guestLogin: false };
 
 export default (state = initialState, action = {}) => {
     switch (action.type) {
@@ -47,7 +47,9 @@ export default (state = initialState, action = {}) => {
             return { ...state, reSendOtpLoading: action.loading };
         case AUTH.VERIFY_OTP:
             return { ...state, verifyOtpLoading: action.loading };
-
+            case AUTH.GUEST_CHECKOUT:
+                return { ...state, guestLoading: action.loading  , guestLogin:action.guestLogin ,  user:action.user};
+    
         default:
             return state;
     }

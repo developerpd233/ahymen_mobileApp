@@ -9,11 +9,19 @@ import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-co
 import ThanksForOrdering from "./../cart/thanksForOrdering/ThanksForOrdering";
 import {useNavigation} from "@react-navigation/native";
 import { MappedElement } from '../../../utils/methods';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { orderCheckout } from '../../../store/actions/Root.action';
 
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
 function Checkout(props) {
+    const dispatch = useDispatch()
+    const form = useRef(null);
+    const cardNumber = useRef(null);
+    console.log("🚀 ~ file: Checkout.js ~ line 21 ~ Checkout ~ cardNumber", cardNumber.current)
+    const nameOnCard = useRef(null);
+    const expiry = useRef(null);
+    const cvv = useRef(null);
 
     const navigation = useNavigation();
     const reduxState = useSelector(({ auth  , root , cart}) => {
@@ -69,6 +77,43 @@ function Checkout(props) {
     />
     )
    }
+
+   const callback =()=>{
+
+    alert('done')
+   }
+   
+   const handle_order = async (values) => {
+    const formData = new FormData()
+    console.log("🚀 ~ file: Checkout.js ~ line 88 ~ consthandle_order= ~ formData",form.current.values.expiry.split('/')[0] )
+        await  reduxState?.data.map((e, ind)=>{
+        let totalSum = 0;
+        reduxState?.data?.forEach(obj => {
+          let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
+          totalSum += objSum;
+        })
+             formData.append(`product[${ind}][id]` , e.ProductId) ,
+              formData.append(`product[${ind}][quantity]` , e.quantity)
+         })
+         let totalSum = 0;
+        reduxState?.data?.forEach(obj => {
+          let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
+          totalSum += objSum;
+        })
+        formData.append(`subtotal` , totalSum)
+        formData.append(`confirm` , 'yes')
+        formData.append(`address1` , 'Travelodge Liverpool Central The Strand')
+        formData.append(`address2` , 'Travelodge Liverpool Central The Strand')
+        formData.append(`card` , `${form.current.values.cardNumber}`)
+        formData.append(`exp_month` , `${form?.current?.values?.expiry.split('/')[0]}`)
+        formData.append(`exp_year` , `${form?.current?.values?.expiry.split('/')[1]}`)
+        formData.append(`cvv` , `${form.current.values.cvc}`)
+        dispatch(orderCheckout(formData , callback))
+        
+    }
+    
+
+   
 
     return(
         <Container bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>
@@ -133,7 +178,7 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                                <CForm />
+                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
                             </View>
                         </CollapseBody>
                     </Collapse>
@@ -151,7 +196,8 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                                <CForm />
+                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+
                             </View>
                         </CollapseBody>
                     </Collapse>
@@ -169,7 +215,8 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                                <CForm />
+                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+
                             </View>
                         </CollapseBody>
                     </Collapse>
@@ -180,7 +227,7 @@ function Checkout(props) {
                     buttonStyle={Styles.buttonSpace}
                     iconName={'arrow-forward'}
                     title="Proceed To Checkout"
-                    onPress={() => updateThanksModal(!thanksModal)}
+                    onPress={handle_order}
                 />
 
             </View>

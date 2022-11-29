@@ -24,11 +24,11 @@ function Cart(props) {
         };
     });
 
-    let totalSum = 0;
-  reduxState?.data?.forEach(obj => {
-    let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
-    totalSum += objSum;
-  })
+        let totalSum = 0;
+    reduxState?.data?.forEach(obj => {
+        let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
+        totalSum += objSum;
+    })
 
     const headerProps = {
         showCenterLogo: true,

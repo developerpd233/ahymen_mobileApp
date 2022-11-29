@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Container, CountriesModal} from "../../../containers";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Modal, View} from "react-native";
 import CForm from './Form'
 import {useNavigation} from "@react-navigation/native";
@@ -9,18 +9,22 @@ import _ from "lodash";
 import AuthStyle from "../../auth/Auth.style";
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
+import { guestCheckout } from '../../../store/actions/Auth.action';
 
 function GuestCheckout(props) {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch()
 
     const reduxState = useSelector(({auth, global}) => {
+        console.log("🚀 ~ file: GuestCheckout.js ~ line 20 ~ reduxState ~ auth", auth)
         return {
-            loading: false,
+            loading: auth.guestLoading,
             currentCountry: global.currentCountry,
             countries: global.countries,
         }
     });
+    
 
     const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
     const [selectedCountry, updateSelectedCountry] = useState(reduxState.currentCountry);
@@ -47,44 +51,59 @@ function GuestCheckout(props) {
         registerGuestUser(values)
     };
 
+    const callbacl  = () =>{
+        navigation.navigate('checkout')
+    }
+
     const registerGuestUser = (values)=>{
-
-        axios.post('https://ayhman.webappcart.com/api/register', {
-
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            
+        const payload = {
             registerType:'guest',     
-            name        : values.fullName,
-            email       : values.email,
-            phone       : `${values.phone}`,
+                    name        : values.fullName,
+                    email       : values.email,
+                    phone       : `${values.phone}`,
 
-        })
+        }
+        dispatch(guestCheckout(payload , callbacl))
 
-        .then(function (response) {
+    //     axios.post('https://ayhman.webappcart.com/api/register', {
 
-        console.log(response.data.data.token+"60");    
-        // _storeData(response.data.data.token)
-      
-        alert(response.data.message)
-        navigation.navigate("Store", {
-            screen: "store",
-            initial: false,
-        });
-
-
-       }).catch(function (error) {
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json",
+    //         },
             
-            let emailError='';
-            let phoneError='';
+    //         registerType:'guest',     
+    //         name        : values.fullName,
+    //         email       : values.email,
+    //         phone       : `${values.phone}`,
 
-            if(error.data.data.email){emailError="\n"+error.data.data.email}    
-            if(error.data.data.phone){phoneError="\n"+error.data.data.phone}
+    //     })
+
+    //     .then(function (response) {
+
+    //         dispatch({
+    //             type: AUTH.SIGN_UP_USER_API,
+    //             loading: false,
+    //             user: response?.data?.data,
+    //              isIntialRootRoute:false
+    //         });
+    //     console.log(response.data.data.token+"60");    
+    //     // _storeData(response.data.data.token)
+      
+    //     alert(response.data.message)
+    //     navigation.navigate("Checkout");
+
+
+    //    }).catch(function (error) {
+            
+    //         let emailError='';
+    //         let phoneError='';
+
+    //         if(error.data.data.email){emailError="\n"+error.data.data.email}    
+    //         if(error.data.data.phone){phoneError="\n"+error.data.data.phone}
                 
-            alert(error.data.message+emailError+phoneError)    
-       });
+    //         alert(error.data.message+emailError+phoneError)    
+    //    });
     }
 //       const _storeData = async (token) => {
 //         console.log("Sssss" , token)

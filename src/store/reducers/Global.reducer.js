@@ -7,7 +7,7 @@ const initialState = {
     getCountriesLoading: true,
     uuid: '',
     termAndConditions: {},
-    currentLocation: {}
+    currentLocation: {},
 };
 
 export default (state = initialState, action = {}) => {

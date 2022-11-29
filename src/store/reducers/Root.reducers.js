@@ -8,6 +8,8 @@ const initialState = {
     data: {},
     subcategoryData: {},
     subcategoryProduct: {},
+    ordersData:{},
+    orderLoading:false,
     // signUpLoading: false,
     // isLoggedIn: true,
     // user: {},
@@ -67,6 +69,12 @@ export default (state = initialState, action = {}) => {
                     addressLoading: action.loading,
                     addressData: action.data,
                 };
+            case Root.ORDER:
+                return {
+                    ...state,
+                    orderLoading: action.loading,
+                    ordersData: action.data,
+            };      
        
   
         default:

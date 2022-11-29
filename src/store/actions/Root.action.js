@@ -13,6 +13,7 @@ import {
     GET_CAT_PRODUCT,
     GET_SUB_CATEGEORY,
     GET_TRENDING,
+    NEW_ORDER,
     SAVE_ADDRESS,
     SEARCH_CATEGORY,
     SEARCH_PRODUCTS,
@@ -219,7 +220,6 @@ export const saveAddress = (payload, CB) => async (dispatch) => {
         loading: true,
     });
 
-    getTokenAndSetIntoHeaders(false)
     try {
         let response = await post(SAVE_ADDRESS, payload);
         console.log("🚀 ~ file: Root.action.js ~ line 226 ~ saveAddress ~ response", response)
@@ -240,5 +240,41 @@ export const saveAddress = (payload, CB) => async (dispatch) => {
         console.log("🚀 ~ file: Root.action.js ~ line 234 ~ saveAddress ~ error", error)
         handleError(error?.data?.message, { autoHide: true });
         dispatch({ type: Root.SAVE_ADDRESS, loading: false });
+    }
+};
+
+export const orderCheckout = (payload, CB) => async (dispatch) => {
+    console.log("🚀 ~ file: Root.action.js ~ line 247 ~ orderCheckout ~ payload", payload)
+    dispatch({ type: Root.ORDER, loading: true });
+     await  getTokenAndSetIntoHeaders()
+        const Header = {
+         headers: {
+            "Accept": "application/json", 
+         "Content-Type": "application/json",
+            Authorization: `Bearer ${`61|JHbdjDiszhKicUSoWrJO1zoyvT3b7SbiT03DxFgk`}`,
+        },
+    };
+    try {
+        let response = await post(NEW_ORDER, payload, Header) ;
+        console.log("🚀 ~ file: Root.action.js ~ line 250 ~ orderCheckout ~ response", response)
+        if (response?.data?.error) {
+            handleError(response?.data?.message || "");
+            dispatch({ type: Root.ORDER, loading: false });
+        } else {
+            dispatch({
+                type: Root.ORDER,
+                loading:false,
+                data: response?.data.data,
+            });
+        }
+        handleSuccess(response?.data?.data?.message);
+
+        CB && CB(response?.data)
+        
+    } catch (error) {
+        console.log("🚀 ~ file: Root.action.js ~ line 266 ~ orderCheckout ~ error", error)
+        
+        handleError(error?.data?.data, { autoHide: true });
+        dispatch({ type: Root.ORDER, loading: false });
     }
 };

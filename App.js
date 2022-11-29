@@ -10,7 +10,7 @@ import { Setting } from "./src/pages/protected";
 const App = () => {
     const dispatch = useDispatch();
 
-        const reduxState = useSelector(({ auth }) => {
+        const reduxState = useSelector(({ auth  , root}) => {
             console.log("🚀 ~ file: App.js ~ line 13 ~ reduxState ~ auth", auth);
             return {
                 getUserProfileLoading: auth.getUserProfileLoading,
@@ -43,7 +43,8 @@ const App = () => {
             {reduxState?.getUserProfileLoading ? (
                 <CLoading loading={reduxState?.getUserProfileLoading} />
             ) : (
-                renderRouting(reduxState?.isLoggedIn, reduxState?.isIntialRoute)
+                reduxState?.isLoggedIn ?  <Root /> : <Auth initial={reduxState?.isIntialRoute} />
+                // renderRouting(reduxState?.isLoggedIn, reduxState?.isIntialRoute)
             )}
             {/* <Setting /> */}
         </View>
