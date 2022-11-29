@@ -1,6 +1,7 @@
 import Root from "../constants/Root.constant";
 import { handleError, handleSuccess, post, get } from "../../utils/methods";
 import { TOKEN } from "../../utils/asyncStorage/Constants";
+
 import {
     _setDataToAsyncStorage,
     getTokenAndSetIntoHeaders,
@@ -247,34 +248,45 @@ export const orderCheckout = (payload, CB) => async (dispatch) => {
     console.log("🚀 ~ file: Root.action.js ~ line 247 ~ orderCheckout ~ payload", payload)
     dispatch({ type: Root.ORDER, loading: true });
      await  getTokenAndSetIntoHeaders()
-        const Header = {
-         headers: {
-            "Accept": "application/json", 
-         "Content-Type": "application/json",
-            Authorization: `Bearer ${`61|JHbdjDiszhKicUSoWrJO1zoyvT3b7SbiT03DxFgk`}`,
-        },
-    };
-    try {
-        let response = await post(NEW_ORDER, payload, Header) ;
-        console.log("🚀 ~ file: Root.action.js ~ line 250 ~ orderCheckout ~ response", response)
-        if (response?.data?.error) {
-            handleError(response?.data?.message || "");
-            dispatch({ type: Root.ORDER, loading: false });
-        } else {
-            dispatch({
-                type: Root.ORDER,
-                loading:false,
-                data: response?.data.data,
-            });
-        }
-        handleSuccess(response?.data?.data?.message);
+     
+    const token = await getValueIntoLocalStorage(TOKEN)
+   try {
+    const response = await post(NEW_ORDER , payload ,token )
+    console.log("🚀 ~ file: Root.action.js:256 ~ orderCheckout ~ response", response)
 
-        CB && CB(response?.data)
-        
-    } catch (error) {
-        console.log("🚀 ~ file: Root.action.js ~ line 266 ~ orderCheckout ~ error", error)
-        
-        handleError(error?.data?.data, { autoHide: true });
+    // if (response?.data?.error) {
+    //     handleError(response?.data?.message || "");
+    //     dispatch({ type: Root.SAVE_ADDRESS, loading: false });
+    // } else {
+    //     dispatch({
+    //         type: Root.ORDER,
+    //         loading:false,
+    //         data: response?.data.data,
+    //     });
+    // }
+    // CB && CB(response?.data)
+      
+
+    
+   } catch (error) {
+    console.log("🚀 ~ file: Root.action.js:272 ~ orderCheckout ~ error", error)
+    handleError(error?.data?.data, { autoHide: true });
+    
         dispatch({ type: Root.ORDER, loading: false });
-    }
+    
+   }
+    // try {
+    //     console.log("🚀 ~ file: Root.action.js:262 ~ orderCheckout ~ response", response)
+    //      dispatch({
+    //             type: Root.ORDER,
+    //             loading:false,
+    //             data: response?.data.data,
+    //         });
+        
+    // } catch (error) {
+    //     console.log("🚀 ~ file: Root.action.js ~ line 266 ~ orderCheckout ~ error", error)
+        
+    //     handleError(error?.data?.data, { autoHide: true });
+    //     dispatch({ type: Root.ORDER, loading: false });
+    // }
 };

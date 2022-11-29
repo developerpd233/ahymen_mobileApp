@@ -8,9 +8,14 @@ import CForm from "./Form";
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 import ThanksForOrdering from "./../cart/thanksForOrdering/ThanksForOrdering";
 import {useNavigation} from "@react-navigation/native";
-import { MappedElement } from '../../../utils/methods';
+import { handleError, MappedElement } from '../../../utils/methods';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderCheckout } from '../../../store/actions/Root.action';
+import ApiSauce from '../../../utils/network'
+import { NEW_ORDER } from '../../../config/webservices';
+import { removeAllProduct } from '../../../store/actions/Cart.action';
+import { getTokenAndSetIntoHeaders, getValueIntoLocalStorage } from '../../../utils/asyncStorage/Functions';
+import { TOKEN } from '../../../utils/asyncStorage/Constants';
 
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
@@ -34,6 +39,8 @@ function Checkout(props) {
     });
     const [selectedMethod, updateMethod] = useState('VISA');
     const [thanksModal, updateThanksModal] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+
 
     const headerProps = {
         showCenterLogo: true,
@@ -79,11 +86,18 @@ function Checkout(props) {
    }
 
    const callback =()=>{
-
     alert('done')
    }
    
    const handle_order = async (values) => {
+    console.log('form.current.values', form.current.values)
+    if(form.current.values === '{}') {
+         handleError('fill all card  details', { autoHide: true });
+
+    } else {
+        const token = await getValueIntoLocalStorage(TOKEN)
+
+    setLoading(true)
     const formData = new FormData()
     console.log("🚀 ~ file: Checkout.js ~ line 88 ~ consthandle_order= ~ formData",form.current.values.expiry.split('/')[0] )
         await  reduxState?.data.map((e, ind)=>{
@@ -104,11 +118,32 @@ function Checkout(props) {
         formData.append(`confirm` , 'yes')
         formData.append(`address1` , 'Travelodge Liverpool Central The Strand')
         formData.append(`address2` , 'Travelodge Liverpool Central The Strand')
+        formData.append(`delivery_date` , '2022-10-29')
         formData.append(`card` , `${form.current.values.cardNumber}`)
         formData.append(`exp_month` , `${form?.current?.values?.expiry.split('/')[0]}`)
         formData.append(`exp_year` , `${form?.current?.values?.expiry.split('/')[1]}`)
-        formData.append(`cvv` , `${form.current.values.cvc}`)
-        dispatch(orderCheckout(formData , callback))
+        formData.append(`cvc` , `${form.current.values.cvc}`)
+        try {
+            
+          const response = await ApiSauce.postWithToken(NEW_ORDER , formData , token )
+            updateThanksModal(true)
+            dispatch(removeAllProduct())
+            
+
+
+        } catch (error) {
+    handleError(error?.data?.data, { autoHide: true });
+            
+            console.log("🚀 ~ file: Checkout.js:119 ~ consthandle_order= ~ error", error , formData)
+            
+        }
+        finally{
+            setLoading(false)
+        }
+    
+        // dispatch(orderCheckout(formData , callback))
+    }
+    
         
     }
     
@@ -116,7 +151,7 @@ function Checkout(props) {
    
 
     return(
-        <Container bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>
+        <Container loading={isLoading} bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>
             <View style={[Styles.container, {marginBottom: 30}]}>
                 <CText style={Styles.title}>Check out</CText>
                 {/* <CListItem
@@ -235,7 +270,9 @@ function Checkout(props) {
 
             <ThanksForOrdering
                 isOpen={thanksModal}
-                onClose={() => updateThanksModal(!thanksModal)}
+                onClose={() => (updateThanksModal(!thanksModal), 
+            navigation.navigate('Home')
+            )}
             />
 
         </Container>

@@ -1,5 +1,4 @@
 import Root from "../constants/Root.constant";
-
 const initialState = {
     categoryLoading: false,
     subcategoryLoading: false,
