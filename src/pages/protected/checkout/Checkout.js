@@ -16,6 +16,16 @@ import { NEW_ORDER } from '../../../config/webservices';
 import { removeAllProduct } from '../../../store/actions/Cart.action';
 import { getTokenAndSetIntoHeaders, getValueIntoLocalStorage } from '../../../utils/asyncStorage/Functions';
 import { TOKEN } from '../../../utils/asyncStorage/Constants';
+ 
+// import BraintreeDropIn from 'react-native-braintree-dropin-ui';
+import BraintreeDropIn from 'react-native-braintree-dropin-ui';
+import {
+    requestOneTimePayment,
+    requestBillingAgreement,
+    requestDeviceData
+  } from 'react-native-paypal';
+
+
 
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
@@ -47,6 +57,7 @@ function Checkout(props) {
         showCart: true,
         backButtonIcon: 'close',
     };
+    
 
     const renderCheck = (val) => {
         let url = require('../../../assets/images/uncheck.png');
@@ -90,59 +101,116 @@ function Checkout(props) {
    }
    
    const handle_order = async (values) => {
-    console.log('form.current.values', form.current.values)
-    if(form.current.values === '{}') {
-         handleError('fill all card  details', { autoHide: true });
+    // console.log('form.current.values', form.current.values)
+   
+    //     const token = await getValueIntoLocalStorage(TOKEN)
 
-    } else {
-        const token = await getValueIntoLocalStorage(TOKEN)
-
-    setLoading(true)
-    const formData = new FormData()
-    console.log("🚀 ~ file: Checkout.js ~ line 88 ~ consthandle_order= ~ formData",form.current.values.expiry.split('/')[0] )
-        await  reduxState?.data.map((e, ind)=>{
-        let totalSum = 0;
-        reduxState?.data?.forEach(obj => {
-          let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
-          totalSum += objSum;
-        })
-             formData.append(`product[${ind}][id]` , e.ProductId) ,
-              formData.append(`product[${ind}][quantity]` , e.quantity)
-         })
-         let totalSum = 0;
-        reduxState?.data?.forEach(obj => {
-          let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
-          totalSum += objSum;
-        })
-        formData.append(`subtotal` , totalSum)
-        formData.append(`confirm` , 'yes')
-        formData.append(`address1` , 'Travelodge Liverpool Central The Strand')
-        formData.append(`address2` , 'Travelodge Liverpool Central The Strand')
-        formData.append(`delivery_date` , '2022-10-29')
-        formData.append(`card` , `${form.current.values.cardNumber}`)
-        formData.append(`exp_month` , `${form?.current?.values?.expiry.split('/')[0]}`)
-        formData.append(`exp_year` , `${form?.current?.values?.expiry.split('/')[1]}`)
-        formData.append(`cvc` , `${form.current.values.cvc}`)
-        try {
+    // setLoading(true)
+    // const formData = new FormData()
+    // console.log("🚀 ~ file: Checkout.js ~ line 88 ~ consthandle_order= ~ formData",form.current.values.expiry.split('/')[0] )
+    //     await  reduxState?.data.map((e, ind)=>{
+    //     let totalSum = 0;
+    //     reduxState?.data?.forEach(obj => {
+    //       let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
+    //       totalSum += objSum;
+    //     })
+    //          formData.append(`product[${ind}][id]` , e.ProductId) ,
+    //           formData.append(`product[${ind}][quantity]` , e.quantity)
+    //      })
+    //      let totalSum = 0;
+    //     reduxState?.data?.forEach(obj => {
+    //       let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
+    //       totalSum += objSum;
+    //     })
+    //     formData.append(`subtotal` , totalSum)
+    //     formData.append(`confirm` , 'yes')
+    //     formData.append(`address1` , 'Travelodge Liverpool Central The Strand')
+    //     formData.append(`address2` , 'Travelodge Liverpool Central The Strand')
+    //     formData.append(`delivery_date` , '2022-10-29')
+    //     formData.append(`card` , `${form.current.values.cardNumber}`)
+    //     formData.append(`exp_month` , `${form?.current?.values?.expiry.split('/')[0]}`)
+    //     formData.append(`exp_year` , `${form?.current?.values?.expiry.split('/')[1]}`)
+    //     formData.append(`cvc` , `${form.current.values.cvc}`)
+    //     try {
             
-          const response = await ApiSauce.postWithToken(NEW_ORDER , formData , token )
-            updateThanksModal(true)
-            dispatch(removeAllProduct())
+    //       const response = await ApiSauce.postWithToken(NEW_ORDER , formData , token )
+    //         updateThanksModal(true)
+    //         dispatch(removeAllProduct())
             
 
 
-        } catch (error) {
-    handleError(error?.data?.data, { autoHide: true });
+    //     } catch (error) {
+    // handleError(error?.data?.data, { autoHide: true });
             
-            console.log("🚀 ~ file: Checkout.js:119 ~ consthandle_order= ~ error", error , formData)
+    //         console.log("🚀 ~ file: Checkout.js:119 ~ consthandle_order= ~ error", error , formData)
             
-        }
-        finally{
-            setLoading(false)
-        }
+    //     }
+    //     finally{
+    //         setLoading(false)
+    //     }
     
         // dispatch(orderCheckout(formData , callback))
-    }
+        try {
+            const data = await requestDeviceData('EC-29T018459D093782H')
+            console.log("🚀 ~ file: Checkout.js:155 ~ consthandle_order= ~ data", data)
+        } catch (error) {
+            console.log('error', error)
+        }
+
+      try {
+        const {
+            nonce,
+            payerId,
+            email,
+            firstName,
+            lastName,
+            phone
+        } = await requestBillingAgreement(
+          'EC-32R6254070126063T',
+          {
+            billingAgreementDescription: 'Your agreement description', // required
+            // any PayPal supported currency (see here: https://developer.paypal.com/docs/integration/direct/rest/currency-codes/#paypal-account-payments)
+            currency: 'USD',
+            // any PayPal supported locale (see here: https://braintree.github.io/braintree_ios/Classes/BTPayPalRequest.html#/c:objc(cs)BTPayPalRequest(py)localeCode)
+            localeCode: 'US',
+          }
+        );
+      } catch (error) {
+        console.log("🚀 ~ file: Checkout.js:172 ~ consthandle_order= ~ error", error)
+        
+      }
+
+    // try {
+    //     BraintreeDropIn.lo({
+    //         clientToken: 'EC-32R6254070126063T',
+            
+          
+    //         countryCode: 'US',    //apple pay setting
+    //         currencyCode: 'USD',   //apple pay setting
+    //         orderTotal:'Total Price',
+    //         googlePay: false,
+    //         applePay: false,
+    //         vaultManager: false,
+    //         payPal: true, 
+    //         cardDisabled: false,
+    //         darkTheme: true,
+    //       })
+    //       .then(result => console.log(result))
+    //       .catch((error) => {
+    //         console.log("🚀 ~ file: Checkout.js:169 ~ consthandle_order= ~ error", error)
+    //         if (error.code === 'USER_CANCELLATION') {
+    //           // update your UI to handle cancellation
+    //         } else {
+
+    //           // update your UI to handle other errors
+    //           // for 3D secure, there are two other specific error codes: 3DSECURE_NOT_ABLE_TO_SHIFT_LIABILITY and 3DSECURE_LIABILITY_NOT_SHIFTED
+    //         }
+    //       });
+    // } catch (error) {
+    //     console.log("🚀 ~ file: Checkout.js:182 ~ consthandle_order= ~ error", error)
+        
+    // }
+    
     
         
     }
