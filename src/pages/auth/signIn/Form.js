@@ -16,6 +16,8 @@ function CForm(props) {
         toggleCountryModal,
         phoneErr,
         onLoginPress,
+        onGooglePress,
+        onFacebookPress
     } = props;
     
     const form = useRef(null);
@@ -118,12 +120,14 @@ function CForm(props) {
                             type="outline"
                             title="Sign In with Facebook"
                             buttonStyle={AuthStyle.bottomButton}
+                            onPress={onFacebookPress}
                         />
 
                         <CButton
                             type="outline"
                             title="Sign In with Google"
                             buttonStyle={AuthStyle.bottomButton}
+                            onPress={onGooglePress}
                         />
                         <View style={AuthStyle.orContainer}>
                             <CText style={AuthStyle.cardBottomText}>

@@ -90,41 +90,37 @@ function Checkout(props) {
    }
    
    const handle_order = async (values) => {
-    console.log('form.current.values', form.current.values)
-    if(form.current.values === '{}') {
-         handleError('fill all card  details', { autoHide: true });
-
-    } else {
+   
         const token = await getValueIntoLocalStorage(TOKEN)
 
     setLoading(true)
-    const formData = new FormData()
-    console.log("🚀 ~ file: Checkout.js ~ line 88 ~ consthandle_order= ~ formData",form.current.values.expiry.split('/')[0] )
-        await  reduxState?.data.map((e, ind)=>{
-        let totalSum = 0;
-        reduxState?.data?.forEach(obj => {
-          let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
-          totalSum += objSum;
-        })
-             formData.append(`product[${ind}][id]` , e.ProductId) ,
-              formData.append(`product[${ind}][quantity]` , e.quantity)
-         })
-         let totalSum = 0;
-        reduxState?.data?.forEach(obj => {
-          let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
-          totalSum += objSum;
-        })
-        formData.append(`subtotal` , totalSum)
-        formData.append(`confirm` , 'yes')
-        formData.append(`address1` , 'Travelodge Liverpool Central The Strand')
-        formData.append(`address2` , 'Travelodge Liverpool Central The Strand')
-        formData.append(`delivery_date` , '2022-10-29')
-        formData.append(`card` , `${form.current.values.cardNumber}`)
-        formData.append(`exp_month` , `${form?.current?.values?.expiry.split('/')[0]}`)
-        formData.append(`exp_year` , `${form?.current?.values?.expiry.split('/')[1]}`)
-        formData.append(`cvc` , `${form.current.values.cvc}`)
+   
         try {
-            
+            const formData = new FormData()
+            console.log("🚀 ~ file: Checkout.js ~ line 88 ~ consthandle_order= ~ formData",form.current.values.expiry.split('/')[0] )
+                await  reduxState?.data.map((e, ind)=>{
+                let totalSum = 0;
+                reduxState?.data?.forEach(obj => {
+                  let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
+                  totalSum += objSum;
+                })
+                     formData.append(`product[${ind}][id]` , e.ProductId) ,
+                      formData.append(`product[${ind}][quantity]` , e.quantity)
+                 })
+                 let totalSum = 0;
+                reduxState?.data?.forEach(obj => {
+                  let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
+                  totalSum += objSum;
+                })
+                formData.append(`subtotal` , totalSum)
+                formData.append(`confirm` , 'yes')
+                formData.append(`address1` , 'Travelodge Liverpool Central The Strand')
+                formData.append(`address2` , 'Travelodge Liverpool Central The Strand')
+                formData.append(`delivery_date` , '2022-10-29')
+                formData.append(`card` , `${form.current.values.cardNumber}`)
+                formData.append(`exp_month` , `${form?.current?.values?.expiry.split('/')[0]}`)
+                formData.append(`exp_year` , `${form?.current?.values?.expiry.split('/')[1]}`)
+                formData.append(`cvc` , `${form.current.values.cvc}`)
           const response = await ApiSauce.postWithToken(NEW_ORDER , formData , token )
             updateThanksModal(true)
             dispatch(removeAllProduct())
@@ -142,7 +138,7 @@ function Checkout(props) {
         }
     
         // dispatch(orderCheckout(formData , callback))
-    }
+    
     
         
     }
@@ -213,7 +209,7 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+                            <CForm form={form} submit={()=>{}} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
                             </View>
                         </CollapseBody>
                     </Collapse>
@@ -231,7 +227,7 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+                            <CForm form={form} submit={()=>{}} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
 
                             </View>
                         </CollapseBody>
@@ -250,7 +246,7 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+                            <CForm form={form} submit={()=>{}} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
 
                             </View>
                         </CollapseBody>

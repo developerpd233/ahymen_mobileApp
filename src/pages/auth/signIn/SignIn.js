@@ -9,9 +9,11 @@ import CForm from "./Form";
 import _ from "lodash";
 import ApiSauce from "../../../utils/network";
 import { useNavigation } from "@react-navigation/native";
-import { SEND_CODE } from "../../../config/webservices";
+import { SEND_CODE , LOGIN } from "../../../config/webservices";
 import { showTowst } from "../../../utils/utilFunctions";
 import { sendOtp } from "../../../store/actions/Auth.action";
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import Auth from '../../../store/constants/Auth.constant'
 
 function SignIn(props) {
     const navigation = useNavigation();
@@ -93,8 +95,8 @@ function SignIn(props) {
                 navigation.navigate("otp_verification", {phone:`${payload.phone}`});
             }
         } catch (error) {
+            showTowst('error', 'something Went wrong' , 'Error')
             console.log('error ----- 94   ', error , payload)
-            alert(error.message);
             // if (!error.success) {
             //     setPhoneError(error.message.invalid);
             // }
@@ -102,6 +104,75 @@ function SignIn(props) {
             setIsLoading(false);
         }
     };
+
+    const RequestGoogleLogin = async () => {
+
+        const configPayload = {
+            scopes: ["https://www.googleapis.com/auth/userinfo.profile"],
+            webClientId: '803774630900-8bao69qodd7ab57b2gno7ok97gjilhqo.apps.googleusercontent.com',
+            offlineAccess: true
+        }
+        GoogleSignin.configure(configPayload);
+
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            console.log("🚀 ~ file: SignIn.js:118 ~ RequestGoogleLogin ~ userInfo", userInfo)
+            handleCreate("google", userInfo)
+        } catch (error) {
+            console.log("🚀 ~ file: index.js ~ line 144 ~ handleGoogle ~ error", error)
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+            } else {
+            }
+        }
+    }
+    const handleCreate = async (social_type, data, res, accessToken) => {
+        setIsLoading(true)
+        let formData = new FormData();
+
+        if (social_type == 'google') {
+            formData.append('loginType', 'social')
+            formData.append('socialType', 'google')
+            formData.append('socialId', data.user.id);
+            formData.append('GoogleName', data.user.name);
+            formData.append('GoogleEmail', data.user.email);
+        }
+        else if (social_type == 'facebook') {
+            formData.append('provider', 'facebook')
+            formData.append('name', data.name);
+            formData.append('provider_id', accessToken);
+            formData.append('email', res.email);
+        }
+        try {
+            const res = await ApiSauce.post(LOGIN, formData);
+            handleCheckUserData(res);
+        } catch (error) {
+            setIsLoading(false);
+            console.log(
+                '🚀  handleCreate ~ error',
+                error,
+            );
+            if (error.status == 404) {
+                alert('somg thing wrong')
+            }
+        }
+        // setIsLoading(false)
+    };
+
+    const handleCheckUserData = (loginRes) => {
+        if (loginRes) {
+            setIsLoading(false)
+            dispatch({
+                type: Auth.LOGIN_USER_API,
+                loading: false,
+                user: loginRes?.data,
+                isLoggedIn: true,
+            });
+        }
+    }
 
     return (
         <Container
@@ -127,6 +198,8 @@ function SignIn(props) {
                 toggleCountryModal={toggleCountryModal}
                 phoneErr={phoneError}
                 onLoginPress={() => navigation.navigate("login")}
+                onGooglePress={()=>RequestGoogleLogin()}
+                onFacebookPress={()=>{alert('ghj')}}
             />
 
             <Modal

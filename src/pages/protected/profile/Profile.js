@@ -8,6 +8,7 @@ import {MappedElement} from "../../../utils/methods";
 import {useNavigation} from "@react-navigation/native";
 import { useSelector  , useDispatch} from "react-redux";
 import Auth from '../../../store/constants/Auth.constant';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 function Profile(props) {
 
@@ -27,8 +28,8 @@ function Profile(props) {
 
     const dispatch = useDispatch()
 
-    const logout = () => {
-    
+    const logout = async () => {
+        await GoogleSignin.signOut()
         dispatch({
             type: Auth.LOGOUT_USER_API,
             loading: false,
