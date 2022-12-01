@@ -245,7 +245,7 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+                            <CForm form={form} submit={()=>{}} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
                             </View>
                         </CollapseBody>
                     </Collapse>
@@ -263,7 +263,7 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+                            <CForm form={form} submit={()=>{}} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
 
                             </View>
                         </CollapseBody>
@@ -282,7 +282,7 @@ function Checkout(props) {
                         </CollapseHeader>
                         <CollapseBody>
                             <View style={Styles.sectionListItemBody}>
-                            <CForm form={form} submit={handle_order} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
+                            <CForm form={form} submit={()=>{}} cardNumber={cardNumber} nameOnCard={nameOnCard} expiry={expiry} cvv={cvv}/>
 
                             </View>
                         </CollapseBody>
