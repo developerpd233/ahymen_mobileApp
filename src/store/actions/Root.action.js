@@ -216,11 +216,12 @@ export const searchProducts = (payload, CB) => async (dispatch) => {
 };
 
 export const saveAddress = (payload, CB) => async (dispatch) => {
+    console.log("🚀 ~ file: Root.action.js:219 ~ saveAddress ~ payload", payload)
     dispatch({
         type: Root.SAVE_ADDRESS,
         loading: true,
     });
-
+   await getTokenAndSetIntoHeaders()
     try {
         let response = await post(SAVE_ADDRESS, payload);
         console.log("🚀 ~ file: Root.action.js ~ line 226 ~ saveAddress ~ response", response)

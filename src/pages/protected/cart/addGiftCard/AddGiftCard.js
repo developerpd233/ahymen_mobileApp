@@ -70,10 +70,12 @@ function AddGiftCard(props) {
                                             fontFamily: themes.font.medium,
                                             fontSize: 18,
                                         }]}>Link</CText>
-                                        <CText style={[Styles.orderItemBottomQuantityText, {
-                                            fontFamily: themes.font.extraLight,
-                                            fontSize: 14,
-                                        }]}>Paste a link for a songs music or video</CText>
+                                        <CInput 
+                                        //  style={[Styles.orderItemBottomQuantityText, {
+                                        //     fontFamily: themes.font.extraLight,
+                                        //     fontSize: 14,
+                                        // }]} 
+                                        style={{width:230}}  />
                                     </View>
 
                                 </View>

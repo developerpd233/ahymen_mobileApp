@@ -265,6 +265,19 @@ function Checkout(props) {
                         title={'Add location'}
                     />
                 </View>
+                <View style={Styles.addLocationContainer}>
+                    <CText style={Styles.addLocationTitle}>Add gift card</CText>
+                    <CButton
+                        buttonStyle={Styles.addLocationButton}
+                        buttonText={Styles.addLocationButtonText}
+                        iconStyle={Styles.addLocationButtonIcon}
+                        iconType={'left'}
+                        iconName={'plusmark'}
+                        onPress={() =>  navigation.navigate("add_gift_card")}
+                        title={'Add gift card'}
+                    />
+                    
+                </View>
                 <CText style={Styles.title}>Choose Payment Method</CText>
 
                 <View style={Styles.sectionList}>
