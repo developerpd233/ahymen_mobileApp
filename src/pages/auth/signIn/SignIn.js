@@ -95,8 +95,13 @@ function SignIn(props) {
                 navigation.navigate("otp_verification", {phone:`${payload.phone}`});
             }
         } catch (error) {
-            showTowst('error', 'something Went wrong' , 'Error')
+            showTowst(
+                "error",
+                error?.message?.invalid,
+                "Please Enter Valid Phone"
+            );
             console.log('error ----- 94   ', error , payload)
+            // alert(error.message);
             // if (!error.success) {
             //     setPhoneError(error.message.invalid);
             // }
