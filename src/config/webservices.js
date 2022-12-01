@@ -19,3 +19,4 @@ export const GET_WISHLIST = `${BASE_URL}WishList`;
 export const Add_DELETE_WISHLIST = `${BASE_URL}AddtToWishlist`;
 export const SAVE_ADDRESS = `${BASE_URL}saveAddress`;
 export const NEW_ORDER =`${BASE_URL}order`;
+export const GET_TOKEN   =`${BASE_URL}token`;
