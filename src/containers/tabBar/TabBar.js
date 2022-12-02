@@ -122,6 +122,7 @@ function TabBar(props) {
                     }}
                 />
             </View>
+       
 
         </SafeAreaView>
     );

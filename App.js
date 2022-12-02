@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, Platform, StatusBar } from "react-native";
 import { Auth, Root } from "./src/routing";
 import { getCountries } from "./src/store/actions/Global.action";
-import { CLoading } from "./src/uiComponents";
+import { CLoading, CText } from "./src/uiComponents";
 import SplashScreen from "react-native-splash-screen";
 import { Setting } from "./src/pages/protected";
 
 const App = () => {
     const dispatch = useDispatch();
 
-        const reduxState = useSelector(({ auth  , root}) => {
-            console.log("🚀 ~ file: App.js ~ line 13 ~ reduxState ~ auth", auth);
+        const reduxState = useSelector(({ auth  , root , tranaslate}) => {
+            console.log("🚀 ~ file: App.js ~ line 13 ~ reduxState ~ auth", tranaslate);
             return {
                 getUserProfileLoading: auth.getUserProfileLoading,
                 isLoggedIn: auth.isLoggedIn,
