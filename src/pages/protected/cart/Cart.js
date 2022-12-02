@@ -106,12 +106,12 @@ function Cart(props) {
                         onPress={() => navigation.navigate("store")}
                         title="View Details"
                     />
-                    <CButton
+                    {/* <CButton
                         buttonStyle={Styles.orderListItemButton}
                         buttonText={Styles.orderListItemButtonText}
                         onPress={() => navigation.navigate("add_gift_card")}
                         title="Add gift card"
-                    />
+                    /> */}
                     <CButton
                         buttonStyle={Styles.orderListItemButton}
                         buttonText={Styles.orderListItemButtonText}

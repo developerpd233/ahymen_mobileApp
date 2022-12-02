@@ -216,14 +216,15 @@ export const searchProducts = (payload, CB) => async (dispatch) => {
 };
 
 export const saveAddress = (payload, CB) => async (dispatch) => {
+    console.log("🚀 ~ file: Root.action.js:219 ~ saveAddress ~ payload", payload)
     dispatch({
         type: Root.SAVE_ADDRESS,
         loading: true,
     });
+   await getTokenAndSetIntoHeaders()
 
     try {
         let response = await post(SAVE_ADDRESS, payload);
-        console.log("🚀 ~ file: Root.action.js ~ line 226 ~ saveAddress ~ response", response)
         if (response?.data?.error) {
             handleError(response?.data?.message || "");
             dispatch({ type: Root.SAVE_ADDRESS, loading: false });
@@ -231,12 +232,13 @@ export const saveAddress = (payload, CB) => async (dispatch) => {
             dispatch({
                 type: Root.SAVE_ADDRESS,
                 loading: false,
-                data:
-                    typeof response?.data?.data !== "string"
-                        ? response?.data?.data
-                        : [],
+                data:response?.data?.data
+                    
             });
+            
         }
+        CB && CB(response?.data)    
+
     } catch (error) {
         console.log("🚀 ~ file: Root.action.js ~ line 234 ~ saveAddress ~ error", error)
         handleError(error?.data?.message, { autoHide: true });

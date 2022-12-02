@@ -6,23 +6,26 @@ import {CButton, CInput, CText} from '../../../uiComponents';
 import Styles from "../profile/Profile.style";
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
 import Validations from "./Validations";
-
+import {useSelector} from 'react-redux'
 function CForm(props) {
 
     const {submit, loading, form} = props;
-
+    const valuesss = useSelector((state)=>state?.root?.addressData)
+    const userInfo = useSelector((state)=>state?.auth?.user?.data?.user?.name )
+    console.log("🚀 ~ file: Form.js:14 ~ CForm ~ valuesss", valuesss?.postalCode)
     const name = useRef(null);
     const address = useRef(null);
     const pincode = useRef(null);
 
     return (
         <Formik
+            enableReinitialize={true}
             innerRef={form}
             onSubmit={(values) => submit(values)}
             initialValues={{
-                name:'',
-                address:'',
-                pincode:''
+                name:userInfo ? userInfo : '',
+                address:valuesss?.address ? valuesss?.address :'' ,
+                pincode:valuesss?.postalCode ? valuesss?.postalCode :''
             }}
             validationSchema={Validations}
         >

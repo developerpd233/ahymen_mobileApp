@@ -208,11 +208,16 @@ function Location(props) {
             // addressData :root.
         };
     });
+    
 
     const submit = (values)=>{
-        dispatch(saveAddress(values))
-        console.log('values', values)
+        alert('ddd')
+        dispatch(saveAddress(values, callback))
 
+    }
+    const callback = (res)=>{
+        alert('dd')
+        console.log('res ', res )
     }
 
     return(
