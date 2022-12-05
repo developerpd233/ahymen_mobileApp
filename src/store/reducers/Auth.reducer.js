@@ -25,7 +25,9 @@ export default (state = initialState, action = {}) => {
             };
 
         case AUTH.LOGOUT_USER_API:
-            return { ...state, isLoggedIn: false };
+            return { ...state, 
+                isLoggedIn: action.isLoggedIn,
+                user: action.user , };
 
         case AUTH.GET_USER_PROFILE:
             return {

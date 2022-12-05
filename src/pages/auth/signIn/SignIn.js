@@ -14,6 +14,7 @@ import { showTowst } from "../../../utils/utilFunctions";
 import { sendOtp } from "../../../store/actions/Auth.action";
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import Auth from '../../../store/constants/Auth.constant'
+import { LoginManager, AccessToken, Profile ,LoginButton } from 'react-native-fbsdk-next';
 
 function SignIn(props) {
     const navigation = useNavigation();
@@ -56,26 +57,7 @@ function SignIn(props) {
         payload.loginType =  'user';
         console.log(payload);
         handleCode(payload)
-    //     const data = await dispatch(
-    //         sendOtp({ phone: `+${payload.phone}` })
-    //     ).then((response) => {
-    //         console.log(response,payload.phone);
-    //         // alert(response.data.message)
-    //         if (response?.response.data?.success) {
-    //             navigation.navigate("otp_verification", {
-    //                 phone: `+${payload.phone}`,
-    //             });
-    //         }
-    //     }).catch(function (error) {
-            
-    //         console.log(error , "66666666666666666");  
-    //    });
-
-        // handleCode(payload);
-        // navigation.navigate("otp_verification", {
-        //     phone: `+${payload.phone}`,
-        // });
-        console.log("payload", payload);
+   
     };
 
     const handleCode = async (payload) => {
@@ -101,10 +83,7 @@ function SignIn(props) {
                 "Please Enter Valid Phone"
             );
             console.log('error ----- 94   ', error , payload)
-            // alert(error.message);
-            // if (!error.success) {
-            //     setPhoneError(error.message.invalid);
-            // }
+          
         } finally {
             setIsLoading(false);
         }
@@ -178,6 +157,22 @@ function SignIn(props) {
             });
         }
     }
+    const onFBButtonPress = async () => {
+        const result = await LoginManager.logInWithPermissions(['email', "public_profile"]);
+        const data = await AccessToken.getCurrentAccessToken();
+        const currentProfile = await Profile.getCurrentProfile();
+        handleGetFbEmail(data.accessToken, currentProfile)
+    };
+    
+    const handleGetFbEmail = async (accessToken, data) => {
+        setIsLoading(true);
+        try {
+            const res = await ApiSauce.getWithoutToken(FB_GET_USER(accessToken))
+            handleCreate("facebook", data, res, accessToken)
+        } catch (error) {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <Container
@@ -204,8 +199,9 @@ function SignIn(props) {
                 phoneErr={phoneError}
                 onLoginPress={() => navigation.navigate("login")}
                 onGooglePress={()=>RequestGoogleLogin()}
-                onFacebookPress={()=>{alert('ghj')}}
+                onFacebookPress={()=>{ onFBButtonPress() }}
             />
+           
 
             <Modal
                 transparent={true}

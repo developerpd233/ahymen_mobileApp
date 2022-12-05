@@ -222,7 +222,7 @@ export const guestCheckout = (payload, CB) => async (dispatch) => {
     }
 };
 
-export const logout =
+export const userLogout =
     (showToast = true, type, message = "Successfully logout!") =>
     async (dispatch) => {
         // if(showToast) {
@@ -232,6 +232,6 @@ export const logout =
         //         // handleSuccess(message);
         //     }
         // }
-        // dispatch({ type: AUTH.LOGOUT_USER_API});
+        dispatch({ type: AUTH.LOGOUT_USER_API , isLoggedIn:false});
         // await removeUserDetail();
     };

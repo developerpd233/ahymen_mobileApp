@@ -10,9 +10,15 @@ import {useSelector} from 'react-redux'
 function CForm(props) {
 
     const {submit, loading, form} = props;
-    const valuesss = useSelector((state)=>state?.root?.addressData)
-    const userInfo = useSelector((state)=>state?.auth?.user?.data?.user?.name )
-    console.log("🚀 ~ file: Form.js:14 ~ CForm ~ valuesss", valuesss?.postalCode)
+    
+    const reduxState = useSelector(({ root, auth }) => {
+        console.log("🚀 ~ file: Form.js:15 ~ reduxState ~ root", auth)
+        return {
+            user:auth.user.data.user,
+            // loading: auth.sendOtpLoading,
+            address: root.addressData,
+        };
+    });
     const name = useRef(null);
     const address = useRef(null);
     const pincode = useRef(null);
@@ -23,9 +29,9 @@ function CForm(props) {
             innerRef={form}
             onSubmit={(values) => submit(values)}
             initialValues={{
-                name:userInfo ? userInfo : '',
-                address:valuesss?.address ? valuesss?.address :'' ,
-                pincode:valuesss?.postalCode ? valuesss?.postalCode :''
+                name:reduxState?.user?.name || '',
+                address:reduxState?.address?.address || '' ,
+                pincode:reduxState?.address?.postalCode || '' 
             }}
             validationSchema={Validations}
         >

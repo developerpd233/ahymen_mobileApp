@@ -19,8 +19,11 @@ function AddGiftCard(props) {
         showCart: true,
     };
 
-    const submit = () => {
-        navigation.goBack();
+    const submit = (values) => {
+    
+        navigation.navigate('checkout',{
+            values
+        });
     };
 
     return (
@@ -71,6 +74,12 @@ function AddGiftCard(props) {
                                             fontSize: 18,
                                         }]}>Link</CText>
                                         <CInput 
+                                         multiline={true}
+                                         value={values.link}
+                                         onChangeText={handleChange('link')}
+                                         error={errors.link}
+                                         placeholder="Type your card here"
+     
                                         //  style={[Styles.orderItemBottomQuantityText, {
                                         //     fontFamily: themes.font.extraLight,
                                         //     fontSize: 14,
@@ -81,12 +90,12 @@ function AddGiftCard(props) {
                                 </View>
 
                                 <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-
+{/* 
                                     <CButton title={'Preview'}
                                         loading={false}
                                         buttonText={Styles.buttonText}
                                         buttonStyle={[Styles.buttonStyle, Styles.borderBtn]}
-                                        onPress={() => handleSubmit()} />
+                                        onPress={() => handleSubmit()} /> */}
 
                                     <CButton title={'Confirm'}
                                         loading={false}

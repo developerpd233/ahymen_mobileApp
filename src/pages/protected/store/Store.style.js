@@ -221,7 +221,8 @@ const Styles = StyleSheet.create({
       countText: { fontSize: 16, color: '#565656' },
       plusText: { fontSize: 19, color: '#565656' },
       buttonStyle:{
-        width:170,
+        flex:1,
+        // width:170,
         marginVertical:5,
         marginHorizontal:5
       },

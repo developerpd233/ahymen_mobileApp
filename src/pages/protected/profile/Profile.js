@@ -29,13 +29,24 @@ function Profile(props) {
     const dispatch = useDispatch()
 
     const logout = async () => {
+        try {
+            
         await GoogleSignin.signOut()
         dispatch({
             type: Auth.LOGOUT_USER_API,
-            loading: false,
             user: null,
             isLoggedIn: false,
         });
+
+        } catch (error) {
+            dispatch({
+                type: Auth.LOGOUT_USER_API,
+                user: null,
+                isLoggedIn: false,
+            });
+            
+        }
+      
     };
 
     const myProfile = () => {

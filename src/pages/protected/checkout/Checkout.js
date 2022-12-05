@@ -29,7 +29,9 @@ import {
 
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
-function Checkout(props) {
+function Checkout({route}) {
+    const {values } = route?.params ||''
+    console.log("🚀 ~ file: Checkout.js:34 ~ Checkout ~ values", values)
     const dispatch = useDispatch()
     const form = useRef(null);
     const cardNumber = useRef(null);
@@ -101,6 +103,7 @@ function Checkout(props) {
    }
    
    const handle_order = async (values) => {
+    setLoading(true)
      const token = await getValueIntoLocalStorage(TOKEN)
     const tokenRes = await ApiSauce.getWithToken(GET_TOKEN, token)
     console.log('tokenRes', tokenRes)
@@ -122,8 +125,10 @@ function Checkout(props) {
           })
           .then(result => handleData(result.nonce , token))
           .catch((error) => {
+            setLoading(false)
             console.log("🚀 ~ file: Checkout.js:169 ~ consthandle_order= ~ error", error)
             if (error.code === 'USER_CANCELLATION') {
+
               // update your UI to handle cancellation
             } else {
 
@@ -139,6 +144,7 @@ function Checkout(props) {
         
     }
     const handleData = async (producttoken , userToken) => {
+      console.log("🚀 ~ file: Checkout.js:142 ~ handleData ~ producttoken", producttoken)
       
         const formData = new FormData()
         await  reduxState?.data.map((e, ind)=>{
@@ -161,12 +167,15 @@ function Checkout(props) {
         formData.append(`address2` , 'Travelodge Liverpool Central The Strand')
         formData.append(`delivery_date` , '2022-10-29')
         formData.append(`nonce_token` , producttoken)
+        formData.append(`giftCardText` , values?.text || '')
+        formData.append(`giftCardLink` , values?.link || '')
 
        
         try {
 
 
           const response = await ApiSauce.postWithToken(NEW_ORDER , formData , userToken )
+            console.log("🚀 ~ file: Checkout.js:175 ~ handleData ~ response", response)
             updateThanksModal(true)
             dispatch(removeAllProduct())
         } catch (error) {
@@ -244,7 +253,7 @@ function Checkout(props) {
                 </View>
                 <CText style={Styles.title}>Choose Payment Method</CText>
 
-                <View style={Styles.sectionList}>
+                {/* <View style={Styles.sectionList}>
                     <Collapse style={Styles.sectionListItem}
                               isExpanded={selectedMethod === 'VISA'}
                               onToggle={() => onSelectMethod('VISA')}>
@@ -301,7 +310,7 @@ function Checkout(props) {
                         </CollapseBody>
                     </Collapse>
 
-                </View>
+                </View> */}
 
                 <CButton
                     buttonStyle={Styles.buttonSpace}
