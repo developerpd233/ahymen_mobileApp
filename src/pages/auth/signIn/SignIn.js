@@ -125,15 +125,18 @@ function SignIn(props) {
             formData.append('GoogleEmail', data.user.email);
         }
         else if (social_type == 'facebook') {
-            formData.append('provider', 'facebook')
-            formData.append('name', data.name);
-            formData.append('provider_id', accessToken);
-            formData.append('email', res.email);
+            formData.append('loginType', 'social')
+            formData.append('socialType', 'facebook')
+            formData.append('socialId', data.user.id);
+            formData.append('GoogleName', data.user.name);
+            formData.append('GoogleEmail', data.user.email);
         }
         try {
             const res = await ApiSauce.post(LOGIN, formData);
+            console.log("🚀 ~ file: SignIn.js:136 ~ handleCreate ~ res", res)
             handleCheckUserData(res);
         } catch (error) {
+            console.log("🚀 ~ file: SignIn.js:138 ~ handleCreate ~ error", error)
             setIsLoading(false);
             console.log(
                 '🚀  handleCreate ~ error',
@@ -147,6 +150,7 @@ function SignIn(props) {
     };
 
     const handleCheckUserData = (loginRes) => {
+        console.log("🚀 ~ file: SignIn.js:153 ~ handleCheckUserData ~ loginRes", loginRes)
         if (loginRes) {
             setIsLoading(false)
             dispatch({
@@ -158,10 +162,17 @@ function SignIn(props) {
         }
     }
     const onFBButtonPress = async () => {
-        const result = await LoginManager.logInWithPermissions(['email', "public_profile"]);
-        const data = await AccessToken.getCurrentAccessToken();
-        const currentProfile = await Profile.getCurrentProfile();
-        handleGetFbEmail(data.accessToken, currentProfile)
+        try {
+            const result = await LoginManager.logInWithPermissions(['email', "public_profile"]);
+            console.log("🚀 ~ file: SignIn.js:167 ~ onFBButtonPress ~ result", result)
+            const data = await AccessToken.getCurrentAccessToken();
+            const currentProfile = await Profile.getCurrentProfile();
+        } catch (error) {
+            console.log("🚀 ~ file: SignIn.js:171 ~ onFBButtonPress ~ error", error)
+            
+        }
+      
+        // handleGetFbEmail(data.accessToken, currentProfile)
     };
     
     const handleGetFbEmail = async (accessToken, data) => {

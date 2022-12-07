@@ -52,6 +52,8 @@ function Checkout({route}) {
     const [selectedMethod, updateMethod] = useState('VISA');
     const [thanksModal, updateThanksModal] = useState(false);
     const [isLoading, setLoading] = useState(false);
+    const [webUrl, setWebUrl] = useState();
+    console.log("🚀 ~ file: Checkout.js:56 ~ Checkout ~ webUrl", webUrl)
 
 
     const headerProps = {
@@ -178,6 +180,7 @@ function Checkout({route}) {
             console.log("🚀 ~ file: Checkout.js:175 ~ handleData ~ response", response)
             updateThanksModal(true)
             dispatch(removeAllProduct())
+            setWebUrl(response.data)
         } catch (error) {
              handleError(error?.data?.data, { autoHide: true });    
             console.log("🚀 ~ file: Checkout.js:119 ~ consthandle_order= ~ error", error , formData)
@@ -327,6 +330,10 @@ function Checkout({route}) {
                 onClose={() => (updateThanksModal(!thanksModal), 
             navigation.navigate('Home')
             )}
+            trackOrder={()=>{navigation.navigate('OrderTraking' ,{
+                screen: 'Ordertraking',
+                params: { abc: webUrl },
+              } )}}
             />
 
         </Container>

@@ -19,7 +19,7 @@ import { AddCart, addProduct, removeProduct } from "../../../../store/actions/Ca
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { GET_WISHLIST, Add_DELETE_WISHLIST } from "../../../../config/webservices";
 import ApiSauce from "../../../../utils/network";
-
+import Toast from 'react-native-simple-toast';
 function ProductDetail({ route }) {
     
     const { item } = route?.params;
@@ -124,6 +124,7 @@ function ProductDetail({ route }) {
     const handleConfirm = ()=> {
         setDatePickerVisibility(false)
         addToBasket()
+        Toast.show('Product added successfully', Toast.LONG)
     }
 
     const onSelect = (item, i) => {
@@ -254,11 +255,13 @@ function ProductDetail({ route }) {
     const increment = async (val) => {
         dispatch(addProduct(val))
         setQunatity(quantity+1)
+        Toast.show('Add item successfully', Toast.LONG)
     }
     
     const decrement = async (val) => {
         dispatch(removeProduct(val))
         setQunatity(quantity <= 1 ?  1:   quantity-1 )
+        Toast.show('Remove item successfully', Toast.LONG)
     }
     
     return (

@@ -6,7 +6,7 @@ import Style from "./ThanksForOrdering.style";
 
 function ThanksForOrdering(props) {
 
-    const {loading, onClose, isOpen, selected} = props;
+    const {loading, onClose, isOpen, selected ,trackOrder} = props;
 
 
 
@@ -45,7 +45,7 @@ function ThanksForOrdering(props) {
                 <CButton title={'Track Order'}
                          type={'outline'}
                          loading={loading}
-                         onPress={() => onClose()}/>
+                         onPress={trackOrder}/>
 
             </View>
         </CModal>

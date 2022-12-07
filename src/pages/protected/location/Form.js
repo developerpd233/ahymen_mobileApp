@@ -12,16 +12,16 @@ function CForm(props) {
     const {submit, loading, form} = props;
     
     const reduxState = useSelector(({ root, auth }) => {
-        console.log("🚀 ~ file: Form.js:15 ~ reduxState ~ root", auth)
         return {
-            user:auth.user.data.user,
+            user:auth?.user?.data?.user,
             // loading: auth.sendOtpLoading,
-            address: root.addressData,
+            address: root?.addressData?.address,
+            postalCode:root?.addressData?.postalCode 
         };
     });
     const name = useRef(null);
     const address = useRef(null);
-    const pincode = useRef(null);
+    const postalCode = useRef(null);
 
     return (
         <Formik
@@ -29,9 +29,9 @@ function CForm(props) {
             innerRef={form}
             onSubmit={(values) => submit(values)}
             initialValues={{
-                name:reduxState?.user?.name || '',
-                address:reduxState?.address?.address || '' ,
-                pincode:reduxState?.address?.postalCode || '' 
+                name:reduxState?.user?.name ,
+                address:reduxState?.address  ,
+                postalCode:reduxState?.postalCode  
             }}
             validationSchema={Validations}
         >
@@ -67,7 +67,7 @@ function CForm(props) {
                         />
 
                         <CInput
-                            ref={pincode}
+                            ref={postalCode}
                             inputLabel={'Pincode'}
                             placeholder={'000000'}
                             value={values.postalCode}

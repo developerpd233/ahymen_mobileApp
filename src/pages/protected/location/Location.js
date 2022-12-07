@@ -10,6 +10,7 @@ import Icons from '../../../assets/icons/CustomIcon';
 import {useNavigation} from "@react-navigation/native";
 import { useDispatch, useSelector } from 'react-redux';
 import { saveAddress } from '../../../store/actions/Root.action';
+import Toast from 'react-native-simple-toast';
 
 const origin = { latitude: 19.363631, longitude: -99.182545 };
 const destination = { latitude: 19.2932543, longitude: -99.1794758 };
@@ -211,12 +212,13 @@ function Location(props) {
     
 
     const submit = (values)=>{
-        alert('ddd')
         dispatch(saveAddress(values, callback))
 
     }
     const callback = (res)=>{
-        alert('dd')
+        Toast.show('Location added successfully', Toast.LONG)
+
+        // alert('dd')
         console.log('res ', res )
     }
 

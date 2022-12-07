@@ -9,6 +9,7 @@ import {
     LocationStack,
     ProfileStack,
     StoreStack,
+    OrderTraking
 } from "./stacks";
 
 const Tab = createBottomTabNavigator();
@@ -26,6 +27,7 @@ const Root = ({initial}) => {
             <Tab.Screen name="Cart" component={CartStack} />
             <Tab.Screen name="Location" component={LocationStack} />
             <Tab.Screen name="Profile" component={ProfileStack} />
+            <Tab.Screen name="OrderTraking" component={OrderTraking} />
         </Tab.Navigator>
     );
 };

@@ -1,0 +1,27 @@
+import { StyleSheet, ScrollView, View } from 'react-native'
+import React from 'react'
+import { WebView } from 'react-native-webview';
+import {CButton} from "../../../uiComponents"
+const Ordertraking = (props) => {
+    const data = props?.route?.params?.abc?.order_view
+    console.log("🚀 ~ file: Ordertraking.js:7 ~ Ordertraking ~ data", data)
+  return (
+    <View style={{flex:1 , marginBottom:50}}>
+
+        {/* <Text>helhbjnkmll</Text> */}
+        <WebView source={{ uri:data}} />
+        <View style={{justifyContent:'center',alignSelf:'flex-start',marginHorizontal:20}}>
+           <CButton 
+           buttonStyle={{width:100,}}
+           title='Continue'
+           onPress={()=>{props?.navigation?.navigate('Home')}}
+           />
+        </View>
+        
+    </View>
+  )
+}
+
+export default Ordertraking
+
+const styles = StyleSheet.create({})

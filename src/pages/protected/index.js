@@ -13,7 +13,7 @@ import Profile from './profile/Profile'
 import MyInfo from './profile/myInfo/MyInfo'
 import MyOrder from './profile/myOrder/MyOrder'
 import MyWishlist from './profile/myWishlist/MyWishlist'
-
+import Ordertraking from "./OrderTraking/Ordertraking"
 export  {
     Home,
     Store,
@@ -29,5 +29,6 @@ export  {
     MyInfo,
     MyOrder,
     MyWishlist,
-    AddGiftCard
+    AddGiftCard,
+    Ordertraking
 }

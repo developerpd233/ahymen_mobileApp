@@ -10,6 +10,8 @@ import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { themes } from '../../../../theme/colors';
+import Toast from 'react-native-simple-toast';
+
 function AddGiftCard(props) {
 
     const navigation = useNavigation();
@@ -24,6 +26,8 @@ function AddGiftCard(props) {
         navigation.navigate('checkout',{
             values
         });
+        Toast.show('Gift Data added successfully', Toast.LONG)
+
     };
 
     return (
