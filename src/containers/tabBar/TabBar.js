@@ -7,7 +7,9 @@ import {MappedElement, getLayoutDirection} from "../../utils/methods";
 import {themes} from "../../theme/colors";
 import {CText} from "../../uiComponents";
 import posed from "react-native-pose";
-
+import '../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
+import { useSelector } from 'react-redux';
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 5;
 const SpotLight = posed.View({
@@ -20,6 +22,18 @@ const SpotLight = posed.View({
 });
 
 function TabBar(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
+    const reduxState = useSelector(({ auth, root, language }) => {
+        return {
+            loading: root.categoryLoadingproduct,
+            data: root.subcategoryProduct,
+            language:language?.language?.lan
+
+        };
+    });
+
 
     const {navigation, state} = props;
 
@@ -47,7 +61,7 @@ function TabBar(props) {
 
     const routes = [
         {
-            name: 'Home',
+            name: t('Home'),
             key: 'home',
             icon: 'home',
             onPress: () => navigation.navigate('Home'),
@@ -55,7 +69,7 @@ function TabBar(props) {
             marginTop: -40
         },
         {
-            name: 'Store',
+            name: t('Search'),
             key: 'store',
             icon: 'search',
             onPress: () => navigation.navigate('Store', {
@@ -65,7 +79,7 @@ function TabBar(props) {
             fontSize: 30
         },
         {
-            name: 'Cart',
+            name: t('Cart'),
             key: 'cart',
             icon: 'bookmark',
             onPress: () =>  navigation.navigate('Cart', {
@@ -76,14 +90,14 @@ function TabBar(props) {
             fontSize: 30
         },
         {
-            name: 'Location',
+            name: t('Location'),
             key: 'location',
             icon: 'pin-location',
             onPress: () => navigation.navigate('Location'),
             fontSize: 30
         },
         {
-            name: 'Profile',
+            name: t('Profile'),
             key: 'profile',
             icon: 'user-2',
             onPress: () => navigation.navigate('Profile'),

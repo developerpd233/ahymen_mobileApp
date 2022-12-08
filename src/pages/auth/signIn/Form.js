@@ -1,4 +1,4 @@
-import React, { useRef, memo } from "react";
+import React, { useRef, memo, useEffect, useState } from "react";
 import { Formik } from "formik";
 import Validations from "./Validations";
 import { View } from "react-native";
@@ -7,8 +7,23 @@ import AuthStyle from "../Auth.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import Auth from "../../../store/constants/Auth.constant";
-
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 function CForm(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
+
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
     const {
         submit,
         loading,
@@ -50,10 +65,10 @@ function CForm(props) {
                         <View style={AuthStyle.card}>
                             <View style={AuthStyle.cardHeader}>
                                 <CText style={AuthStyle.cardHeaderTitle}>
-                                    Sign In
+                                    {t('Sign_in')}
                                 </CText>
                                 <CText style={AuthStyle.cardHeaderSubTitle}>
-                                    Sign In with phone number
+                                {t("Sign_in_with_phone_number")}
                                 </CText>
                             </View>
 
@@ -65,7 +80,7 @@ function CForm(props) {
                                     selectedCountry={selectedCountry}
                                     onPress={() => toggleCountryModal()}
                                     keyboardType={"numeric"}
-                                    inputLabel={"Phone Number"}
+                                    inputLabel={t('Phone_number')}
                                     placeholder={"000-000-0000"}
                                     value={values?.phone}
                                     onChangeText={(val) => {
@@ -82,17 +97,17 @@ function CForm(props) {
                                     // mask={masks.phone}
                                 />
                                 <CButton
-                                    title={"Continue"}
+                                    title={t("Continue")}
                                     loading={loading}
                                     onPress={() => handleSubmit()}
                                 />
 
                                 <CText style={AuthStyle.cardBottomText2}>
-                                    OR
+                                {t('Or')}
                                 </CText>
 
                                 <CButton
-                                    title={"Continue without login"}
+                                    title={t("Continue_without_login")}
                                     loading={loading}
                                     onPress={() => continueWithoutLogin()}
                                 />
@@ -100,13 +115,13 @@ function CForm(props) {
 
                             <CText style={AuthStyle.cardBottomText}>
                                 {" "}
-                                We’ll send OTP for verification{" "}
+                                {t('We_send_OTP_for_verification')}{" "}
                             </CText>
                         </View>
                         <View style={AuthStyle.orContainer}>
                             <CText style={AuthStyle.orContainerText}>
                                 {" "}
-                                - OR -
+                                - {t('Or')} -
                             </CText>
                         </View>
 
@@ -118,21 +133,21 @@ function CForm(props) {
 
                         <CButton
                             type="outline"
-                            title="Sign In with Facebook"
+                            title={t('Sign_in_with_facebook')}
                             buttonStyle={AuthStyle.bottomButton}
                             onPress={onFacebookPress}
                         />
 
                         <CButton
                             type="outline"
-                            title="Sign In with Google"
+                            title={t('Sign_in_with_google')}
                             buttonStyle={AuthStyle.bottomButton}
                             onPress={onGooglePress}
                         />
                         <View style={AuthStyle.orContainer}>
                             <CText style={AuthStyle.cardBottomText}>
                                 {" "}
-                                Already have account{" "}
+                                {t('Already_have_account')}{" "}
                             </CText>
                             <TouchableOpacity
                                 // onPress={() =>
@@ -146,7 +161,7 @@ function CForm(props) {
                                         { marginTop: 7 },
                                     ]}
                                 >
-                                    Sign In
+                                   {t('Sign_up')}
                                 </CText>
                             </TouchableOpacity>
                         </View>

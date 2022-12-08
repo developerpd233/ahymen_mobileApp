@@ -6,26 +6,44 @@ import { getCountries } from "./src/store/actions/Global.action";
 import { CLoading, CText } from "./src/uiComponents";
 import SplashScreen from "react-native-splash-screen";
 import { Setting } from "./src/pages/protected";
-
+import './src/utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
+import {changeLanguage} from './src/store/actions/Language.action'
 const App = () => {
+    const {t, i18n} = useTranslation();
+
     const dispatch = useDispatch();
 
-        const reduxState = useSelector(({ auth  , root , tranaslate}) => {
-            console.log("🚀 ~ file: App.js ~ line 13 ~ reduxState ~ auth", tranaslate);
+        const reduxState = useSelector(({ auth  , root , language}) => {
+            console.log("🚀 ~ file: App.js ~ line 13 ~ reduxState ~ auth", auth);
             return {
                 getUserProfileLoading: auth.getUserProfileLoading,
                 isLoggedIn: auth.isLoggedIn,
                 user: auth.user,
+                language:language?.language?.lan
             };
         });
+       const dY = useSelector((state)=>console.log('============',state))
 
     useEffect(() => {
         setTimeout(() => {
             SplashScreen.hide();
         }, 3000);
         dispatch(getCountries());
-        // dispatch(getProfile());
+        dispatch(changeLanguage({lan:'en'}));
+        changeLang()
+
     }, []);
+    useEffect(()=>{
+        changeLang()
+    },[reduxState?.language])
+
+    const changeLang = () => {
+        i18n
+          .changeLanguage(reduxState?.language)
+          .then(() => {})
+          .catch(err => console.log(err));
+      };
 
     const renderRouting = (value, initial) => {
         switch (value) {

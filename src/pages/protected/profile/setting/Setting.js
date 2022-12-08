@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { CText } from '../../../../uiComponents'
+import { CButton, CText } from '../../../../uiComponents'
 import { Container } from '../../../../containers'
 import Styles from "./Setting.style";
 import { MappedElement } from '../../../../utils/methods';
 import Icon from '../../../../assets/icons/CustomIcon';
+import { changeLanguage } from 'i18next';
 
 
 const Setting = () => {

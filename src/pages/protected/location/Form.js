@@ -1,4 +1,4 @@
-import React, {useRef, memo} from 'react';
+import React, {useRef, memo, useEffect, useState} from 'react';
 import {Formik} from 'formik';
 // import Validations from './Validations';
 import {View} from 'react-native';
@@ -7,8 +7,23 @@ import Styles from "../profile/Profile.style";
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
 import Validations from "./Validations";
 import {useSelector} from 'react-redux'
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 function CForm(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
 
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
     const {submit, loading, form} = props;
     
     const reduxState = useSelector(({ root, auth }) => {
@@ -38,11 +53,11 @@ function CForm(props) {
             {({handleChange, values, handleSubmit, errors}) => {
                 return (
                     <View style={[Styles.section, {marginHorizontal: 0}]}>
-                        <CText style={Styles.sectionTitle}>Add Address</CText>
+                        <CText style={Styles.sectionTitle}>{t('Add_address')}</CText>
                         <CInput
                             ref={name}
-                            inputLabel={'Name'}
-                            placeholder={'Ayham'}
+                            inputLabel={t('Name')}
+                            placeholder={t('Ahyman')}
                             value={values.name}
                             onChangeText={handleChange('name')}
                             error={errors.name}
@@ -52,8 +67,8 @@ function CForm(props) {
 
                         <CInput
                             ref={address}
-                                inputLabel={'Address'}
-                            placeholder={'Address for delivery'}
+                                inputLabel={t('Address')}
+                            placeholder={t('Address_for_delivery')}
                             value={values.address}
                             onChangeText={handleChange('address')}
                             error={errors.address}
@@ -63,12 +78,12 @@ function CForm(props) {
                                 paddingBottom: 15,
                             }}
                             returnKeyType="next"
-                            onSubmitEditing={() => pincode.current.focus()}
+                            onSubmitEditing={() => postalCode.current.focus()}
                         />
 
                         <CInput
                             ref={postalCode}
-                            inputLabel={'Pincode'}
+                            inputLabel={t('Pincode')}
                             placeholder={'000000'}
                             value={values.postalCode}
                             onChangeText={handleChange('postalCode')}
@@ -77,7 +92,7 @@ function CForm(props) {
                             onSubmitEditing={() => handleSubmit()}
                         />
 
-                        <CButton title={'Save'}
+                        <CButton title={t('Save')}
                                  loading={loading}
                                  onPress={() => handleSubmit()}/>
                     </View>

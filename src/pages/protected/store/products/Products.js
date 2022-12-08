@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { Container } from "../../../../containers";
 import { CList, CInput, CListItem } from "../../../../uiComponents";
 import { View } from "react-native";
@@ -11,8 +11,24 @@ import {
     searchProducts,
 } from "../../../../store/actions/Root.action";
 import { Root } from "../../../../routing";
+import '../../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 
 function Products({ route }) {
+    const {t, i18n} = useTranslation();
+  
+    const [currentLanguage,setLanguage] = useState('ar');
+
+    // useEffect(() => {
+    //     changeLanguage('ar')
+    // },[])
+    
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
     const { item } = route.params;
     const dispatch = useDispatch();
 
@@ -30,7 +46,7 @@ function Products({ route }) {
     const navigation = useNavigation();
 
     const headerProps = {
-        headerTitle: "Flower Type",
+        headerTitle: t('Flower_type'),
         showCart: true,
     };
 
@@ -108,7 +124,7 @@ function Products({ route }) {
         return (
             <CListItem
                 image={{ uri: item?.ProductImage?.[0] }}
-                title={item?.ProductName}
+                title={t('Product_Details')}
                 price={item?.ProductPrice}
                 listItemView={Styles.noBorderAndNoShadow}
                 onPress={() => select(item)}

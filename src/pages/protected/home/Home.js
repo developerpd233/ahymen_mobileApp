@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { Dimensions, View, Text, StyleSheet } from "react-native";
-import { CText, ProgressiveImage } from "../../../uiComponents";
+import { CText, ProgressiveImage, CButton} from "../../../uiComponents";
 import Swiper from "react-native-swiper";
 import Styles from "./Home.style";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +14,23 @@ import Video from 'react-native-video';
 const { width, height } = Dimensions.get("window");
 import ApiSauce from "../../../utils/network"
 import { GET_TRENDING, TRENDING } from "../../../config/webservices"
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 function Home(props) {
+    // language translation func
+    const {t, i18n} = useTranslation();
+  
+    const [currentLanguage,setLanguage] = useState('en');
+    
+
+    
+    // const changeLanguage = value => {
+    //   console.log("🚀 ~ file: Home.js:26 ~ changeLanguage ~ value", value)
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
 
     const [data, setData] = useState()
     const videosData =[
@@ -101,7 +117,7 @@ source={val?.uri}
     };
 
     const headerProps = {
-        headerTitle: "Trending",
+        headerTitle: t('Trending'),
         transparent: true,
         showCart: true,
         hideBackButton: false,
@@ -115,9 +131,13 @@ source={val?.uri}
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1}}>
 
             <Header {...headerProps} />
+         
+
+
+         
             <Swiper
                 ref={slider}
                 style={{ backgroundColor: "transparent"  }}
@@ -129,6 +149,7 @@ source={val?.uri}
  
                 {renderSlides()}
             </Swiper>
+            
         </View>
     );
 }

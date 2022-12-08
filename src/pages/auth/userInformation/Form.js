@@ -27,18 +27,18 @@ function CForm(props) {
                         <View style={AuthStyle.card}>
                             <View style={AuthStyle.cardHeader}>
                                 <CText style={AuthStyle.cardHeaderTitle}>
-                                    Sign up
+                                    {t('Sign_up')}
                                 </CText>
                                 <CText style={AuthStyle.cardHeaderSubTitle}>
-                                    Register your account
+                                {t('Register_an_account')}
                                 </CText>
                             </View>
 
                             <View style={AuthStyle.cardBody}>
                                 <CInput
                                     ref={fullName}
-                                    inputLabel={"Full Name"}
-                                    placeholder={"Martha Nielsen"}
+                                    inputLabel={t("Full_name")}
+                                    placeholder={t("Martha Nielsen")}
                                     value={values.name}
                                     onChangeText={handleChange("name")}
                                     error={errors.fullName}
@@ -50,7 +50,7 @@ function CForm(props) {
 
                                 <CInput
                                     ref={password}
-                                    inputLabel={"Password"}
+                                    inputLabel={t("Password")}
                                     placeholder={"*************"}
                                     value={values.password}
                                     onChangeText={handleChange("password")}
@@ -64,7 +64,7 @@ function CForm(props) {
 
                                 <CInput
                                     ref={cpassword}
-                                    inputLabel={"Confirm Password"}
+                                    inputLabel={t("Confirm_password")}
                                     placeholder={"*************"}
                                     value={values.c_password}
                                     secureTextEntry={true}
@@ -78,8 +78,8 @@ function CForm(props) {
 
                                 <CInput
                                     ref={email}
-                                    inputLabel={"Email Address"}
-                                    placeholder={"Martha765@gmail.com"}
+                                    inputLabel={t("Email_address")}
+                                    placeholder={t("Martha765@gmail.com")}
                                     value={values.email}
                                     onChangeText={handleChange("email")}
                                     error={errors.email}
@@ -90,7 +90,7 @@ function CForm(props) {
                             </View>
 
                             <CButton
-                                title={"Submit"}
+                                title={t("Submit")}
                                 loading={loading}
                                 onPress={() => handleSubmit()}
                             />

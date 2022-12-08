@@ -14,6 +14,7 @@ import MyInfo from './profile/myInfo/MyInfo'
 import MyOrder from './profile/myOrder/MyOrder'
 import MyWishlist from './profile/myWishlist/MyWishlist'
 import Ordertraking from "./OrderTraking/Ordertraking"
+import Setting from './profile/setting/Setting'
 export  {
     Home,
     Store,
@@ -30,5 +31,6 @@ export  {
     MyOrder,
     MyWishlist,
     AddGiftCard,
-    Ordertraking
+    Ordertraking,
+    Setting
 }

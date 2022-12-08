@@ -8,7 +8,8 @@ import {
     Cart,
     Proceed,
     Checkout,
-    GuestCheckout
+    GuestCheckout,
+    Setting
 } from "../../pages/protected";
 import {createStackNavigator} from "@react-navigation/stack";
 import Location from "../../pages/protected/location/Location";
@@ -34,6 +35,7 @@ function StoreStack() {
             <Stack.Screen name="proceed" component={Proceed} />
             <Stack.Screen name="checkout" component={Checkout} />
             <Stack.Screen name="location" component={Location} />
+            <Stack.Screen name="Setting" component={Setting} />
 
         </Stack.Navigator>
     );

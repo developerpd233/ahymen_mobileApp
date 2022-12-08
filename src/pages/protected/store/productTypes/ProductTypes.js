@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { Container } from "../../../../containers";
 import { CList, CInput, CListItem } from "../../../../uiComponents";
 import { View } from "react-native";
@@ -11,8 +11,25 @@ import {
     searchCategory,
     searchSubCategory,
 } from "../../../../store/actions/Root.action";
+import '../../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 
 function ProductTypes({ route }) {
+    const {t, i18n} = useTranslation();
+  
+    const [currentLanguage,setLanguage] = useState('ar');
+
+    // useEffect(() => {
+    //     changeLanguage('ar')
+    // },[])
+    
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
+
     const { item } = route?.params;
     console.log(
         "🚀 ~ file: ProductTypes.js ~ line 17 ~ ProductTypes ~ item",
@@ -33,7 +50,7 @@ function ProductTypes({ route }) {
     const navigation = useNavigation();
 
     const headerProps = {
-        headerTitle: "Choose type",
+        headerTitle: t('Choose_type'),
         showCart: true,
     };
 
@@ -105,7 +122,7 @@ function ProductTypes({ route }) {
             <CListItem
                 image={{ uri: item?.SubCategoryImage }}
                 type={"horizontal"}
-                title={item?.SubCategoryName}
+                title={t('Quantity')}
                 onPress={() => select(item)}
                 rightIconName={"arrow-forward"}
             />

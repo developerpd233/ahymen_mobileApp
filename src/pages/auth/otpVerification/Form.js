@@ -7,8 +7,23 @@ import AuthStyle from '../Auth.style';
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 import GlobalStyle from "../../../assets/stylings/GlobalStyle";
 import {themes} from "../../../theme/colors";
-
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 function CForm(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
+
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
     const {submit, loading, resendOtp} = props;
 
     const form = useRef(null);
@@ -30,11 +45,10 @@ function CForm(props) {
                         <View style={[AuthStyle.card,{ marginTop: 20}]}>
                             <View style={AuthStyle.cardHeader}>
                                 <CText style={AuthStyle.cardHeaderTitle}>
-                                    Verification
+                                    {t("Verification")}
                                 </CText>
                                 <CText style={AuthStyle.cardHeaderSubTitle}>
-                                    A 4- Digit PIN has Been sent to your email address,
-                                    enter it below to continue
+                                    {t('Digit_PIN')}
                                 </CText>
                             </View>
 
@@ -60,14 +74,14 @@ function CForm(props) {
 
                                 <CountDownTimer text={'Request a new code in'} initialValue={5}>
                                     <View style={AuthStyle.linkButtonContainer}>
-                                        <CText style={AuthStyle.linkButtonText}>Don’t receive OTP code</CText>
+                                        <CText style={AuthStyle.linkButtonText}>{t('Dont_receive_OTP_code')}</CText>
                                         <TouchableOpacity style={AuthStyle.linkButtonWithIcon} onPress={resendOtp}>
-                                            <CText style={AuthStyle.linkButtonOtherText}>Resend</CText>
+                                            <CText style={AuthStyle.linkButtonOtherText}>{t('Resend')}</CText>
                                         </TouchableOpacity>
                                     </View>
                                 </CountDownTimer>
 
-                                <CButton title={'Continue'}
+                                <CButton title={t('Continue')}
                                          loading={loading}
                                          onPress={() => handleSubmit()}/>
                             </View>

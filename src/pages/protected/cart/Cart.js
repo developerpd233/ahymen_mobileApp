@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState , useEffect} from "react";
 import { View  , TouchableOpacity , Text} from "react-native";
 import { Container } from "../../../containers";
 import { CText, CButton, CListItem, CEmpty } from "../../../uiComponents";
@@ -8,8 +8,24 @@ import { MappedElement } from "../../../utils/methods";
 import { useSelector  , useDispatch} from "react-redux";
 import Icons from "../../../assets/icons/CustomIcon";
 import { addProduct, removeProduct, removeSpecificProduct } from "../../../store/actions/Cart.action";
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 
 function Cart(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
+
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
     console.log(props?.route?.params);
     const dispatch = useDispatch()
     const navigation = useNavigation();
@@ -75,7 +91,7 @@ function Cart(props) {
                 <View style={Styles.orderItemBottomView}>
                     <View style={Styles.orderItemBottomQuantity}>
                         <CText style={Styles.orderItemBottomQuantityText}>
-                            Quantity
+                        {t('Quantity')}
                         </CText>
                         
                         <TouchableOpacity style={Styles.minusView} onPress={() => decrement(item)}>
@@ -104,7 +120,7 @@ function Cart(props) {
                         buttonStyle={Styles.orderListItemButton}
                         buttonText={Styles.orderListItemButtonText}
                         onPress={() => navigation.navigate("store")}
-                        title="View Details"
+                        title={t('View_details')}
                     />
                     {/* <CButton
                         buttonStyle={Styles.orderListItemButton}
@@ -116,7 +132,7 @@ function Cart(props) {
                         buttonStyle={Styles.orderListItemButton}
                         buttonText={Styles.orderListItemButtonText}
                         onPress={() => removeSpecPro(item)}
-                        title="Remove"
+                        title={t("Remove")}
                     />
                 </View>
             </View>
@@ -134,7 +150,7 @@ function Cart(props) {
              {  reduxState?.data.length > 0 &&    <View>
                     <CButton
                         iconName={"arrow-forward"}
-                        title="Proceed To Checkout"
+                        title={t('Proceed_to_checkout')}
                         onPress={() =>
                             {
                                 console.log('line 141 ----------',reduxState?.user?.data?.token);
@@ -161,7 +177,7 @@ function Cart(props) {
              {reduxState?.data.length > 0 ?     <View style={Styles.paymentInfo}>
                     <View style={Styles.paymentInfoItem}>
                         <CText style={Styles.paymentInfoItemTitle}>
-                            Subtotal
+                            {t('Subtotal')}
                         </CText>
                         <CText style={Styles.paymentInfoItemValue}>
                             ${totalSum}
@@ -169,12 +185,12 @@ function Cart(props) {
                     </View>
                     <View style={Styles.paymentInfoItem}>
                         <CText style={Styles.paymentInfoItemTitle}>
-                            Shipping
+                            {t('Shipping')}
                         </CText>
                         <CText style={Styles.paymentInfoItemValue}>$0</CText>
                     </View>
                     <View style={Styles.paymentInfoItem}>
-                        <CText style={Styles.paymentInfoItemTitle}>Total</CText>
+                        <CText style={Styles.paymentInfoItemTitle}>{t('Total')}</CText>
                         <CText style={Styles.paymentInfoItemValue}>
                             ${totalSum}
                         </CText>
@@ -186,7 +202,7 @@ function Cart(props) {
                 <View>
                    {reduxState?.data.length> 0  &&  <CButton
                         iconName={"arrow-forward"}
-                        title="Proceed To Checkout"
+                        title={t('Proceed_to_checkout')}
                         onPress={() =>
                             {
                                 console.log('line 141 ----------',reduxState?.user?.data?.token);
@@ -204,12 +220,12 @@ function Cart(props) {
                         buttonStyle={Styles.linkButton}
                         buttonText={Styles.linkButtonText}
                         onPress={() => navigation.navigate("Store")}
-                        title="Continue Shopping"
+                        title={t('Continue_shopping')}
                     />
                     <CButton
                         buttonStyle={Styles.linkButton}
                         buttonText={Styles.linkButtonText}
-                        title="Legal & privacy"
+                        title={t('Legal_&_Privacy')}
                     />
                 </View>
             </View>

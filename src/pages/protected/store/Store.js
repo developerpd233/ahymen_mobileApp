@@ -10,8 +10,25 @@ import {
     getCategory,
     searchCategory,
 } from "../../../store/actions/Root.action";
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 
 function Store(props) {
+    const {t, i18n} = useTranslation();
+  
+    const [currentLanguage,setLanguage] = useState('ar');
+
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
+
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         handleCategory();
@@ -24,7 +41,7 @@ function Store(props) {
     const navigation = useNavigation();
 
     const headerProps = {
-        headerTitle: "Store",
+        headerTitle: t('Store'),
         showCart: true,
     };
 

@@ -3,7 +3,7 @@ import global from "./reducers/Global.reducer";
 import root from "./reducers/Root.reducers";
 import cart from "./reducers/Cart.reducer";
 import tranaslate from "./reducers/Translation.reducer";
-
+import language from "./reducers/Language.reducer"
 import {combineReducers} from 'redux';
 
 
@@ -12,5 +12,6 @@ export default combineReducers({
     global,
     root,
     cart,
-    tranaslate
+    tranaslate,
+    language
 });

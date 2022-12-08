@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect}from "react";
 import { Container, ViewContainer } from "../../../../containers";
 import { CText, CButton, CInput, CModal } from "../../../../uiComponents";
 import { View } from "react-native";
@@ -11,8 +11,24 @@ import { useDispatch } from "react-redux";
 import { UserInformation } from "../../../auth";
 import { getCategory } from "../../../../store/actions/Root.action";
 import AUTH from "../../../../store/constants/Auth.constant";
+import '../../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 
 function Proceed(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
+
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
@@ -56,14 +72,14 @@ function Proceed(props) {
                     ]}
                 >
                     <CText style={[Style.title, { fontSize: 22 }]}>
-                        Proceed to check out
+                       {t("Proceed_to_checkout")}
                     </CText>
                 </View>
 
                 <CButton
                     buttonStyle={Style.bottomButton}
                     loading={false}
-                    title={"Register An Account"}
+                    title={t("Register_an_account")}
                     onPress={() =>
                         dispatch({
                             type: AUTH.LOGIN_USER_API,
@@ -80,7 +96,7 @@ function Proceed(props) {
                 </View>
 
                 <CButton
-                    title={"Checkout As A Guest"}
+                    title={t("Checkout_as_a_guest")}
                     type={"outline"}
                     loading={false}
                     onPress={() => next("guest_checkout")}

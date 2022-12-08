@@ -20,7 +20,25 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { GET_WISHLIST, Add_DELETE_WISHLIST } from "../../../../config/webservices";
 import ApiSauce from "../../../../utils/network";
 import Toast from 'react-native-simple-toast';
+import '../../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
+
 function ProductDetail({ route }) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
+
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
+
     
     const { item } = route?.params;
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -34,7 +52,7 @@ function ProductDetail({ route }) {
 
     const navigation = useNavigation();
     const headerProps = {
-        headerTitle: "Flower",
+        headerTitle: t('Flower'),
         showCart: true,
         // backOnPress:(navigation?.goBack())
     };
@@ -282,8 +300,8 @@ function ProductDetail({ route }) {
             <View style={Styles.container}>
                 {renderSliderContainer()}
 
-                <CText style={Styles.subTitle}>Item # {item.ProductId}</CText>
-                <CText style={Styles.title}>{item.ProductName}</CText>
+                <CText style={Styles.subTitle}>{t('Item_number')}{item.ProductId}</CText>
+                <CText style={Styles.title}>{t('Product_Details')}</CText>
 
                 <View
                     style={[
@@ -292,7 +310,7 @@ function ProductDetail({ route }) {
                     ]}
                 >
                     <CText style={[Styles.normalTitle, GlobalStyle.flex_1]}>
-                        Quantity
+                    {t('Quantity')}
                     </CText>
                  
             <TouchableOpacity style={Styles.minusView} onPress={() => decrement(item)}>
@@ -313,7 +331,7 @@ function ProductDetail({ route }) {
                 <CButton
                     buttonStyle={Styles.buttonSpace}
                     iconName={"arrow-forward"}
-                    title="Add to basket"
+                    title= {t('Add_to_the_basket')}
                     
                     onPress={() => showDatePicker()}
 
@@ -328,7 +346,7 @@ function ProductDetail({ route }) {
                 </CText>
 
                 <View style={[Styles.section, Styles.topAndBottomBorder]}>
-                    <CText style={Styles.normalTitle}>Product Details</CText>
+                    <CText style={Styles.normalTitle}>{t('Product_Details')}</CText>
 
                     <View style={Styles.sectionContent}>
                         <View style={Styles.sectionContentItem}>

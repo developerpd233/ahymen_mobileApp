@@ -30,10 +30,11 @@ const Styles = StyleSheet.create({
 
     list: {},
     listItemNone: {
-        borderTopWidth: 0
+        borderTopWidth: 0,
+    
     },
     listItem: {
-        flexDirection: 'row',
+        flexDirection:'row',
         alignItems: 'center',
         borderTopWidth: 1,
         borderColor: '#DFDFDF',
@@ -42,15 +43,16 @@ const Styles = StyleSheet.create({
     },
     listItemText: {
         flex: 1,
-        textAlign: 'left',
         fontSize: 16,
         color: themes['light'].colors.fontColor,
         fontFamily: themes.font.regular,
+
     },
     listItemLeftIcon: {
-        marginRight: 20,
+      
         color: themes['light'].colors.primary,
-        fontSize: 24
+        fontSize: 24,
+       
     },
     listItemRightIcon: {
         color: themes['light'].colors.primary,

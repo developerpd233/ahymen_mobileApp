@@ -1,12 +1,26 @@
-import React, { useRef, memo } from "react";
+import React, { useRef, memo, useEffect, useState } from "react";
 import { Formik } from "formik";
 import Validations from "./Validations";
 import { View } from "react-native";
 import { CButton, CInput, CText } from "../../../uiComponents";
 import AuthStyle from "../Auth.style";
-
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 function CForm(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
 
+
+    // useEffect(() => {
+    // changeLanguage('ar')
+    // }, [])
+    // const changeLanguage = value => {
+    //   i18n
+    //     .changeLanguage(value)
+    //     .then(() => setLanguage(value))
+    //     .catch(err => console.log(err));
+    // };
     const { submit, loading, selectedCountry, toggleCountryModal } = props;
 
     const form = useRef(null);
@@ -74,10 +88,10 @@ function CForm(props) {
                         <View style={AuthStyle.card}>
                             <View style={AuthStyle.cardHeader}>
                                 <CText style={AuthStyle.cardHeaderTitle}>
-                                    Login
+                                    {t("Sign_up")}
                                 </CText>
                                 <CText style={AuthStyle.cardHeaderSubTitle}>
-                                    Login with phone number
+                                 {t("Sign_up_with_phone_number")}
                                 </CText>
                             </View>
 
@@ -88,7 +102,7 @@ function CForm(props) {
                                 selectedCountry={selectedCountry}
                                 onPress={() => toggleCountryModal()}
                                 keyboardType={"numeric"}
-                                inputLabel={"Phone Number"}
+                                inputLabel={t("Phone_number")}
                                 placeholder={"000-000-0000"}
                                 value={values.phone}
                                 onChangeText={(val) => {
@@ -106,7 +120,7 @@ function CForm(props) {
                             />
                             <CInput
                                 ref={password}
-                                inputLabel={"Password"}
+                                inputLabel={t("Password")}
                                 placeholder={"*************"}
                                 value={values.password}
                                 onChangeText={handleChange("password")}
@@ -127,7 +141,7 @@ function CForm(props) {
                             /> */}
 
                             <CButton
-                                title={"Submit"}
+                                title={t("Submit")}
                                 loading={loading}
                                 onPress={() => handleSubmit()}
                             />

@@ -10,7 +10,8 @@ import Icons from '../../../assets/icons/CustomIcon';
 import {useNavigation} from "@react-navigation/native";
 import { useDispatch, useSelector } from 'react-redux';
 import { saveAddress } from '../../../store/actions/Root.action';
-import Toast from 'react-native-simple-toast';
+import '../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 
 const origin = { latitude: 19.363631, longitude: -99.182545 };
 const destination = { latitude: 19.2932543, longitude: -99.1794758 };
@@ -180,6 +181,9 @@ const customStyle = [
 
 
 function Location(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
     const dispatch = useDispatch()
 
     const navigation = useNavigation()
@@ -253,7 +257,7 @@ function Location(props) {
                 <View style={Styles.buttonContainer}>
                     <TouchableOpacity style={Styles.button}>
                         <Icons style={Styles.buttonIcon} name={"pin-location"}/>
-                        <CText style={Styles.buttonText}>Choose on map</CText>
+                        <CText style={Styles.buttonText}>{t('Choose_on_map')}</CText>
                     </TouchableOpacity>
                 </View>
 
