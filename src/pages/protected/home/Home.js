@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { Dimensions, View, Text, StyleSheet } from "react-native";
-import { CText, ProgressiveImage, CButton} from "../../../uiComponents";
+import { CText, ProgressiveImage, CButton } from "../../../uiComponents";
 import Swiper from "react-native-swiper";
 import Styles from "./Home.style";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,15 +15,15 @@ const { width, height } = Dimensions.get("window");
 import ApiSauce from "../../../utils/network"
 import { GET_TRENDING, TRENDING } from "../../../config/webservices"
 import '../../../utils/i18n/lan';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 function Home(props) {
     // language translation func
-    const {t, i18n} = useTranslation();
-  
-    const [currentLanguage,setLanguage] = useState('en');
-    
+    const { t, i18n } = useTranslation();
 
-    
+    const [currentLanguage, setLanguage] = useState('en');
+
+
+
     // const changeLanguage = value => {
     //   console.log("🚀 ~ file: Home.js:26 ~ changeLanguage ~ value", value)
     //   i18n
@@ -33,10 +33,10 @@ function Home(props) {
     // };
 
     const [data, setData] = useState()
-    const videosData =[
+    const videosData = [
         { uri: require('../../../assets/videos/1.mp4') },
         { uri: require('../../../assets/videos/2.mp4') },
-        { uri: require('../../../assets/videos/3.mp4')},
+        { uri: require('../../../assets/videos/3.mp4') },
     ]
     console.log("🚀 ~ file: Home.js ~ line 16 ~ Home ~ data", data)
 
@@ -52,9 +52,9 @@ function Home(props) {
     const slider = useRef();
 
     const [video, setVideo] = useState([
-       
 
-    
+
+
     ])
     useEffect(() => {
         handleApi()
@@ -74,14 +74,15 @@ function Home(props) {
 
 
     const renderSlides = () => {
-        if (videosData?.length > 0) {
+        if (data?.length > 0) {
             return (
-                videosData?.map((val, index) => {
-                    console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ val", val)
+                data?.map((val, index) => {
+                    console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ valUri", val)
+                    const link = {uri:(val)}
                     return (
                         <VideoPlayer
-source={val?.uri}
-/>
+                            source={link}
+                        />
                         // <Video source={{ uri: 'https://ayhman.webappcart.com/storage/trendingVideos/jpw8exb5afyvqtc641h3irzgms2k0d9lun7.mp4' }}   // Can be a URL or a local file.
                         //     //    ref={(ref) => {
                         //     //      this.player = ref
@@ -131,25 +132,25 @@ source={val?.uri}
     };
 
     return (
-        <View style={{ flex: 1}}>
+        <View style={{ flex: 1 }}>
 
             <Header {...headerProps} />
-         
 
 
-         
+
+
             <Swiper
                 ref={slider}
-                style={{ backgroundColor: "transparent"  }}
+                style={{ backgroundColor: "transparent" }}
                 showsButtons={false}
                 showsPagination={false}
                 horizontal={false}
                 loop={false}
             >
- 
+
                 {renderSlides()}
             </Swiper>
-            
+
         </View>
     );
 }
@@ -161,6 +162,6 @@ var styles = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0,
-        flex:1,
+        flex: 1,
     },
 });

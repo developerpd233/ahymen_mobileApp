@@ -121,10 +121,11 @@ function Products({ route }) {
     };
 
     const renderItem = ({ item, index }) => {
+        console.log('item1111dd222', item)
         return (
             <CListItem
                 image={{ uri: item?.ProductImage?.[0] }}
-                title={t('Product_Details')}
+                title={item?.ProductName}
                 price={item?.ProductPrice}
                 listItemView={Styles.noBorderAndNoShadow}
                 onPress={() => select(item)}
@@ -166,7 +167,7 @@ function Products({ route }) {
                 keyExtractor={(item, index) => index.toString()}
                 emptyOptions={{
                     // icon: require('../../assets/images/empty.png'),
-                    text: "Flowers not found",
+                    text: t("Flowers_not_found"),
                 }}
                 onRefreshLoading={reduxState.loading}
                 onRefreshHandler={() => onRefreshHandler()}

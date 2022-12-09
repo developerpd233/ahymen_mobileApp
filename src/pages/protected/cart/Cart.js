@@ -196,7 +196,7 @@ function Cart(props) {
                         </CText>
                     </View>
                 </View>   : 
-                <CEmpty  text={"No Any  Product in Cart"}/>
+                <CEmpty  text={t('No_any_product_in_cart')}/>
             }
 
                 <View>

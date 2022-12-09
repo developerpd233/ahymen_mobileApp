@@ -116,13 +116,13 @@ function ProductTypes({ route }) {
             item,
         });
     };
-
+console.log('flower-type---', item)
     const renderItem = ({ item, index }) => {
         return (
             <CListItem
                 image={{ uri: item?.SubCategoryImage }}
                 type={"horizontal"}
-                title={t('Quantity')}
+                title={item?.CategoryName}
                 onPress={() => select(item)}
                 rightIconName={"arrow-forward"}
             />

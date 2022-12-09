@@ -69,7 +69,7 @@ const Styles = StyleSheet.create({
         marginBottom: 20
     },
     sectionTitle: {
-        textAlign: 'left',
+        textAlign: 'center',
         fontSize: 22,
         color: themes['light'].colors.fontColor,
         fontFamily: themes.font.medium,

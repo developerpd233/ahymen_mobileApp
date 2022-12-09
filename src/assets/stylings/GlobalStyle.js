@@ -16,7 +16,7 @@ export default StyleSheet.create({
         fontSize: 18,
         color: themes['light'].colors.fontColor,
         fontFamily: themes.font.regular,
-        textAlign: 'left',
+        
     },
     inputSubLabel: {
         fontSize: 14,
@@ -28,7 +28,8 @@ export default StyleSheet.create({
     inputStyle: {
         fontSize: 16,
         color: themes['light'].colors.lightGray,
-        textAlign: 'left',
+        
+
         fontFamily: themes.font.regular,
         flex: 1,
         paddingHorizontal: 0,

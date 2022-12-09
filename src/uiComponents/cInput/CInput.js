@@ -12,7 +12,7 @@ import { themes } from "../../theme/colors";
 import ProgressiveImage from "../progressiveImage/ProgressiveImage";
 import MaskInput from "react-native-mask-input";
 import CText from "../cText/CText";
-
+import {useSelector} from "react-redux"
 TextInput.defaultProps = {
     ...(TextInput.defaultProps || {}),
     allowFontScaling: false,
@@ -48,10 +48,17 @@ const CInput = React.forwardRef((props, ref) => {
         placeholder,
         secureTextEntry = false,
     } = props;
-
+    const reduxState = useSelector(({ auth ,language}) => {
+        return {
+            loading: false,
+            user: auth.user,
+            language:language?.language?.lan
+        };
+    });
+  const languageStyle = reduxState.language;
     const renderLabel = () => {
         return (
-            <CText style={{ ...GlobalStyle.inputLabel, ...inputLabelStyle }}>
+            <CText style={[{ ...GlobalStyle.inputLabel, ...inputLabelStyle }, {textAlign:languageStyle == 'en'? 'left' : 'right',}]}>
                 {inputLabel}
             </CText>
         );
@@ -120,7 +127,7 @@ const CInput = React.forwardRef((props, ref) => {
                 autoCorrect={false}
                 secureTextEntry={secureTextEntry}
                 placeholderTextColor={themes["light"].colors.gray4}
-                style={{ ...GlobalStyle.inputStyle, ...style }}
+                style={[{ ...GlobalStyle.inputStyle, ...style } , {textAlign:languageStyle == 'en'? 'left' : 'right',}]}
                 autoCapitalize="none"
                 value={value}
                 {...props}

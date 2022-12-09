@@ -156,7 +156,7 @@ function Profile(props) {
         {
             title: t('Logout'),
             onPress: () => { logout() },
-            icon: 'setting'
+            icon: 'close'
         }
     ];
 
@@ -189,6 +189,8 @@ function Profile(props) {
                 <View
                     style={[Styles.listItem ,{flexDirection:reduxState.language == 'en' ? "row" : 'row-reverse'}, Styles.listItemNone,]}
                     onPress={() => { }}>
+                   {/* <Icon name='camera' type='fontisto' color="#000" size={30} /> */}
+
                     <Image source={lanIcon} style={[Styles.listItemLeftIcon, { width:22, height:22}] } resizeMode='contain'/>
                     <CText style={[Styles.listItemText,{paddingHorizontal:15}]}>{t('Arabic')}</CText>
                     <Switch

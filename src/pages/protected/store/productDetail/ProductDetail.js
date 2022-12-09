@@ -301,7 +301,7 @@ function ProductDetail({ route }) {
                 {renderSliderContainer()}
 
                 <CText style={Styles.subTitle}>{t('Item_number')}{item.ProductId}</CText>
-                <CText style={Styles.title}>{t('Product_Details')}</CText>
+                <CText style={Styles.title}>{item?.ProductName}</CText>
 
                 <View
                     style={[
