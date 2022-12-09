@@ -16,7 +16,9 @@ import { GET_TOKEN, NEW_ORDER } from '../../../config/webservices';
 import { removeAllProduct } from '../../../store/actions/Cart.action';
 import { getTokenAndSetIntoHeaders, getValueIntoLocalStorage } from '../../../utils/asyncStorage/Functions';
 import { TOKEN } from '../../../utils/asyncStorage/Constants';
- 
+import '../../../utils/i18n/lan';
+import { useTranslation } from 'react-i18next';
+
 // import BraintreeDropIn from 'react-native-braintree-dropin-ui';
 import BraintreeDropIn from 'react-native-braintree-dropin-ui';
 import {
@@ -30,6 +32,9 @@ import {
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
 function Checkout({route}) {
+     const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
     const {values } = route?.params ||''
     console.log("🚀 ~ file: Checkout.js:34 ~ Checkout ~ values", values)
     const dispatch = useDispatch()
@@ -197,7 +202,7 @@ function Checkout({route}) {
     return(
         <Container loading={isLoading} bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>
             <View style={[Styles.container, {marginBottom: 30}]}>
-                <CText style={Styles.title}>Check out</CText>
+                <CText style={Styles.title}>{t('Checkout')}</CText>
                 {/* <CListItem
                     activeOpacity={1}
                     type={'horizontal'}
@@ -230,7 +235,7 @@ function Checkout({route}) {
                 </View>
 
                 <View style={Styles.addLocationContainer}>
-                    <CText style={Styles.addLocationTitle}>Delivery Address</CText>
+                    <CText style={Styles.addLocationTitle}>{t('Delivery_address')}</CText>
                     <CButton
                         buttonStyle={Styles.addLocationButton}
                         buttonText={Styles.addLocationButtonText}
@@ -238,11 +243,11 @@ function Checkout({route}) {
                         iconType={'left'}
                         iconName={'plusmark'}
                         onPress={() =>  locationAdd()}
-                        title={'Add location'}
+                        title={t('Add_location')}
                     />
                 </View>
                 <View style={Styles.addLocationContainer}>
-                    <CText style={Styles.addLocationTitle}>Add gift card</CText>
+                    <CText style={Styles.addLocationTitle}>{t('Add_gift_card')}</CText>
                     <CButton
                         buttonStyle={Styles.addLocationButton}
                         buttonText={Styles.addLocationButtonText}
@@ -250,11 +255,11 @@ function Checkout({route}) {
                         iconType={'left'}
                         iconName={'plusmark'}
                         onPress={() =>  navigation.navigate("add_gift_card")}
-                        title={'Add gift card'}
+                        title={t('Add_gift_card')}
                     />
                     
                 </View>
-                <CText style={Styles.title}>Choose Payment Method</CText>
+                <CText style={Styles.title}>{t('Choose_payment_method')}</CText>
 
                 {/* <View style={Styles.sectionList}>
                     <Collapse style={Styles.sectionListItem}
@@ -318,7 +323,7 @@ function Checkout({route}) {
                 <CButton
                     buttonStyle={Styles.buttonSpace}
                     iconName={'arrow-forward'}
-                    title="Proceed To Checkout"
+                    title={t('Proceed_to_checkout')}
                     onPress={handle_order}
                 />
 

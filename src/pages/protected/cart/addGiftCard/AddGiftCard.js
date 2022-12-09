@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Container } from "../../../../containers";
 import { CText, CButton, CInput } from "../../../../uiComponents";
 import { View } from "react-native";
@@ -11,8 +11,12 @@ import { useNavigation } from "@react-navigation/native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { themes } from '../../../../theme/colors';
 import Toast from 'react-native-simple-toast';
-
+import '../../../../utils/i18n/lan';
+import {useTranslation} from 'react-i18next';
 function AddGiftCard(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
 
     const navigation = useNavigation();
 
@@ -47,14 +51,14 @@ function AddGiftCard(props) {
                         <KeyboardView contentContainerStyle={[GlobalStyle.centerModalCenterViewContainerScroll]}>
                             <View style={GlobalStyle.centerModalCenterViewContainer}>
 
-                                <CText style={Styles.pageTitle}>Add gift card</CText>
+                                <CText style={Styles.pageTitle}>{t('Add_gift_card')}</CText>
 
                                 <CInput
                                     multiline={true}
                                     value={values.text}
                                     onChangeText={handleChange('text')}
                                     error={errors.text}
-                                    placeholder="Type your card here"
+                                    placeholder={t('Type_your_card_here')}
 
                                     returnKeyType="next"
                                     inputInnerContainerStyle={Styles.textArea}
@@ -63,12 +67,12 @@ function AddGiftCard(props) {
                                 <CText style={[Styles.orderItemBottomQuantityText, {
                                     fontSize: 15, paddingVertical: 10
                                 }]}>
-                                    Share You Feeling
+                                    {t('Share_your_feeling')}
                                 </CText>
                                 <CText style={[Styles.orderItemBottomQuantityText, {
 
                                 }]}>
-                                    Choose the best way to express your feelings
+                                    {t('Choose_the_best_way')}
                                 </CText>
                                 <View style={[GlobalStyle.inputStyle, Styles.textAreaInput, Styles.textArea, { marginVertical: 15, padding: 10, flexDirection: 'row', alignItems: 'center', minHeight: 60 }]}>
                                     <FontAwesome name='link' style={Styles.icon} size={25} color="#818080" />
@@ -76,13 +80,13 @@ function AddGiftCard(props) {
                                         <CText style={[Styles.orderItemBottomQuantityText, {
                                             fontFamily: themes.font.medium,
                                             fontSize: 18,
-                                        }]}>Link</CText>
+                                        }]}>{t('Link')}</CText>
                                         <CInput 
                                          multiline={true}
                                          value={values.link}
                                          onChangeText={handleChange('link')}
                                          error={errors.link}
-                                         placeholder="Type your card here"
+                                         placeholder={t('Type_your_card_here')}
      
                                         //  style={[Styles.orderItemBottomQuantityText, {
                                         //     fontFamily: themes.font.extraLight,
@@ -101,7 +105,7 @@ function AddGiftCard(props) {
                                         buttonStyle={[Styles.buttonStyle, Styles.borderBtn]}
                                         onPress={() => handleSubmit()} /> */}
 
-                                    <CButton title={'Confirm'}
+                                    <CButton title={t('Confirm')}
                                         loading={false}
                                         buttonStyle={Styles.buttonStyle}
 

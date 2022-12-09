@@ -121,7 +121,6 @@ function Products({ route }) {
     };
 
     const renderItem = ({ item, index }) => {
-        console.log('item1111dd222', item)
         return (
             <CListItem
                 image={{ uri: item?.ProductImage?.[0] }}

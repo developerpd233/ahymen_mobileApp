@@ -1,10 +1,15 @@
-import React, {useRef, memo} from 'react';
+import React, {useRef, memo, useState} from 'react';
 import {Formik} from 'formik';
 import Validations from './Validations';
 import {View} from 'react-native';
 import {CButton, CInput} from '../../../uiComponents';
+import '../../../utils/i18n/lan';
+import { useTranslation } from 'react-i18next';
 
 function CForm(props) {
+    const {t, i18n} = useTranslation();
+    
+    const [currentLanguage,setLanguage] = useState('ar');
 
     const {submit, loading, selectedCountry, toggleCountryModal} = props;
 
@@ -28,8 +33,8 @@ function CForm(props) {
 
                             <CInput
                                 ref={fullName}
-                                inputLabel={'Full Name'}
-                                placeholder={'Martha Nielsen'}
+                                inputLabel={t('Full_name')}
+                                placeholder={t('Martha_nielsen')}
                                 value={values.fullName}
                                 onChangeText={handleChange('fullName')}
                                 error={errors.fullName}
@@ -44,7 +49,7 @@ function CForm(props) {
                             selectedCountry={selectedCountry}
                             onPress={() => toggleCountryModal()}
                             keyboardType={'numeric'}
-                            inputLabel={'Phone Number'}
+                            inputLabel={t('Phone_number')}
                             placeholder={'000-000-0000'}
                             value={values.phone}
                             onChangeText={(val) => {
@@ -63,8 +68,8 @@ function CForm(props) {
 
                             <CInput
                                 ref={email}
-                                inputLabel={'Email Address'}
-                                placeholder={'Martha765@gmail.com'}
+                                inputLabel={t('Email_address')}
+                                placeholder={t('Martha765@gmail.com')}
                                 value={values.email}
                                 onChangeText={handleChange('email')}
                                 error={errors.email}
@@ -74,7 +79,7 @@ function CForm(props) {
 
 
 
-                            <CButton title={'Submit'}
+                            <CButton title={t('Submit')}
                                      loading={loading}
                                      onPress={() => handleSubmit()}/>
 
