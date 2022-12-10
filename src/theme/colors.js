@@ -8,6 +8,9 @@ export const themes = {
         medium: 'SFProDisplay-Medium',
         semiBold: 'SFProDisplay-Semibold',
     },
+    font2: {
+        regular: 'Geeza-Pro-Regular',
+    },
     light: {
         colors: {
             primary: '#7C8061',

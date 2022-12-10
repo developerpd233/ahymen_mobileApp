@@ -45,7 +45,7 @@ const Styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         color: themes['light'].colors.fontColor,
-        fontFamily: themes.font.regular,
+        // fontFamily: themes.font.regular,
 
     },
     listItemLeftIcon: {

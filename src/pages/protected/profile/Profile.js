@@ -15,6 +15,7 @@ import {changeLanguage} from '../../../store/actions/Language.action'
 import { Image } from 'react-native';
 import lanIcon from '../../../assets/images/arabic-icon.png'
 import { Icon as MyIcon } from 'react-native-elements';
+import { themes } from '../../../theme/colors';
 
 function Profile(props) {
     const { t, i18n } = useTranslation();
@@ -29,16 +30,16 @@ function Profile(props) {
   
   console.log("🚀 ~ file: Profile.js:28 ~ Profile ~ languageStyle", languageStyle)
     const [currentLanguage, setLanguage] = useState('ar');
-    const [isEnabled, setIsEnabled] = useState(reduxState?.language !== 'en' ? true : false);
+    const [isEnabled, setIsEnabled] = useState(reduxState?.language !== 'ar' ? true : false);
     console.log("🚀 ~ file: Profile.js:30 ~ Profile ~ reduxState", reduxState)
     const toggleSwitch = () => {
-        if(reduxState?.language == 'en'){
+        if(reduxState?.language == 'ar'){
             console.log("🚀 ~ file: Profile.js:33 ~ toggleSwitch ~ reduxState", reduxState)
             setIsEnabled(true)
-            dispatch(changeLanguage({lan:'ar'}));
+            dispatch(changeLanguage({lan:'en'}));
         }else{
             setIsEnabled(false)
-            dispatch(changeLanguage({lan:'en'}));
+            dispatch(changeLanguage({lan:'ar'}));
         }
     };
 
@@ -168,7 +169,7 @@ function Profile(props) {
                 style={[Styles.listItem, index === 0 && Styles.listItemNone ,{flexDirection: reduxState.language == 'en' ?'row' :'row-reverse' }]}
                 onPress={item?.onPress}>
                 {item?.icon ? <Icon name={item?.icon} style={[Styles.listItemLeftIcon,  {marginRight:reduxState.language == 'en' ? 20 : 0}]} /> : null}
-                <CText style={[Styles.listItemText  ,{paddingRight:15}]}>{item?.title}</CText>
+                <CText style={[Styles.listItemText  ,{paddingRight:15, fontFamily:reduxState.language == 'en'? themes.font.regular : themes.font2.regular }]}>{item?.title}</CText>
                 <Icon name={reduxState.language == 'en' ? 'arrow-forward'  : 'back-arrow'} style={[Styles.listItemRightIcon, ]} />
             </TouchableOpacity>
         )
@@ -178,8 +179,8 @@ function Profile(props) {
         <Container bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>
             <View style={Styles.container}>
                 <View style={Styles.header}>
-                    <CText style={[Styles.headerSubTitle]}>{t("Welcome")}</CText>
-                    <CText style={Styles.headerTitle}>{t("Ahyman")}</CText>
+                    <CText style={[Styles.headerSubTitle, {fontFamily:reduxState.language == 'en'? themes.font.regular : themes.font2.regular }]}>{t("Welcome")}</CText>
+                    <CText style={[Styles.headerTitle, {fontFamily:reduxState.language == 'en'? themes.font.regular : themes.font2.regular }]}>{t("Ahyman")}</CText>
                 </View>
 
                 <View style={Styles.list}>
@@ -193,7 +194,7 @@ function Profile(props) {
                     onPress={() => { }}>
                    <MyIcon name='language' type='ionicon' color="rgb(124, 128, 97)" size={30} />
 
-                    <CText style={[Styles.listItemText,{paddingHorizontal:15}]}>{t('Arabic')}</CText>
+                    <CText style={[Styles.listItemText,{paddingHorizontal:15, fontFamily:reduxState.language == 'en'? themes.font.regular : themes.font2.regular }]}>{t('English')}</CText>
                     <Switch
                         trackColor={{ false: "#ccd0d1", true:'#6ee33a' }}
                         thumbColor={isEnabled ?'#d4d4d4' : "#f4f3f4"}

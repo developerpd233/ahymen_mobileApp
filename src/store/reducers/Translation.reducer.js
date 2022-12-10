@@ -2,11 +2,11 @@ const setLanguage = language => {
     let messages = {};
     switch (language) {
       case 'ar':
-        messages = Object.assign(messages, require(`../../i18n/ar.json`));
+        messages = Object.assign(messages, require(`../../utils/i18n/ar.json`));
         break;
       default:
       case 'en':
-        messages = Object.assign(messages, require(`../../i18n/en.json`));
+        messages = Object.assign(messages, require(`../../utils/i18n/ar.json`));
         break;
     }
     return messages;
