@@ -14,6 +14,8 @@ import { useTranslation } from 'react-i18next';
 import {changeLanguage} from '../../../store/actions/Language.action'
 import { Image } from 'react-native';
 import lanIcon from '../../../assets/images/arabic-icon.png'
+import { Icon as MyIcon } from 'react-native-elements';
+
 function Profile(props) {
     const { t, i18n } = useTranslation();
     const reduxState = useSelector(({ auth ,language}) => {
@@ -189,9 +191,8 @@ function Profile(props) {
                 <View
                     style={[Styles.listItem ,{flexDirection:reduxState.language == 'en' ? "row" : 'row-reverse'}, Styles.listItemNone,]}
                     onPress={() => { }}>
-                   {/* <Icon name='camera' type='fontisto' color="#000" size={30} /> */}
+                   <MyIcon name='language' type='ionicon' color="rgb(124, 128, 97)" size={30} />
 
-                    <Image source={lanIcon} style={[Styles.listItemLeftIcon, { width:22, height:22}] } resizeMode='contain'/>
                     <CText style={[Styles.listItemText,{paddingHorizontal:15}]}>{t('Arabic')}</CText>
                     <Switch
                         trackColor={{ false: "#ccd0d1", true:'#6ee33a' }}
