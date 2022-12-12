@@ -13,6 +13,7 @@ import CToggleSwitch from "./cToggleSwitch/CToggleSwitch";
 import CText from "./cText/CText";
 import CountDownTimer from "./countDownTimer/CountDownTimer";
 import HorizontalList from "./horizontalList/HorizontalList";
+import CCheckBox from "./cCheckBox/CCheckBox";
 
 export {
     CInput,
@@ -29,5 +30,6 @@ export {
     CSectionList,
     CText,
     CountDownTimer,
-    HorizontalList
+    HorizontalList,
+    CCheckBox
 }

@@ -23,10 +23,11 @@ const Styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 10,
         marginVertical: 25,
+        
     },
     paymentInfoItem: {
-        flexDirection: "row",
         paddingVertical: 5,
+        
     },
     paymentInfoItemTitle: {
         flex: 1,

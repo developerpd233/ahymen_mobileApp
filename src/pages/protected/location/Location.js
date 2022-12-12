@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react';
-import {Container} from "../../../containers";
 import {CInput, CText} from "../../../uiComponents";
-import {View, TouchableOpacity} from "react-native";
+import {View, TouchableOpacity ,Modal} from "react-native";
 import Styles from "./Location.style";
 import CForm from "./Form";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
@@ -12,7 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveAddress } from '../../../store/actions/Root.action';
 import '../../../utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
-
+import AuthStyle from "../../auth/Auth.style";
+import { Container, CountriesModal } from "../../../containers";
 const origin = { latitude: 19.363631, longitude: -99.182545 };
 const destination = { latitude: 19.2932543, longitude: -99.1794758 };
 const GOOGLE_MAPS_APIKEY = 'AIzawyABlYq9oPRdf7VuOuDw-fKJsfboX-qY5dI';
@@ -185,7 +185,16 @@ function Location(props) {
     
     const [currentLanguage,setLanguage] = useState('ar');
     const dispatch = useDispatch()
-
+    const reduxState = useSelector(({ auth  , root , cart}) => {
+        console.log("🚀 ~ file: Location.js:189 ~ reduxState ~ reduxState", reduxState)
+        
+        return {
+            loading: root.addressLoading,
+            currentCountry :root,
+        };
+    });
+    const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
+    const [selectedCountry, updateSelectedCountry] = useState('us');
     const navigation = useNavigation()
 
     const headerProps = {
@@ -204,15 +213,17 @@ function Location(props) {
         }
     };
 
+    const countryOnSelect = (item) => {
+        updateSelectedCountry(item);
+        toggleCountryModal();
+    };
+    const toggleCountryModal = () => {
+        updateCountryModalIsOpen(!countryModalIsOpen);
+    };
 
 
-    const reduxState = useSelector(({ auth  , root , cart}) => {
-        
-        return {
-            loading: root.addressLoading,
-            // addressData :root.
-        };
-    });
+
+ 
     
 
     const submit = (values)=>{
@@ -262,7 +273,25 @@ function Location(props) {
                 </View>
 
 
-                <CForm  loading={reduxState?.loading} submit={submit} />
+                <CForm  
+                loading={reduxState?.loading} 
+                submit={submit}
+                selectedCountry={'+1'}
+                toggleCountryModal={toggleCountryModal}
+                 />
+                <Modal
+                transparent={true}
+                visible={countryModalIsOpen}
+                onRequestClose={() => toggleCountryModal()}
+            >
+                <View style={AuthStyle.modalContainer}>
+                    <View style={AuthStyle.modalInnerContainer}>
+                        <CountriesModal
+                            onSelect={(val) => countryOnSelect(val)}
+                        />
+                    </View>
+                </View>
+            </Modal>
 
             </View>
 

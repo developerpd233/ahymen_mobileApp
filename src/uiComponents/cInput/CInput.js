@@ -123,6 +123,7 @@ const CInput = React.forwardRef((props, ref) => {
         return (
             <MaskInput
                 ref={ref}
+            
                 maskChar="x"
                 autoCorrect={false}
                 secureTextEntry={secureTextEntry}

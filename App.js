@@ -9,6 +9,7 @@ import { Setting } from "./src/pages/protected";
 import './src/utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
 import {changeLanguage} from './src/store/actions/Language.action'
+
 const App = () => {
     const {t, i18n} = useTranslation();
 
@@ -30,7 +31,7 @@ const App = () => {
             SplashScreen.hide();
         }, 3000);
         dispatch(getCountries());
-        dispatch(changeLanguage({lan:'en'}));
+        dispatch(changeLanguage({lan:'ar'}));
         changeLang()
 
     }, []);

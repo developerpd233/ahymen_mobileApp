@@ -31,15 +31,18 @@ function Cart(props) {
     const navigation = useNavigation();
     const [isModal, updateIsModal] = useState(false);
 
-    const reduxState = useSelector(({ auth  , root , cart}) => {
+    const reduxState = useSelector(({ auth  , root , cart, language}) => {
         
         return {
             loading: false,
             data: cart,
-            user:auth.user
+            user:auth.user,
+            language:language?.language.lan
         };
     });
-
+ 
+    const langCheck = reduxState.language
+    console.log('my--langauage', langCheck)
         let totalSum = 0;
     reduxState?.data?.forEach(obj => {
         let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity
@@ -174,25 +177,25 @@ function Cart(props) {
                     />
                 </View>
 
-             {reduxState?.data.length > 0 ?     <View style={Styles.paymentInfo}>
-                    <View style={Styles.paymentInfoItem}>
+             {reduxState?.data.length > 0 ?     <View style={[Styles.paymentInfo,  ]}>
+                    <View style={[Styles.paymentInfoItem, { flexDirection:langCheck == 'ar' ? "row-reverse" : 'row'}]}>
                         <CText style={Styles.paymentInfoItemTitle}>
                             {t('Subtotal')}
                         </CText>
                         <CText style={Styles.paymentInfoItemValue}>
-                            ${totalSum}
+                        {t('SAR')} {totalSum}
                         </CText>
                     </View>
-                    <View style={Styles.paymentInfoItem}>
+                    <View style={[Styles.paymentInfoItem, { flexDirection:langCheck == 'ar' ? "row-reverse" : 'row'}]}>
                         <CText style={Styles.paymentInfoItemTitle}>
                             {t('Shipping')}
                         </CText>
-                        <CText style={Styles.paymentInfoItemValue}>$0</CText>
+                        <CText style={Styles.paymentInfoItemValue}>{t('SAR')} 0</CText>
                     </View>
-                    <View style={Styles.paymentInfoItem}>
+                    <View style={[Styles.paymentInfoItem, { flexDirection:langCheck == 'ar' ? "row-reverse" : 'row'}]}>
                         <CText style={Styles.paymentInfoItemTitle}>{t('Total')}</CText>
                         <CText style={Styles.paymentInfoItemValue}>
-                            ${totalSum}
+                        {t('SAR')} {totalSum}
                         </CText>
                     </View>
                 </View>   : 

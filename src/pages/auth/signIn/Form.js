@@ -83,7 +83,7 @@ function CForm(props) {
                                     inputLabel={t('Phone_number')}
                                     placeholder={"000-000-0000"}
                                     value={values?.phone}
-                                    onChangeText={(val) => {
+                                    onChangeText={(val) => {    
                                         let phone = val;
                                         let reg = /^0+/gi;
                                         if (phone.match(reg)) {
@@ -95,7 +95,7 @@ function CForm(props) {
                                     returnKeyType="next"
                                     onSubmitEditing={() => handleSubmit()}
                                     // mask={masks.phone}
-                                />
+                                />  
                                 <CButton
                                     title={t("Continue")}
                                     loading={loading}

@@ -324,7 +324,7 @@ function ProductDetail({ route }) {
             </TouchableOpacity>
                 </View>
 
-                <CText style={Styles.price}>${item.ProductPrice}</CText>
+                <CText style={Styles.price}>{t('SAR')} {item.ProductPrice}</CText>
 
                 <CText style={Styles.text}>{item?.ProductDescription}</CText>
 

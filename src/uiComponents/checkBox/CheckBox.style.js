@@ -12,7 +12,7 @@ export default StyleSheet.create({
         width: 16,
         height: 16,
         borderColor: themes['light'].colors.lightBorderColor,
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 3,
         justifyContent: 'center',
         alignItems: 'center',

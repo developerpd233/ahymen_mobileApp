@@ -96,7 +96,7 @@ function Checkout({route}) {
         image={require('../../../assets/images/flowers/one.png')}
         // orderNumber={'Item # 01010'}
         title={'Flower type'}
-        price={'$299'}
+        price={`${t('SAR')} 299`}
         qun={2}
         // listItemView={{margin: 0}}
         imageStyle={{minHeight: 80, minWidth: 85}}
@@ -120,8 +120,8 @@ function Checkout({route}) {
             clientToken: tokenRes?.data[0],
             
           
-            countryCode: 'US',    //apple pay setting
-            currencyCode: 'USD',   //apple pay setting
+            countryCode: '+966',    //apple pay setting
+            currencyCode: 'SAR',   //apple pay setting
             orderTotal:'Total Price',
             googlePay: false,
             applePay: false,
