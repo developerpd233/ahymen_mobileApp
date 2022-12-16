@@ -6,19 +6,19 @@ import CButton from '../cButton/CButton'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const CCard = (props) => {
-const {productName="Sweet Cakes", priceText="Starting from", price="SAR..", img={img},btnText="Add"} = props
+const {productName="Sweet Cakes", priceText="Starting from", price="SAR..", img={img},btnText="Add",onPress} = props
 return (
     <View style={styles.mainView}>
         <View style={styles.cardStyle}>
       <View>
-        <Image source={img} resizeMode="contain" style={{height:180, width:180}}/>
+        <Image source={img} resizeMode="contain" style={{height:180, width:180}} />
       </View>
      <View style={{marginVertical:8}}>
         <CText style={styles.productName}>{productName}</CText>
         <CText style={styles.priceText}>{priceText} <CText style={styles.price}>{price}</CText></CText>
      </View>
      <View>
-        <TouchableOpacity style={styles.cBtn}>
+        <TouchableOpacity style={styles.cBtn} onPress={onPress}>
             <CText style={styles.btnText}>{btnText}</CText>
         </TouchableOpacity>
      </View>

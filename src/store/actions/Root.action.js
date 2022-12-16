@@ -224,20 +224,26 @@ export const saveAddress = (payload, CB) => async (dispatch) => {
    await getTokenAndSetIntoHeaders()
 
     try {
-        let response = await post(SAVE_ADDRESS, payload);
-        if (response?.data?.error) {
-            handleError(response?.data?.message || "");
-            dispatch({ type: Root.SAVE_ADDRESS, loading: false });
-        } else {
-            dispatch({
-                type: Root.SAVE_ADDRESS,
-                loading: false,
-                data:response?.data?.data
+        dispatch({
+            type: Root.SAVE_ADDRESS,
+            loading: false,
+            data:payload
+                
+        });
+        // let response = await post(SAVE_ADDRESS, payload);
+        // if (response?.data?.error) {
+        //     handleError(response?.data?.message || "");
+        //     dispatch({ type: Root.SAVE_ADDRESS, loading: false });
+        // } else {
+        //     dispatch({
+        //         type: Root.SAVE_ADDRESS,
+        //         loading: false,
+        //         data:response?.data?.data
                     
-            });
+        //     });
             
-        }
-        CB && CB(response?.data)    
+        // }
+        // CB && CB(response?.data)    
 
     } catch (error) {
         console.log("🚀 ~ file: Root.action.js ~ line 234 ~ saveAddress ~ error", error)

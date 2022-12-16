@@ -12,7 +12,7 @@
       "Flower_type":"Flower Type",
       "Flower":"Flower",
       "Home":"Home",
-      "Ahyman":"Ahyman",
+      "Ahyman":"Ayham",
       "Name":"Name",
       "Address":"Address",
       "Pincode":"Pincode",
@@ -48,7 +48,7 @@
       "English":"English",
       "Customer_service":"Customer Service",
       "SAR":"SAR",
-      "I_dont_the_adress":"I don't the adress, please contact the recipient",
+      "I_dont_the_adress":"I don't know the address, Please contact the recipient",
       "Keep_my_identity_secret":"Keep my identity secret",
 
 
@@ -91,6 +91,15 @@
       "Checkout":"Checkout",
       "Delivery_address":"Delivery Address",
       "Add_location":"Add Location",
-      "Choose_payment_method":"Choose Payment Method"
+      "Choose_payment_method":"Choose Payment Method",
+
+      "Please_enter_name":"Please enter name",
+      "Please_enter_address":"Please enter address",
+      "Please_enter_pincode":"Please enter pincode",
+      "Phone_number_is_required":"Phone number is required",
+      "Please_enter_valid_phone_number":"Please enter valid phone number",
+      "Please_enter_text":"Please enter text",
+      "Please_enter_your_password":"Please enter your password",
+      "Password_is_too_short":"Password is too short - should be 8 chars minimum"
     }
   }

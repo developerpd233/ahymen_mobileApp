@@ -10,8 +10,8 @@ const scheme = (regex) =>
             .required("Phone number is required."),
        
         password: Yup.string()
-            .required("Please enter your password.")
-            .min(8, "Password is too short - should be 8 chars minimum.")
+            .required("Please_enter_your_password")
+            .min(8, "Password_is_too_short")
             // .matches(
             //     RegExp("(.*[a-z].*)"),
             //     "Password should have a minimum of 1 lowercase letter"

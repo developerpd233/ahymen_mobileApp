@@ -157,11 +157,13 @@ const customerServices = () => {
         //     onPress: () => null,
         //     icon: 'book'
         // },
+     
         {
-            title: t('Settings'),
-            onPress: () => null,
-            icon: 'setting',
+            title: t('Customer_service'),
+            onPress: () => { customerServices() },
+            icon: 'customerservice',
             type:'antdesign'
+            
         },
         {
             title: t('Logout'),
@@ -170,13 +172,6 @@ const customerServices = () => {
             type:'materialIcons'
 
         },
-        {
-            title: t('Customer_service'),
-            onPress: () => { customerServices() },
-            icon: 'customerservice',
-            type:'antdesign'
-
-        }
     ];
 
     const renderItem = (item, index) => {

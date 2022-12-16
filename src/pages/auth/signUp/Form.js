@@ -6,6 +6,7 @@ import { CButton, CInput, CText } from "../../../uiComponents";
 import AuthStyle from "../Auth.style";
 import '../../../utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
+import { useSelector } from "react-redux";
 function CForm(props) {
     const {t, i18n} = useTranslation();
     
@@ -61,7 +62,17 @@ function CForm(props) {
         //     setIsLoading(false);
         // }
     }
+    const reduxState = useSelector(({ root, auth, language }) => {
+        return {
+            user: auth?.user?.data?.user,
+            // loading: auth.sendOtpLoading,
+            address: root?.addressData?.address,
+            postalCode: root?.addressData?.postalCode,
+            language: language?.language?.lan
+        };
+    });
 
+    const languageTrans = reduxState.language
     return (
         <Formik
             innerRef={form}
@@ -113,7 +124,8 @@ function CForm(props) {
                                     }
                                     handleChange("phone")(phone);
                                 }}
-                                error={errors.phone}
+                                error={t(errors.phone)}
+                                inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left"}}
                                 returnKeyType="next"
                                 onSubmitEditing={() => password.current.focus()}
                                 // mask={masks.phone}
@@ -124,10 +136,11 @@ function CForm(props) {
                                 placeholder={"*************"}
                                 value={values.password}
                                 onChangeText={handleChange("password")}
-                                error={errors.password}
+                                error={t(errors.password)}
                                 returnKeyType="next"
                                 secureTextEntry={true}
                                 onSubmitEditing={() => handleSubmit()}
+                                inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left"}}
                             />
                             {/* <CInput
                                 ref={email}

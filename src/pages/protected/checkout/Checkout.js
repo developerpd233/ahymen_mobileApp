@@ -197,7 +197,8 @@ function Checkout({route}) {
     }
     
 
-   
+//    const reducState = useSelector((state))
+//    console.log('reducState-----abd', reducState)
 
     return(
         <Container loading={isLoading} bottomSpace edges={['left', 'right']} scrollView={true} headerProps={headerProps}>

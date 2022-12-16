@@ -91,6 +91,18 @@
     "Checkout":"الدفع",
     "Delivery_address":"عنوان التوصيل",
     "Add_location":"أضف عنوان",
-    "Choose_payment_method":"إختر طريقة الدفع"
+    "Choose_payment_method":"إختر طريقة الدفع",
+
+    "Please_enter_name":"الرجاء إدخال الاسم",
+    "Please_enter_address":"الرجاء إدخال العنوان",
+    "Please_enter_pincode":"الرجاء إدخال الرمز السري",
+    "Phone_number_is_required":"رقم الهاتف مطلوب",
+    "Please_enter_valid_phone_number":"الرجاء إدخال رقم هاتف صحيح",
+    "Please_enter_text":"الرجاء إدخال النص",
+    "Please_enter_your_password":"من فضلك أدخل رقمك السري",
+    "Password_is_too_short":"كلمة المرور قصيرة جدًا - يجب ألا تقل عن 8 أحرف"
+
+
+    
   }
 }

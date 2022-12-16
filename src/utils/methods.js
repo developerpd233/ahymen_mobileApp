@@ -90,7 +90,7 @@ export const validateNumberRegex = async (
             if (!valid) {
                 return createError({
                     path,
-                    message: "Please enter valid phone number.",
+                    message: "Please_enter_valid_phone_number",
                 });
             } else {
                 return true;
@@ -98,13 +98,13 @@ export const validateNumberRegex = async (
         } else {
             return createError({
                 path,
-                message: "Please enter valid phone number.",
+                message: "Please_enter_valid_phone_number",
             });
         }
     } else {
         return createError({
             path,
-            message: "Phone number is required.",
+            message: "Phone_number_is_required",
         });
     }
 };

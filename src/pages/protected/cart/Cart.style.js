@@ -137,7 +137,31 @@ const Styles = StyleSheet.create({
       buttonText:{
         color: themes["light"].colors.green,
         
+      },
+      productMsg: {
+        fontSize:16, 
+        fontWeight:'800', 
+        color: themes["light"].colors.primary,
+      },
+      CatRow:{
+        borderBottomWidth: 0.5,
+        marginTop: 20,
+        heightl:30
+      },
+      CTabview: {
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+      },
+      mainView: {
+        borderBottomWidth: 0.5,
+        marginTop: 20,
+        
+      },
+      tabViewText: {
+        color: "#7C8061",
+      },
+      header: {
+        color: "#7C8061",
       }
-     
 });
 export default Styles;

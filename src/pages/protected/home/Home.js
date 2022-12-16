@@ -71,14 +71,15 @@ function Home(props) {
             console.log("🚀 ~ file: Home.js ~ line 46 ~ handleApi ~ err", err)
         }
     }
-
+ console.log('video-74', videosData)
 
     const renderSlides = () => {
-        if (data?.length > 0) {
+        if (videosData?.length > 0) {
             return (
-                data?.map((val, index) => {
+                videosData?.map((val, index) => {
                     console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ valUri", val)
-                    const link = {uri:(val)}
+                    const link = val?.uri
+                    console.log('my-app-82', val.uri)
                     return (
                         <VideoPlayer
                             source={link}

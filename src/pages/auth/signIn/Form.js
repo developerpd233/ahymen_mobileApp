@@ -5,7 +5,7 @@ import { View } from "react-native";
 import { CButton, CInput, CText } from "../../../uiComponents";
 import AuthStyle from "../Auth.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Auth from "../../../store/constants/Auth.constant";
 import '../../../utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
@@ -49,7 +49,14 @@ function CForm(props) {
             isLoggedIn: true,
         });
     };
+    const reduxState = useSelector(({  language }) => {
+        return {
+  
+            language: language?.language?.lan
+        };
+    });
 
+    const languageTrans = reduxState.language
     return (
         <Formik
             innerRef={form}
@@ -91,7 +98,8 @@ function CForm(props) {
                                         }
                                         handleChange("phone")(phone);
                                     }}
-                                    error={errors.phone || phoneErr}
+                                    error={t(errors.phone )|| t(phoneErr)}
+                                    inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left"}}
                                     returnKeyType="next"
                                     onSubmitEditing={() => handleSubmit()}
                                     // mask={masks.phone}

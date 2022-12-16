@@ -1,15 +1,16 @@
 import * as Yup from 'yup';
+// import { validateNumberRegex } from '../../../utils/methods';
+import '../../../utils/i18n/lan';
+import { useTranslation } from 'react-i18next';
 
-const scheme = Yup.object().shape({
 
-    name: Yup.string().required('Please enter name'),
-    address: Yup.string().required('Please enter address'),
-    postalCode: Yup.string().required('Please enter pincode'),
-    phone: Yup.string()
-        .test("checkPhoneNumber", (value, obj) =>
-            validateNumberRegex(regex, value || "", obj)
-        )
-        .required("Phone number is required."),
+const scheme = ()=>  Yup.object().shape({
+    
+
+    name: Yup.string().required('Please_enter_name'),
+    // address: Yup.string().required('Please_enter_address'),
+    // postalCode: Yup.string().required('Please_enter_pincode'),
+    phone: Yup.string().required("Phone_number_is_required"),
 
 
 });

@@ -13,6 +13,7 @@ import '../../../utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
 import AuthStyle from "../../auth/Auth.style";
 import { Container, CountriesModal } from "../../../containers";
+import Toast from 'react-native-simple-toast';
 const origin = { latitude: 19.363631, longitude: -99.182545 };
 const destination = { latitude: 19.2932543, longitude: -99.1794758 };
 const GOOGLE_MAPS_APIKEY = 'AIzawyABlYq9oPRdf7VuOuDw-fKJsfboX-qY5dI';
@@ -182,7 +183,8 @@ const customStyle = [
 
 function Location(props) {
     const {t, i18n} = useTranslation();
-    
+    const [isSelected, setSelection] = useState(false);
+    const [isSelected2, setSelection2] = useState(0);
     const [currentLanguage,setLanguage] = useState('ar');
     const dispatch = useDispatch()
     const reduxState = useSelector(({ auth  , root , cart}) => {
@@ -226,14 +228,20 @@ function Location(props) {
  
     
 
-    const submit = (values)=>{
+    const submit = (values , isSelected2) => {
+        const payload  ={
+
+        }
+        console.log("🚀 ~ file: Location.js:230 ~ submit ~ values", values)
         dispatch(saveAddress(values, callback))
 
     }
-    const callback = (res)=>{
+    const callback = (res) => {
+        console.log("🚀 ~ file: Location.js:239 ~ callback ~ res", res)
+      
         Toast.show('Location added successfully', Toast.LONG)
-
-        // alert('dd')
+        navigation.navigate('checkout')
+        // alert('dd')n
         console.log('res ', res )
     }
 
@@ -277,6 +285,10 @@ function Location(props) {
                 loading={reduxState?.loading} 
                 submit={submit}
                 selectedCountry={'+1'}
+                isSelected={isSelected}
+                isSelected2={isSelected2}
+                checkboxOne={()=>setSelection(!isSelected)}
+                checkBoxTwo={()=>setSelection2(isSelected2 == 0 ? 1 : 0)}
                 toggleCountryModal={toggleCountryModal}
                  />
                 <Modal
