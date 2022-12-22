@@ -2,6 +2,7 @@ import * as React from "react";
 import {Cart, AddGiftCard, Checkout, Proceed, GuestCheckout} from "../../pages/protected";
 import {createStackNavigator} from "@react-navigation/stack";
 import Location from "../../pages/protected/location/Location";
+import addAddressFrom from "../../pages/protected/checkout/addAddressForm/addAddressFrom";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,8 @@ function CartStack() {
             <Stack.Screen name="checkout" component={Checkout} />
             <Stack.Screen name="guest_checkout" component={GuestCheckout} />
             <Stack.Screen name="location" component={Location} />
+            <Stack.Screen name="addAddressForm" component={addAddressFrom} />
+
         </Stack.Navigator>
     );
 }

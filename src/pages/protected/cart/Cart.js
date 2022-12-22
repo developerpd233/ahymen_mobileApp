@@ -147,6 +147,8 @@ function Cart(props) {
             </View>
         );
     };
+
+    
     useEffect(() => {
         handleApi()
     }, [])
@@ -322,11 +324,7 @@ function Cart(props) {
                         onPress={() => navigation.navigate("Store")}
                         title={t('Continue_shopping')}
                     />
-                    <CButton
-                        buttonStyle={Styles.linkButton}
-                        buttonText={Styles.linkButtonText}
-                        title={t('Legal_&_Privacy')}
-                    />
+                 
                 </View>
             </View>
         </Container>

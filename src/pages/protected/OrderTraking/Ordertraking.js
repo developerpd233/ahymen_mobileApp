@@ -11,11 +11,7 @@ const Ordertraking = (props) => {
         {/* <Text>helhbjnkmll</Text> */}
         <WebView source={{ uri:data}} />
         <View style={{justifyContent:'center',alignSelf:'flex-start',marginHorizontal:20}}>
-           <CButton 
-           buttonStyle={{width:100,}}
-           title='Continue'
-           onPress={()=>{props?.navigation?.navigate('Home')}}
-           />
+          
         </View>
         
     </View>

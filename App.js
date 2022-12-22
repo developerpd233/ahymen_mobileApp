@@ -9,6 +9,7 @@ import { Setting } from "./src/pages/protected";
 import './src/utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
 import {changeLanguage} from './src/store/actions/Language.action'
+import CForm from './src/pages/protected/checkout/addAddressForm/addAddressFrom.js'
 
 const App = () => {
     const {t, i18n} = useTranslation();

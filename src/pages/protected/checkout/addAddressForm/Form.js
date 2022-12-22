@@ -1,36 +1,29 @@
 import React, { useRef, memo, useEffect, useState } from 'react';
 import { Formik } from 'formik';
-// import Validations from './Validations';
 import { View } from 'react-native';
-import { CButton, CheckBox, CInput, CText } from '../../../uiComponents';
-import Styles from "../profile/Profile.style";
-import GlobalStyle from "../../../assets/stylings/GlobalStyle";
+import { CButton, CheckBox, CInput, CText } from '../../../../uiComponents';
+import Styles from "../../profile/Profile.style";
+import GlobalStyle from "../../../../assets/stylings/GlobalStyle";
 import Validations from "./Validations";
 import { useSelector } from 'react-redux'
-import '../../../utils/i18n/lan';
+import '../../../../utils/i18n/lan';
 import { useTranslation } from 'react-i18next';
+import SelectDropdown from 'react-native-select-dropdown'
+import { Container } from '../../../../containers';
+
 function CForm(props) {
-
-
-
-    console.log("🚀 ~ file: Form.js:15 ~ CForm ~ isSelected2", isSelected2)
-
-
     const {
-
         selectedCountry,
         toggleCountryModal,
         phoneErr,
-
     } = props;
     const { t, i18n } = useTranslation();
 
     const [currentLanguage, setLanguage] = useState('ar');
-
-  
    
-    const { submit, loading, form, checkBoxTwo, checkboxOne, isSelected2, isSelected ,data} = props;
-    console.log("🚀 ~ file: Form.js:35 ~ CForm ~ data", data)
+
+
+    const { submit, loading, form, checkBoxTwo, checkboxOne, isSelected2, isSelected  } = props;
 
     const reduxState = useSelector(({ root, auth, language }) => {
         return {
@@ -41,47 +34,69 @@ function CForm(props) {
             language: language?.language?.lan
         };
     });
-
+   
     const languageTrans = reduxState.language
     console.log('reduxState--------------', languageTrans)
+    const title = useRef(null)
     const name = useRef(null);
     const address = useRef(null);
     const postalCode = useRef(null);
     const phone = useRef(null);
 
     // const countries = ["Egypt", "Canada", "Australia", "Ireland"]
+
     return (
+     
+      
         <Formik
             enableReinitialize={true}
             innerRef={form}
-            onSubmit={(values) => submit(values, isSelected2)}
+            onSubmit={(values ,{ resetForm }) => {submit(values , resetForm)}}
             initialValues={{
-                name: reduxState?.user?.name,
-                address: reduxState?.address,
-                postalCode: reduxState?.postalCode,
-                phone: ''
+                title: '',
+                name:'',
+                address:'',
+                postalCode:'',
+                phone: '',
+                
+
             }}
             validationSchema={Validations}
 
         >
 
             {({ handleChange, values, handleSubmit, errors }) => {
-                console.log('firstfirstfirst', errors)
                 return (
                     <View style={[Styles.section, { marginHorizontal: 0 }]}>
-                        <CText style={Styles.sectionTitle}>{data.label}</CText>
+                        <CText style={Styles.sectionTitle}>{t('Add_address')}</CText>
                         <CInput
-                        editable={false}
+                            ref={title}
+                            inputLabel={t('Address_title')}
+                            inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left" }}
+                            placeholder={t('Home_office_etc')}
+                            value={values.title}
+                            onChangeText={handleChange('title')}
+                            error={t(errors.title)}
+                            multiline={true}
+                            inputInnerContainerStyle={{
+                                paddingTop: 10,
+                                paddingBottom: 15,
+                            }}
+                            returnKeyType="next"
+                            onSubmitEditing={() => postalCode.current.focus()}
+                        />
+                        <CInput
                             ref={name}
                             inputLabel={t('Name')}
                             placeholder={t('Ahyman')}
-                            value={data.name}
+                            value={values.name}
                             onChangeText={handleChange('name')}
                             error={t(errors.name)}
                             returnKeyType="next"
                             onSubmitEditing={() => address.current.focus()}
                             inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left" }}
                         />
+
 
                         {/* <SelectDropdown
                             data={countries}
@@ -102,15 +117,13 @@ function CForm(props) {
                             defaultButtonText="Adress"
                         /> */}
 
-                        {data?.hide_address !== 0 ? false : true && <CInput
-                        editable={false}
-
+                        { !isSelected && <CInput
                             ref={address}
                             inputLabel={t('Address')}
                             // editable={!isSelected}
                             inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left" }}
                             placeholder={t('Address_for_delivery')}
-                            value={data.address}
+                            value={values.address}
                             onChangeText={handleChange('address')}
                             error={t(errors.address)}
                             multiline={true}
@@ -121,10 +134,8 @@ function CForm(props) {
                             returnKeyType="next"
                             onSubmitEditing={() => postalCode.current.focus()}
                         />
-                        }
+                   }
                         <CInput
-                        editable={false}
-
                             ref={phone}
                             inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left" }}
                             type="number"
@@ -134,9 +145,8 @@ function CForm(props) {
                             keyboardType={"numeric"}
                             inputLabel={t('Phone_number')}
                             placeholder={"000-000-0000"}
-                            value={data?.phone}
+                            value={values?.phone}
                             onChangeText={(val) => {
-                                console.log("🚀 ~ file: Form.js:139 ~ CForm ~ val", val)
                                 let phone = val;
                                 let reg = /^0+/gi;
                                 if (phone.match(reg)) {
@@ -149,14 +159,12 @@ function CForm(props) {
                             onSubmitEditing={() => handleSubmit()}
                         // mask={masks.phone}
                         />
-                        {data?.hide_address !== 0 ? false : true && <CInput
+                        {!isSelected && <CInput
                             ref={postalCode}
                             // editable={0}
-                        editable={false}
-
                             inputLabel={t('Pincode')}
                             placeholder={'000000'}
-                            value={data.pincode}
+                            value={values.postalCode}
                             onChangeText={handleChange('postalCode')}
                             error={t(errors.postalCode)}
                             returnKeyType="next"
@@ -165,25 +173,28 @@ function CForm(props) {
                         />
                         }
                         <CheckBox
-                            value={data?.hide_address == 0 ? false : true}
-                            // onChange={checkboxOne}
+                            value={isSelected}
+                            onChange={checkboxOne}
                             title={t('I_dont_the_adress')}
                             containerStyles={{ flexDirection: languageTrans == "ar" ? "row" : 'row-reverse', backgroundColor: '#f8f8f8', paddingVertical: 15, paddingHorizontal: 10, borderRadius: 8 }}
                             myStyle2={{ marginRight: 10 }}
                             stylesTitle={{ fontSize: 15, color: "#666869", textAlign: languageTrans == "ar" ? 'right' : 'left', flex: 1 }} />
 
                         <CheckBox
-                            value={data?.hide_sender == 0 ? false : true}
-                            // onChange={checkBoxTwo}
+                            value={isSelected2}
+                            onChange={checkBoxTwo}
                             title={t('Keep_my_identity_secret')}
                             containerStyles={{ flexDirection: languageTrans == "ar" ? "row" : 'row-reverse', backgroundColor: '#f8f8f8', paddingVertical: 15, paddingHorizontal: 10, borderRadius: 8 }}
                             myStyle2={{ marginRight: 10 }} stylesTitle={{ fontSize: 15, color: "#666869", textAlign: languageTrans == "ar" ? 'right' : 'left', flex: 1 }} />
 
-                        
+                        <CButton title={t('Save')}
+                            loading={loading}
+                            onPress={() => handleSubmit()} />
                     </View>
                 );
             }}
         </Formik>
+      
     );
 }
 export default memo(CForm);

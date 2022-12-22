@@ -100,6 +100,15 @@
       "Please_enter_valid_phone_number":"Please enter valid phone number",
       "Please_enter_text":"Please enter text",
       "Please_enter_your_password":"Please enter your password",
-      "Password_is_too_short":"Password is too short - should be 8 chars minimum"
+      "Password_is_too_short":"Password is too short - should be 8 chars minimum",
+      "Address_title":"Address Title",
+      "Home_office_etc":"Home, Office etc", 
+      "Please_enter_title":"Please enter title",
+      "Select_Address":"Select Address",
+      "Add_new_address":"Add New Address",
+      "Please_enter_email_address":"Please enter email address",
+      "Please_enter_valid_email_address":"Please enter valid email address",
+      "Please_enter_your_full_name":"Please enter your full name"
+
     }
   }

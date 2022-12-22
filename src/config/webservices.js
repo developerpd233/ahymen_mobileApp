@@ -21,4 +21,5 @@ export const SAVE_ADDRESS = `${BASE_URL}saveAddress`;
 export const NEW_ORDER =`${BASE_URL}order`;
 export const GET_TOKEN   =`${BASE_URL}token`;
 export const FEATURE_CAT_AND_PRODUCT   =`${BASE_URL}featuredCategoriesWithProducts`;
+export const GET_ALL_ADDRESS = `${BASE_URL}getAddress`;
 

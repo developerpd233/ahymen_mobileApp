@@ -35,13 +35,14 @@ const Styles = StyleSheet.create({
         textAlign: 'left',
         fontFamily: themes.font.medium,
         color: themes['light'].colors.fontColor,
-        marginRight: 10
+        marginRight: 10,
     },
     addLocationButton: {
         paddingHorizontal: 30,
         paddingVertical: 10,
         height: 'auto',
-        alignItems: 'center'
+        alignItems: 'center',
+        // backgroundColor:'red'
     },
     addLocationButtonText: {
         fontSize: 12,

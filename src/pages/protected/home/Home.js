@@ -51,14 +51,12 @@ function Home(props) {
 
     const slider = useRef();
 
-    const [video, setVideo] = useState([
-
-
-
-    ])
+    const [video, setVideo] = useState([]);
+    
     useEffect(() => {
         handleApi()
     }, [])
+
     // , '24|p52iuFDApHZCYPuy0MmjFp7igWQbWMq2RmtrYbby'
     const handleApi = async () => {
         try {

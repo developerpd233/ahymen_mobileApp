@@ -29,15 +29,7 @@ function ProductDetail({ route }) {
     const [currentLanguage,setLanguage] = useState('ar');
 
 
-    // useEffect(() => {
-    // changeLanguage('ar')
-    // }, [])
-    // const changeLanguage = value => {
-    //   i18n
-    //     .changeLanguage(value)
-    //     .then(() => setLanguage(value))
-    //     .catch(err => console.log(err));
-    // };
+
 
     
     const { item } = route?.params;

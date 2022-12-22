@@ -100,9 +100,15 @@
     "Please_enter_valid_phone_number":"الرجاء إدخال رقم هاتف صحيح",
     "Please_enter_text":"الرجاء إدخال النص",
     "Please_enter_your_password":"من فضلك أدخل رقمك السري",
-    "Password_is_too_short":"كلمة المرور قصيرة جدًا - يجب ألا تقل عن 8 أحرف"
+    "Password_is_too_short":"كلمة المرور قصيرة جدًا - يجب ألا تقل عن 8 أحرف",
+    "Address_title":"عنوان عنوان",
+    "Home_office_etc":"المنزل والمكتب وما إلى ذلك",
+    "Please_enter_title":"الرجاء إدخال العنوان",
+    "Select_Address":"حدد العنوان",
+    "Add_new_address":"أضف عنوان جديد",
+    "Please_enter_email_address":"الرجاء إدخال عنوان البريد الإلكتروني",
+    "Please_enter_valid_email_address":"الرجاء إدخال عنوان بريد إلكتروني صالح",
+    "Please_enter_your_full_name":"الرجاء إدخال اسمك الكامل"
 
-
-    
   }
 }

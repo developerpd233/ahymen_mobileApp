@@ -43,16 +43,7 @@ function Profile(props) {
         }
     };
 
-    // useEffect(() => {
-    // changeLanguage('ar')
-    // }, [])
-    // const changeLanguage = value => {
-    //   i18n
-    //     .changeLanguage(value)
-    //     .then(() => setLanguage(value))
-    //     .catch(err => console.log(err));
-    // };
-
+   
     const navigation = useNavigation();
 
   
