@@ -31,7 +31,7 @@ import {themes} from '../../../theme/colors';
 import {Icon} from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
 import SelectDropdown from 'react-native-select-dropdown';
-
+import { useIsFocused } from '@react-navigation/native';
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
 function Checkout({route}) {
@@ -44,7 +44,7 @@ function Checkout({route}) {
   const expiry = useRef(null);
   const cvv = useRef(null);
   const countries = ['Egypt', 'Canada', 'Australia', 'Ireland'];
-
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const reduxState = useSelector(({auth, root, cart}) => {
     return {
@@ -53,6 +53,8 @@ function Checkout({route}) {
       user: auth.user,
     };
   });
+
+  console.log('dddddd-dddddddddddd', reduxState.data)
   const usersToken = reduxState.user?.data?.token;
   const [selectedMethod, updateMethod] = useState('VISA');
   const [thanksModal, updateThanksModal] = useState(false);
@@ -60,16 +62,11 @@ function Checkout({route}) {
   const [webUrl, setWebUrl] = useState();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  console.log('🚀 ~ file: Checkout.js:63 ~ Checkout ~ value', value);
   const [valueOne, setValueOne] = useState(null);
   const [items, setItems] = useState(['No address found']);
   const [allItems, setAllItems] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState();
-  console.log(
-    '🚀 ~ file: Checkout.js:67 ~ Checkout ~ selectedAddress',
-    selectedAddress,
-  );
-  console.log('🚀 ~ file: Checkout.js:68 ~ Checkout ~ items', items);
+
   const headerProps = {
     showCenterLogo: true,
     showCart: true,
@@ -99,30 +96,31 @@ function Checkout({route}) {
   };
 
   const locationAdd = () => {
-    navigation.navigate('addAddressForm', {
+    navigation.navigate('Cart', {
+      screen: 'addAddressForm',
       isGoBack: true,
     });
   };
-  const renderItem = ({item}) => {
+  const renderItem = (item) => {
     return (
       <CListItem
         activeOpacity={1}
         type={'horizontal'}
-        image={require('../../../assets/images/flowers/one.png')}
-        orderNumber={'Item # 01010'}
-        title={'Flower type'}
-        price={`${t('SAR')} 299`}
-        qun={2}
-        listItemView={{margin: 0}}
+        image={{uri:item?.ProductImage[0]}}
+        orderNumber={`${t('Item')} # ${item?.ProductId} `}
+        title={item?.ProductName}
+        price={`${t('SAR')} ${item?.ProductPrice}`}
+        qun={item?.quantity}
+        listItemView={{marginBottom: 5}}
         imageStyle={{minHeight: 80, minWidth: 85}}
         priceStyle={Styles.orderPriceStyle}
       />
     );
   };
 
-  const callback = () => {
-    alert('done');
-  };
+  // const callback = () => {
+  //   alert('done');
+  // };
 
   const handle_order = async values => {
     setLoading(true);
@@ -231,7 +229,7 @@ function Checkout({route}) {
 
   useEffect(() => {
     GetAddressApi();
-  }, []);
+  }, [isFocused ]);
 
   const GetAddressApi = async () => {
     try {
@@ -249,7 +247,7 @@ function Checkout({route}) {
 
   const handleApiData = abc => {
     const fil = [];
-    abc.map(abc => {
+    abc?.map(abc => {
       fil.push(abc.label);
     });
     console.log('dddd', fil);
@@ -257,16 +255,11 @@ function Checkout({route}) {
   };
 
   const handleSelectedValue = e => {
-    console.log(
-      '🚀 ~ file: Checkout.js:256 ~ handleSelectedValue ~ e',
-      e,
-      items,
-    );
+   
     setValueOne(e);
-    const ghg = allItems.filter(val => {
+    const ghg = allItems?.filter(val => {
       return val.label == e;
     });
-    console.log('🚀 ~ file: Checkout.js:260 ~ ghg ~ ghg', ghg);
     setSelectedAddress(ghg?.[0]);
   };
   const changeValue = val => {

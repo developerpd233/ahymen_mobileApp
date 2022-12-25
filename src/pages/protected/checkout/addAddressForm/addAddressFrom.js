@@ -28,6 +28,8 @@ const addAddressFrom = (props) => {
   
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
   const [selectedCountry, updateSelectedCountry] = useState(reduxStates.currentCountry);
+  const Ccode = selectedCountry?.detail?.code
+  console.log("🚀 ~ file: addAddressFrom.js:31 ~ addAddressFrom ~ selectedCountry", selectedCountry?.detail?.code)
   const navigation = useNavigation()
   console.log('state-----01',isSelected)
   const headerProps = {
@@ -60,6 +62,7 @@ const addAddressFrom = (props) => {
   console.log("🚀 ~ file: addAddressFrom.js:34 ~ reduxState ~ reduxState", token)
 
   const countryOnSelect = (item) => {
+    console.log('country-code', item)
     updateSelectedCountry(item);
     toggleCountryModal();
   };
@@ -71,7 +74,7 @@ const addAddressFrom = (props) => {
     formData.append("label",values.title)
     formData.append("name",values.name)
     formData.append("address",values.address)
-    formData.append("phone",values.phone)
+    formData.append("phone",`${Ccode}${values.phone}`)
     formData.append("pincode",values.postalCode)
     formData.append("specialRequest[0][addressPrivate]",isSelected)
     formData.append("specialRequest[0][senderPrivate]",isSelected2)
@@ -117,7 +120,7 @@ const addAddressFrom = (props) => {
                 <View style={AuthStyle.modalContainer}>
                     <View style={AuthStyle.modalInnerContainer}>
                         <CountriesModal
-                            onSelect={(val) => countryOnSelect(val)}
+                            onSelect={(val) =>{ countryOnSelect(val), console.log('code___+++___country', val?.detail?.code) }}
                         />
                     </View>
                 </View>

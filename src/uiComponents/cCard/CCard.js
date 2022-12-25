@@ -11,11 +11,11 @@ return (
     <View style={styles.mainView}>
         <View style={styles.cardStyle}>
       <View>
-        <Image source={img} resizeMode="contain" style={{height:180, width:180}} />
+        <Image source={img} resizeMode="contain" style={{height:120, width:120}} />
       </View>
      <View style={{marginVertical:8}}>
         <CText style={styles.productName}>{productName}</CText>
-        <CText style={styles.priceText}>{priceText} <CText style={styles.price}>{price}</CText></CText>
+       <CText style={styles.price}>{price}</CText>
      </View>
      <View>
         <TouchableOpacity style={styles.cBtn} onPress={onPress}>
@@ -32,9 +32,9 @@ export default CCard
 const styles = StyleSheet.create({
     cBtn: {
         borderWidth:1,
-        borderColor:'#2e6472',
-        height:35,
-        width:180,
+        borderColor:'#7C8061',
+        height:30,
+        width:120,
         alignItems:'center',
         justifyContent:'center'
     },
@@ -45,21 +45,21 @@ const styles = StyleSheet.create({
     },
     cardStyle : {
         // backgroundColor:'blue',
-        width:180, 
+        width:120, 
      
     },
     btnText: {
-        fontSize:15, 
-        color:'#2e6472',
+        fontSize:14, 
+        color:'#7C8061',
         fontWeight:'800'
 
     },
     productName: {
-        fontSize:16, 
+        fontSize:14, 
         color:'#000'
     },
     priceText:{
-        fontSize:16, 
+        fontSize:13, 
         color:'#000'
     },
     price:{

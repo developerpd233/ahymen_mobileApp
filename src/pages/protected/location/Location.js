@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {CInput, CText} from '../../../uiComponents';
+import {CButton, CInput, CText} from '../../../uiComponents';
 import {View, TouchableOpacity, Modal, Text} from 'react-native';
 import Styles from './Location.style';
 import CForm from './Form';
@@ -17,7 +17,7 @@ import Toast from 'react-native-simple-toast';
 import {useEffect} from 'react';
 import {GET_ALL_ADDRESS} from '../../../config/webservices';
 import ApiSauce from '../../../utils/network';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 const origin = {latitude: 19.363631, longitude: -99.182545};
 const destination = {latitude: 19.2932543, longitude: -99.1794758};
 const GOOGLE_MAPS_APIKEY = 'AIzawyABlYq9oPRdf7VuOuDw-fKJsfboX-qY5dI';
@@ -192,7 +192,7 @@ function Location(props) {
   const [apiData, setApiData] = useState();
   console.log('🚀 ~ file: Form.js:16 ~ CForm ~ apiData', apiData);
   const dispatch = useDispatch();
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
   const reduxState = useSelector(({auth, root, cart}) => {
     console.log(
       '🚀 ~ file: Location.js:189 ~ reduxState ~ reduxState',
@@ -210,17 +210,19 @@ function Location(props) {
       user: auth.user,
     };
   });
-  const reduxStatess = useSelector(({ auth, global }) => {
-    console.log("🚀 ~ file: Signup.js ~ line 22 ~ reduxState ~ auth", auth)
+  const reduxStatess = useSelector(({auth, global}) => {
+    console.log('🚀 ~ file: Signup.js ~ line 22 ~ reduxState ~ auth', auth);
     return {
-        loading: auth.isLoggedIn,
-        currentCountry: global.currentCountry,
-        countries: global.countries,
+      loading: auth.isLoggedIn,
+      currentCountry: global.currentCountry,
+      countries: global.countries,
     };
   });
   const usersToken = reduxStates.user?.data?.token;
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
-  const [selectedCountry, updateSelectedCountry] = useState(reduxStatess.currentCountry);
+  const [selectedCountry, updateSelectedCountry] = useState(
+    reduxStatess.currentCountry,
+  );
   const navigation = useNavigation();
 
   const headerProps = {
@@ -282,6 +284,16 @@ function Location(props) {
     // alert('dd')n
     console.log('res ', res);
   };
+  const locationAdd = () => {
+    
+    navigation.navigate('Cart', {
+      screen: 'addAddressForm',
+      isGoBack: true,
+    });
+  };
+
+
+
 
   return (
     <Container
@@ -317,8 +329,24 @@ function Location(props) {
             <CText style={Styles.buttonText}>{t('Choose_on_map')}</CText>
           </TouchableOpacity>
         </View>
+
+        <View style={Styles.addLocationContainer}>
+          <CText style={Styles.addLocationTitle}>{t('Add_new_address')}</CText>
+          <CButton
+            buttonStyle={[Styles.addLocationButton, {width: 180}]}
+            buttonText={Styles.addLocationButtonText}
+            iconStyle={Styles.addLocationButtonIcon}
+            iconType={'left'}
+            iconName={'plusmark'}
+            onPress={() => locationAdd()}
+            title={t('Add_new_address')}
+          />
+        </View>
         {apiData?.map(dataApi => {
-          console.log('🚀 ~ file: Location.js:283 ~ apiData.map ~ val',dataApi);
+          console.log(
+            '🚀 ~ file: Location.js:283 ~ apiData.map ~ val',
+            dataApi,
+          );
           return (
             <CForm
               loading={reduxState?.loading}

@@ -129,7 +129,7 @@ function CForm(props) {
                             inputErrorStyle={{ textAlign: languageTrans == 'ar' ? 'right' : "left" }}
                             type="number"
                             // disabled={true}
-                            selectedCountry={selectedCountry}
+                            // selectedCountry={selectedCountry}
                             onPress={() => toggleCountryModal()}
                             keyboardType={"numeric"}
                             inputLabel={t('Phone_number')}

@@ -36,7 +36,6 @@ function CForm(props) {
     });
    
     const languageTrans = reduxState.language
-    console.log('reduxState--------------', languageTrans)
     const title = useRef(null)
     const name = useRef(null);
     const address = useRef(null);
@@ -51,7 +50,7 @@ function CForm(props) {
         <Formik
             enableReinitialize={true}
             innerRef={form}
-            onSubmit={(values ,{ resetForm }) => {submit(values , resetForm)}}
+            onSubmit={(values ,{ resetForm }) => {submit(values, resetForm)}}
             initialValues={{
                 title: '',
                 name:'',

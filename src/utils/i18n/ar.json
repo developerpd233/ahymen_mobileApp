@@ -108,7 +108,10 @@
     "Add_new_address":"أضف عنوان جديد",
     "Please_enter_email_address":"الرجاء إدخال عنوان البريد الإلكتروني",
     "Please_enter_valid_email_address":"الرجاء إدخال عنوان بريد إلكتروني صالح",
-    "Please_enter_your_full_name":"الرجاء إدخال اسمك الكامل"
+    "Please_enter_your_full_name":"الرجاء إدخال اسمك الكامل",
+    "View_store":"عرض المتجر",
+    "Item":"بند"
+
 
   }
 }

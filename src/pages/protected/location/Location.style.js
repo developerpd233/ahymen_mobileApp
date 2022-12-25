@@ -43,6 +43,43 @@ const Styles = StyleSheet.create({
         color: themes['light'].colors.fontColor,
         fontFamily: themes.font.medium
     },
+    addLocationContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderWidth: 1,
+        borderColor: themes['light'].colors.lightBorderColor,
+        borderRadius: 8,
+        marginTop: 10,
+        marginBottom:30
+    },
+    addLocationTitle: {
+        flex: 1,
+        fontSize: 16,
+        textAlign: 'left',
+        fontFamily: themes.font.medium,
+        color: themes['light'].colors.fontColor,
+        marginRight: 10,
+    },
+    addLocationButton: {
+        paddingHorizontal: 30,
+        paddingVertical: 10,
+        height: 'auto',
+        alignItems: 'center',
+        // backgroundColor:'red'
+    },
+    addLocationButtonText: {
+        fontSize: 12,
+        marginLeft: 10,
+
+    },
+    addLocationButtonIcon: {
+        fontSize: 12,
+        marginLeft: 0
+        // marginRight: 10
+    },
+
 
 });
 export default Styles

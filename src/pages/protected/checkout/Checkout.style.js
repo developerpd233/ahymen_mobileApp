@@ -100,7 +100,7 @@ const Styles = StyleSheet.create({
     },
     buttonSpace: {
         marginTop: 10
-    }
+    },
 
 
 });

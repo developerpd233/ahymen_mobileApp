@@ -110,7 +110,8 @@ export default StyleSheet.create({
     },
     listItemContent: {
         paddingVertical: 12,
-        paddingHorizontal: 5
+        paddingHorizontal: 0,
+        
     },
     listItemTitle: {
         fontSize: 18,

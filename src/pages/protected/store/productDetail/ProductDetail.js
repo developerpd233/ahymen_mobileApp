@@ -24,6 +24,9 @@ import '../../../../utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
 
 function ProductDetail({ route }) {
+console.log("🚀 ~ file: ProductDetail.js:27 ~ ProductDetail ~ route", route?.params?.ProductId)
+
+    console.log('id-dddd', )
     const {t, i18n} = useTranslation();
     
     const [currentLanguage,setLanguage] = useState('ar');
@@ -32,7 +35,9 @@ function ProductDetail({ route }) {
 
 
     
-    const { item } = route?.params;
+    const { item } = route?.params || '';
+    // const { ProductId } = route?.params ;
+    // console.log("🚀 ~ file: ProductDetail.js:40 ~ ProductDetail ~ ProductId", ProductId)
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [wishlistData , setWishlistData] = useState([])
     const dispatch = useDispatch()
@@ -107,7 +112,7 @@ function ProductDetail({ route }) {
 
                 setWishlistData(res?.data?.wishlist)
                 
-                const productExists = wishlistData.some(product => product.ProductId === item.ProductId);
+                const productExists = wishlistData.some(product => product?.ProductId === item?.ProductId);
 
                 if(productExists) {
                     updateIsFav(true)
@@ -146,7 +151,7 @@ function ProductDetail({ route }) {
             <View style={Styles.singleSlide}>
                 <ProgressiveImage
                     source={{ uri: item }}
-                    resizeMode={"cover"}
+                    resizeMode={"contain"}
                     style={Styles.singleSlideImage}
                 />
             </View>
@@ -169,7 +174,7 @@ function ProductDetail({ route }) {
             >
                 <ProgressiveImage
                     source={{ uri: item }}
-                    resizeMode={"cover"}
+                    resizeMode={"contain"}
                     style={Styles.miniSliderSlideImage}
                 />
             </TouchableOpacity>
@@ -199,7 +204,7 @@ function ProductDetail({ route }) {
             let action = isFav == false ? 'add' : 'delete';
 
             const payload = {
-                product_id: item.ProductId,
+                product_id: item?.ProductId,
                 action: action
             }
 
@@ -292,7 +297,7 @@ function ProductDetail({ route }) {
             <View style={Styles.container}>
                 {renderSliderContainer()}
 
-                <CText style={Styles.subTitle}>{t('Item_number')}{item.ProductId}</CText>
+                <CText style={Styles.subTitle}>{t('Item_number')}{item?.ProductId}</CText>
                 <CText style={Styles.title}>{item?.ProductName}</CText>
 
                 <View
@@ -316,7 +321,7 @@ function ProductDetail({ route }) {
             </TouchableOpacity>
                 </View>
 
-                <CText style={Styles.price}>{t('SAR')} {item.ProductPrice}</CText>
+                <CText style={Styles.price}>{t('SAR')} {item?.ProductPrice}</CText>
 
                 <CText style={Styles.text}>{item?.ProductDescription}</CText>
 
@@ -330,12 +335,12 @@ function ProductDetail({ route }) {
                     // onPress={() => addToBasket()}
                 />
 
-                <CText style={Styles.text}>
+                {/* <CText style={Styles.text}>
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown
                     printer took a galley of type and scrambled it.
-                </CText>
+                </CText> */}
 
                 <View style={[Styles.section, Styles.topAndBottomBorder]}>
                     <CText style={Styles.normalTitle}>{t('Product_Details')}</CText>
@@ -345,23 +350,23 @@ function ProductDetail({ route }) {
                             <View style={Styles.sectionContentItemDot} />
                             <CText style={Styles.sectionPoints}>
                                 {" "}
-                                100% organic flower{" "}
+                                {item?.ProductDetails[0]}{" "}
                             </CText>
                         </View>
                         <View style={Styles.sectionContentItem}>
                             <View style={Styles.sectionContentItemDot} />
                             <CText style={Styles.sectionPoints}>
                                 {" "}
-                                Fresh Vibrant color{" "}
+                                {item?.ProductDetails[1]}{" "}
                             </CText>
                         </View>
-                        <View style={Styles.sectionContentItem}>
+                        {/* <View style={Styles.sectionContentItem}>
                             <View style={Styles.sectionContentItemDot} />
                             <CText style={Styles.sectionPoints}>
                                 {" "}
-                                Nice scent{" "}
+                                {item?.ProductDetails[2]}{" "}
                             </CText>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </View>
