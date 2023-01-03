@@ -10,6 +10,7 @@ import {
     getValueIntoAsyncStorage,
 } from "../../utils/asyncStorage/Functions";
 import {
+    AUTOCOMPLETE,
     GET_CATEGEORY,
     GET_CAT_PRODUCT,
     GET_SUB_CATEGEORY,
@@ -230,20 +231,7 @@ export const saveAddress = (payload, CB) => async (dispatch) => {
             data:payload
                 
         });
-        // let response = await post(SAVE_ADDRESS, payload);
-        // if (response?.data?.error) {
-        //     handleError(response?.data?.message || "");
-        //     dispatch({ type: Root.SAVE_ADDRESS, loading: false });
-        // } else {
-        //     dispatch({
-        //         type: Root.SAVE_ADDRESS,
-        //         loading: false,
-        //         data:response?.data?.data
-                    
-        //     });
-            
-        // }
-        // CB && CB(response?.data)    
+
 
     } catch (error) {
         console.log("🚀 ~ file: Root.action.js ~ line 234 ~ saveAddress ~ error", error)
@@ -297,4 +285,31 @@ export const orderCheckout = (payload, CB) => async (dispatch) => {
     //     handleError(error?.data?.data, { autoHide: true });
     //     dispatch({ type: Root.ORDER, loading: false });
     // }
+};
+
+export const autoComplete = (payload, CB) => async (dispatch) => {
+    console.log("🚀 ~ file: Root.action.js:291 ~ autoComplete ~ payload", payload)
+    dispatch({
+        type: Root.AUTOCOMPLETE,
+        loading: true,
+    });
+    try {
+        let response = await post(AUTOCOMPLETE, payload);
+        console.log("🚀 ~ file: Root.action.js:297 ~ autoComplete ~ response", response)
+
+        if (response?.data?.error) {
+            handleError(response?.data?.message || "");
+            dispatch({ type: Root.AUTOCOMPLETE, loading: false });
+        } else {
+            dispatch({
+                type: Root.AUTOCOMPLETE,
+                loading: false,
+            });
+        }
+        CB && CB(response?.data)
+    } catch (error) {
+        console.log("🚀 ~ file: Root.action.js:309 ~ autoComplete ~ error", error)
+        handleError(error?.data?.message, { autoHide: true });
+        dispatch({ type: Root.AUTOCOMPLETE, loading: false });
+    }
 };

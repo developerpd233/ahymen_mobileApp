@@ -23,3 +23,4 @@ export const GET_TOKEN   =`${BASE_URL}token`;
 export const FEATURE_CAT_AND_PRODUCT   =`${BASE_URL}featuredCategoriesWithProducts`;
 export const GET_ALL_ADDRESS = `${BASE_URL}getAddress`;
 
+export const AUTOCOMPLETE = `${BASE_URL}autocompleteAddress`;

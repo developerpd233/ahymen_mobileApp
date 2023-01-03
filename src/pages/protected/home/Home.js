@@ -24,14 +24,6 @@ function Home(props) {
 
 
 
-    // const changeLanguage = value => {
-    //   console.log("🚀 ~ file: Home.js:26 ~ changeLanguage ~ value", value)
-    //   i18n
-    //     .changeLanguage(value)
-    //     .then(() => setLanguage(value))
-    //     .catch(err => console.log(err));
-    // };
-
     const [data, setData] = useState()
     const videosData = [
         { uri: require('../../../assets/videos/1.mp4') },

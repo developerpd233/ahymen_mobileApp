@@ -316,7 +316,7 @@ function Cart(props) {
                             stylesTitle={{ fontSize: 15, color: "#666869", textAlign: langCheck == "ar" ? 'right' : 'left', flex: 1 }} />
                  */}
         {/* Add Categories */}
-        <View>
+      { reduxState?.data.length >  0  &&  <View>
           <View style={Styles.CatRow}>
             <FlatList
               showsHorizontalScrollIndicator={false}
@@ -326,7 +326,7 @@ function Cart(props) {
             />
           </View>
           {cardRender()}
-        </View>
+        </View>}
 
         {reduxState?.data.length > 0 ? (
           <View style={[Styles.paymentInfo]}>

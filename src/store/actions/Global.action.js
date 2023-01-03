@@ -2187,7 +2187,7 @@ let a = [
     }
 ];
 export const getCountries = () => async (dispatch) => {
-    let currentCountryName = 'PK';
+    let currentCountryName = 'SA';
     let updatedCountries =  Countries.map(o => {
         let found = a.find(i => i.iso === o.cca2);
         return { ...o, detail: found }

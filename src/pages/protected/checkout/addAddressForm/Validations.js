@@ -9,7 +9,7 @@ const scheme = ()=>  Yup.object().shape({
     name: Yup.string().required('Please_enter_name'),
     // address: Yup.string().required('Please_enter_address'),
     // postalCode: Yup.string().required('Please_enter_pincode'),
-    phone: Yup.string().required("Phone_number_is_required"),
+    // phone: Yup.string().required("Phone_number_is_required"),
 
 
 });

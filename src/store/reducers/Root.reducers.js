@@ -9,6 +9,7 @@ const initialState = {
     subcategoryProduct: {},
     ordersData:{},
     orderLoading:false,
+    addreessLoading:false
     // signUpLoading: false,
     // isLoggedIn: true,
     // user: {},
@@ -75,7 +76,12 @@ export default (state = initialState, action = {}) => {
                     ordersData: action.data,
             };      
        
-  
+   case Root.AUTOCOMPLETE:
+                return {
+                    ...state,
+                    addreessLoading: action.loading,
+                    // ordersData: action.data,
+            };  
         default:
             return state;
     }
