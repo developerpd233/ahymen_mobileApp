@@ -31,7 +31,8 @@ import {themes} from '../../../theme/colors';
 import {Icon} from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
 import SelectDropdown from 'react-native-select-dropdown';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
+import moment from 'moment';
 const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 
 function Checkout({route}) {
@@ -54,7 +55,7 @@ function Checkout({route}) {
     };
   });
 
-  console.log('dddddd-dddddddddddd', reduxState.data)
+  console.log('dddddd-dddddddddddd', reduxState.data);
   const usersToken = reduxState.user?.data?.token;
   const [selectedMethod, updateMethod] = useState('VISA');
   const [thanksModal, updateThanksModal] = useState(false);
@@ -63,9 +64,11 @@ function Checkout({route}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [valueOne, setValueOne] = useState(null);
-  const [items, setItems] = useState(['No address found']);
+  const [items, setItems] = useState(false);
+  console.log("🚀 ~ file: Checkout.js:67 ~ Checkout ~ items", items)
   const [allItems, setAllItems] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState();
+  const [selectedTime, setSelectedTime] = useState();
 
   const headerProps = {
     showCenterLogo: true,
@@ -101,12 +104,12 @@ function Checkout({route}) {
       isGoBack: true,
     });
   };
-  const renderItem = (item) => {
+  const renderItem = item => {
     return (
       <CListItem
         activeOpacity={1}
         type={'horizontal'}
-        image={{uri:item?.ProductImage[0]}}
+        image={{uri: item?.ProductImage[0]}}
         orderNumber={`${t('Item')} # ${item?.ProductId} `}
         title={item?.ProductName}
         price={`${t('SAR')} ${item?.ProductPrice}`}
@@ -181,26 +184,32 @@ function Checkout({route}) {
         let objSum = obj.ProductPrice
           ? obj.ProductPrice * obj.quantity
           : obj?.price * obj.quantity;
-        totalSum += objSum;
+          totalSum += objSum;
       });
       formData.append(`product[${ind}][id]`, e.ProductId),
-        formData.append(`product[${ind}][quantity]`, e.quantity);
+      formData.append(`product[${ind}][quantity]`, e.quantity);
     });
     let totalSum = 0;
     reduxState?.data?.forEach(obj => {
       let objSum = obj.ProductPrice
-        ? obj.ProductPrice * obj.quantity
+      ? obj.ProductPrice * obj.quantity
         : obj?.price * obj.quantity;
       totalSum += objSum;
     });
+    let getCurrentDate = moment(new Date()).format('YYYY-MM-D');
+    let strDate = String(getCurrentDate);
+    console.log("🚀 ~ file: Checkout.js:201 ~ handleData ~ strDate", strDate)
     formData.append(`subtotal`, totalSum);
     formData.append(`confirm`, 'yes');
     formData.append(`address_id`, selectedAddress?.id);
     formData.append(`address2`, 'Travelodge Liverpool Central The Strand');
-    formData.append(`delivery_date`, '2022-10-29');
+    formData.append(`delivery_date`, strDate);
+    // 01/06/2023
     formData.append(`nonce_token`, producttoken);
     formData.append(`giftCardText`, values?.text || '');
     formData.append(`giftCardLink`, values?.link || '');
+    formData.append(`delivery_time`,selectedTime );
+    console.log("🚀 ~ file: Checkout.js:180 ~ handleData ~ formData", formData)
 
     try {
       const response = await ApiSauce.postWithToken(
@@ -229,7 +238,7 @@ function Checkout({route}) {
 
   useEffect(() => {
     GetAddressApi();
-  }, [isFocused ]);
+  }, [isFocused]);
 
   const GetAddressApi = async () => {
     try {
@@ -255,7 +264,6 @@ function Checkout({route}) {
   };
 
   const handleSelectedValue = e => {
-   
     setValueOne(e);
     const ghg = allItems?.filter(val => {
       return val.label == e;
@@ -313,8 +321,7 @@ function Checkout({route}) {
           <MappedElement data={reduxState?.data} renderElement={renderItem} />
         </View>
         <View>
-          <SelectDropdown
-          
+        {items?.length > 0 &&  <SelectDropdown
             data={items}
             onSelect={(selectedItem, index) => {
               handleSelectedValue(selectedItem);
@@ -340,6 +347,7 @@ function Checkout({route}) {
               paddingHorizontal: 15,
             }}
             dropdownStyle={{
+              marginTop: -25,
               paddingHorizontal: 15,
               borderColor: 'rgba(124, 128, 97, 0.30)',
               borderRadius: 10,
@@ -347,27 +355,30 @@ function Checkout({route}) {
             }}
             buttonTextStyle={{
               textTransform: 'capitalize',
-              color:themes['light'].colors.fontColor,
-              fontFamily: myLan === 'en' ? themes.font.regular : themes.font2.regular,
+              color: themes['light'].colors.fontColor,
+              fontFamily:
+                myLan === 'en' ? themes.font.regular : themes.font2.regular,
               flex: 1,
               fontSize: 16,
               textAlign: 'left',
-              marginLeft:0
+              marginLeft: 0,
             }}
             rowTextStyle={{
               textTransform: 'capitalize',
-              color:themes['light'].colors.fontColor,
-              fontFamily: myLan === 'en' ? themes.font.regular : themes.font2.regular,
+              color: themes['light'].colors.fontColor,
+              fontFamily:
+                myLan === 'en' ? themes.font.regular : themes.font2.regular,
               flex: 1,
               fontSize: 16,
               textAlign: 'left',
-              marginLeft:0
+              marginLeft: 0,
             }}
             defaultButtonText={t('Select_Address')}
             renderDropdownIcon={() => renderIcon()}
             dropdownIconPosition="right"
-           
           />
+
+}
           {/* <DropDownPicker 
           onSelectItem={(va)=>{
             setValueOne(va)
@@ -393,6 +404,65 @@ function Checkout({route}) {
             paddingHorizontal: 5,
           }}
         />   */}
+        </View>
+
+        <View>
+        <SelectDropdown
+            data={[t('Morning'), t('Evening')]}
+            onSelect={(selectedItem, index) => {
+              setSelectedTime(selectedItem);
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              // text represented after item is selected
+              // if data array is an array of objects then return selectedItem.property to render after item is selected
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              // text represented for each item in dropdown
+              // if data array is an array of objects then return item.property to represent item in dropdown
+              return item;
+            }}
+            buttonStyle={{
+              borderWidth: 1,
+              marginTop: 10,
+              paddingHorizontal: 15,
+              width: '100%',
+              borderColor: 'rgba(124, 128, 97, 0.30)',
+              borderRadius: 10,
+              backgroundColor: '#FFF',
+              paddingHorizontal: 15,
+            }}
+            dropdownStyle={{
+              marginTop: -25,
+              paddingHorizontal: 15,
+              borderColor: 'rgba(124, 128, 97, 0.30)',
+              borderRadius: 10,
+              backgroundColor: '#FFF',
+            }}
+            buttonTextStyle={{
+              textTransform: 'capitalize',
+              color: themes['light'].colors.fontColor,
+              fontFamily:
+                myLan === 'en' ? themes.font.regular : themes.font2.regular,
+              flex: 1,
+              fontSize: 16,
+              textAlign: 'left',
+              marginLeft: 0,
+            }}
+            rowTextStyle={{
+              textTransform: 'capitalize',
+              color: themes['light'].colors.fontColor,
+              fontFamily:
+                myLan === 'en' ? themes.font.regular : themes.font2.regular,
+              flex: 1,
+              fontSize: 16,
+              textAlign: 'left',
+              marginLeft: 0,
+            }}
+            defaultButtonText={t('Select_time')}
+            renderDropdownIcon={() => renderIcon()}
+            dropdownIconPosition="right"
+          />
         </View>
 
         <View style={Styles.addLocationContainer}>

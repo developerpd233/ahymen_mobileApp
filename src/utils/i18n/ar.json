@@ -108,8 +108,9 @@
     "Please_enter_valid_email_address":"الرجاء إدخال عنوان بريد إلكتروني صالح",
     "Please_enter_your_full_name":"الرجاء إدخال اسمك الكامل",
     "View_store":"عرض المتجر",
-    "Item":"بند"
-
-
+    "Item":"بند",
+    "Select_time":"حدد الوقت",
+    "Morning":"صباح",
+    "Evening":"مساءً"
   }
 }
