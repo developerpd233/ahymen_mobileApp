@@ -113,6 +113,8 @@
       "Item":"Item",
       "Select_time":"Select time",
       "Morning":"Morning",
-      "Evening":"Evening"
+      "Evening":"Evening",
+      "Please_select_the_address":"Please select the address",
+      "Please_add_new_address":"Please add new address"
     }
   }

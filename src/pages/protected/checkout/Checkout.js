@@ -121,15 +121,13 @@ function Checkout({route}) {
     );
   };
 
-  // const callback = () => {
-  //   alert('done');
-  // };
+ 
 
   const handle_order = async values => {
     setLoading(true);
     if (selectedAddress == null) {
       setLoading(false);
-      Toast.show('Please select the address', Toast.LONG);
+      Toast.show(items?.length > 0 ? t('Please_select_the_address') : t('Please_add_new_address'), Toast.LONG);
     } else {
       const token = await getValueIntoLocalStorage(TOKEN);
       const tokenRes = await ApiSauce.getWithToken(GET_TOKEN, token);
@@ -356,8 +354,7 @@ function Checkout({route}) {
             buttonTextStyle={{
               textTransform: 'capitalize',
               color: themes['light'].colors.fontColor,
-              fontFamily:
-                myLan === 'en' ? themes.font.regular : themes.font2.regular,
+              fontFamily:myLan === 'en' ? themes.font.regular : themes.font2.regular,
               flex: 1,
               fontSize: 16,
               textAlign: 'left',
@@ -372,7 +369,9 @@ function Checkout({route}) {
               fontSize: 16,
               textAlign: 'left',
               marginLeft: 0,
+
             }}
+         
             defaultButtonText={t('Select_Address')}
             renderDropdownIcon={() => renderIcon()}
             dropdownIconPosition="right"

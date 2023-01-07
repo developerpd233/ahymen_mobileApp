@@ -10,6 +10,8 @@ import posed from "react-native-pose";
 import '../../utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Icon as MyIcon } from 'react-native-elements';
+
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 5;
 const SpotLight = posed.View({
@@ -66,42 +68,51 @@ function TabBar(props) {
             icon: 'home',
             onPress: () => navigation.navigate('Home'),
             fontSize: 32,
-            marginTop: -40
+            marginTop: -40,
+            type:"antdesign"
         },
         {
             name: t('Search'),
             key: 'store',
-            icon: 'search',
+            icon: 'search1',
             onPress: () => navigation.navigate('Store', {
                 screen: 'store',
                 initial: false
             }),
-            fontSize: 30
+            fontSize: 30,
+            type:"antdesign"
+
         },
         {
             name: t('Cart'),
             key: 'cart',
-            icon: 'bookmark',
+            icon: 'shopping-basket',
             onPress: () =>  navigation.navigate('Cart', {
                 screen: 'cart',
                 initial: false
             }),
             // onPress: () =>  navigation.navigate('Cart'),
-            fontSize: 30
+            fontSize: 30,
+            type:"fontisto"
+
         },
         {
             name: t('Location'),
             key: 'location',
-            icon: 'pin-location',
+            icon: 'location-outline',
             onPress: () => navigation.navigate('Location'),
-            fontSize: 30
+            fontSize: 30,
+            type:"ionicon"
+
         },
         {
             name: t('Profile'),
             key: 'profile',
-            icon: 'user-2',
+            icon: 'user',
             onPress: () => navigation.navigate('Profile'),
-            fontSize: 30
+            fontSize: 30,
+            type:"antdesign"
+
         },
     ];
 
@@ -125,11 +136,15 @@ function TabBar(props) {
                         const isRouteActive = route?.key === getCurrentRouteName(state)?.toLowerCase();
                         return (
                             <TouchableOpacity key={i} onPress={route.onPress} style={Styles.tab}>
-                                <Icon name={route.icon}
+                                <MyIcon name={route.icon}
                                            style={[Styles.tabIcon, {
                                                fontSize: route?.fontSize,
                                                color: isRouteActive ? themes['light'].colors.secondary : themes['light'].colors.gray8
-                                           }]} />
+                                           }]}
+                                           color={isRouteActive ? themes['light'].colors.secondary : themes['light'].colors.gray8}
+                                           type={route.type}
+                                           size={route?.fontSize}
+                                            />
                                 <CText style={Styles.tabText}>{route?.name}</CText>
                             </TouchableOpacity>
                         )

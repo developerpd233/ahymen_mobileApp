@@ -111,6 +111,8 @@
     "Item":"بند",
     "Select_time":"حدد الوقت",
     "Morning":"صباح",
-    "Evening":"مساءً"
+    "Evening":"مساءً",
+    "Please_select_the_address":"الرجاء اختيار العنوان",
+    "Please_add_new_address":"الرجاء إضافة عنوان جديد"
   }
 }
