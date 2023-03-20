@@ -9,7 +9,7 @@ export const themes = {
         semiBold: 'SFProDisplay-Semibold',
     },
     font2: {
-        regular: 'Geeza-Pro-Regular',
+        regular: 'GeezaPro',
     },
     light: {
         colors: {

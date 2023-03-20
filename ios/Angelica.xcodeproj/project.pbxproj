@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		287751A229C8751E0035BA1A /* GeezaPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 287751A129C8751D0035BA1A /* GeezaPro-Regular.ttf */; };
 		2A5A2DFD1DC344E7A9099AD3 /* SFProDisplay-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C0637BE01454CF19C702695 /* SFProDisplay-Black.ttf */; };
 		5A88AD924DBB4533BCD88D7D /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68EB619427984A1ABCFB1825 /* SFProDisplay-Light.ttf */; };
 		5F861FCDBF4D441A94DFAD63 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34FC8196985F4843ADDEADA1 /* SFProDisplay-Medium.ttf */; };
@@ -46,6 +47,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Angelica/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Angelica/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Angelica-AngelicaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Angelica-AngelicaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		287751A129C8751D0035BA1A /* GeezaPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GeezaPro-Regular.ttf"; path = "../src/assets/fonts/GeezaPro-Regular.ttf"; sourceTree = "<group>"; };
 		34FC8196985F4843ADDEADA1 /* SFProDisplay-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Medium.ttf"; path = "../src/assets/fonts/SFProDisplay-Medium.ttf"; sourceTree = "<group>"; };
 		3AEF6CE3B9A84C5B9A50A478 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Bold.ttf"; path = "../src/assets/fonts/SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Angelica.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Angelica.debug.xcconfig"; path = "Target Support Files/Pods-Angelica/Pods-Angelica.debug.xcconfig"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		A3E8E524B2D34D75AE0D83EC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				287751A129C8751D0035BA1A /* GeezaPro-Regular.ttf */,
 				9C0637BE01454CF19C702695 /* SFProDisplay-Black.ttf */,
 				3AEF6CE3B9A84C5B9A50A478 /* SFProDisplay-Bold.ttf */,
 				D73A93B420D04D7DAA87787F /* SFProDisplay-Heavy.ttf */,
@@ -281,6 +284,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				2A5A2DFD1DC344E7A9099AD3 /* SFProDisplay-Black.ttf in Resources */,
 				C05EEAA19582419182E7AD1A /* SFProDisplay-Bold.ttf in Resources */,
+				287751A229C8751E0035BA1A /* GeezaPro-Regular.ttf in Resources */,
 				840534FCC9EA439BBC4D92D0 /* SFProDisplay-Heavy.ttf in Resources */,
 				5A88AD924DBB4533BCD88D7D /* SFProDisplay-Light.ttf in Resources */,
 				5F861FCDBF4D441A94DFAD63 /* SFProDisplay-Medium.ttf in Resources */,
