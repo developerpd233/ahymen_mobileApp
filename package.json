@@ -37,6 +37,7 @@
     "react": "18.2.0",
     "react-i18next": "^12.0.0",
     "react-native": "0.71.4",
+    "react-native-flipper": "^0.164.0",
     "react-native-android-location-enabler": "^1.2.2",
     "react-native-asset": "^2.0.1",
     "react-native-braintree-dropin-ui": "^1.1.3",

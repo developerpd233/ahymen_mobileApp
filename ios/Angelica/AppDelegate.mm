@@ -89,6 +89,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+
 }
 
 #if RCT_NEW_ARCH_ENABLED

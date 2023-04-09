@@ -166,7 +166,7 @@ function Checkout({route}) {
           '🚀 ~ file: Checkout.js:182 ~ consthandle_order= ~ error',
           error,
         );
-      }
+      } 
     }
   };
   const handleData = async (producttoken, userToken) => {
