@@ -103,5 +103,65 @@ const Styles = StyleSheet.create({
     },
 
 
+    backgroundStyle: {
+      backgroundColor: 'white',
+      flex: 1,
+    },
+    centeredView: {
+      flex: 1,
+      marginTop: 22,
+      margin: 22,
+    },
+    telrTextStyle: {
+      color: '#2196F3',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      fontSize: 40,
+      paddingTop: 20,
+      marginBottom: 30,
+    },
+    buttonPay: {
+      borderRadius: 10,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonPayment: {
+      backgroundColor: '#2196F3',
+      marginTop: 20,
+    },
+    payButtonTextStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    buttonBackStyle: {
+      borderRadius: 10,
+      padding: 5,
+      margin: 5,
+      elevation: 2,
+      width: 80,
+    },
+    buttonBackColor: {
+      backgroundColor: '#2196F3',
+    },
+    backButtonTextStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    inputTextStyle: {
+      marginTop: 10,
+      color: 'black',
+      fontWeight: 'bold',
+      textAlign: 'left',
+      fontSize: 14,
+    },
+    input: {
+      marginTop: 10,
+      height: 40,
+      borderWidth: 1,
+      padding: 10,
+    }
+  
 });
 export default Styles

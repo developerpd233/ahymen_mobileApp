@@ -42,10 +42,6 @@ function Products({ route }) {
     };
 
     const reduxState = useSelector(({ auth, root }) => {
-        console.log(
-            "🚀 ~ file: Products.js ~ line 36 ~ reduxState ~ root",
-            root
-        );
         return {
             loading: root.categoryLoadingproduct,
             // data: [

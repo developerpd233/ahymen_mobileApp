@@ -190,15 +190,9 @@ function Location(props) {
   const [isSelected2, setSelection2] = useState(0);
   const [currentLanguage, setLanguage] = useState('ar');
   const [apiData, setApiData] = useState();
-  console.log('🚀 ~ file: Form.js:16 ~ CForm ~ apiData', apiData);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const reduxState = useSelector(({auth, root, cart}) => {
-    console.log(
-      '🚀 ~ file: Location.js:189 ~ reduxState ~ reduxState',
-      reduxState,
-    );
-
     return {
       loading: root.addressLoading,
       currentCountry: root,
@@ -211,7 +205,6 @@ function Location(props) {
     };
   });
   const reduxStatess = useSelector(({auth, global}) => {
-    console.log('🚀 ~ file: Signup.js ~ line 22 ~ reduxState ~ auth', auth);
     return {
       loading: auth.isLoggedIn,
       currentCountry: global.currentCountry,
@@ -250,7 +243,6 @@ function Location(props) {
         GET_ALL_ADDRESS,
         usersToken,
       );
-      console.log('get--all-address', GetAddressData);
       setApiData(GetAddressData?.data);
     } catch (err) {
       console.log('err-in_get_address_api', err);
@@ -273,16 +265,12 @@ function Location(props) {
     };
 
     // const api = post('url',payload,token)
-    console.log('🚀 ~ file: Location.js:230 ~ submit ~ values', values);
     dispatch(saveAddress(values, callback));
   };
   const callback = res => {
-    console.log('🚀 ~ file: Location.js:239 ~ callback ~ res', res);
 
     Toast.show('Location added successfully', Toast.LONG);
     navigation.navigate('checkout');
-    // alert('dd')n
-    console.log('res ', res);
   };
   const locationAdd = () => {
     
@@ -343,10 +331,6 @@ function Location(props) {
           />
         </View>
         {apiData?.map(dataApi => {
-          console.log(
-            '🚀 ~ file: Location.js:283 ~ apiData.map ~ val',
-            dataApi,
-          );
           return (
             <CForm
               loading={reduxState?.loading}

@@ -28,7 +28,6 @@ const CartManage = () => {
     try {
       const data = await ApiSauce.getWithoutToken(FEATURE_CAT_AND_PRODUCT)
       setProductData(data.data)
-      console.log('data---', data)
     } catch (e) {
       console.log('e---', e)
     }
@@ -45,7 +44,6 @@ const CartManage = () => {
 
 
   const renderAbc = ({ val }) => {
-    console.log('vddal-', val)
     return (
       <View style={{ flex:1, alignItems:'center'}}> 
       <CCard img={{ uri: val?.ProductImage }} productName={val?.ProductName} priceText={val?.priceText} price={val?.price} btnText={val?.btnText} />
@@ -86,7 +84,6 @@ const CartManage = () => {
 });
 
 const langCheck = reduxState.language
-console.log('my--langauage', langCheck)
     let totalSum = 0;
 reduxState?.data?.forEach(obj => {
     let objSum = obj.ProductPrice ? obj.ProductPrice * obj.quantity : obj?.price * obj.quantity

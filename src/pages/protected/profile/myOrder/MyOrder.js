@@ -31,20 +31,13 @@ function MyOrder(props) {
 
         try {
             const res = await ApiSauce.getWithToken(GET_ORDERS , reduxState?.user?.data?.token);
-            //  setData(res)
-            console.log('MyOrders  ----- 35   ', res)
-
             if (res.success == true && res?.data?.order?.length > 0) {
                 setOrderData(res?.data?.order) 
             }
-
         } catch (error) {
             console.log('error MyOrders  ----- 42   ', error)
             // alert(error.message);
         }
-
-        console.log('MyOrders  ----- 80   ', orders)
-
     };
 
     const goToSingleOrder = (orderNumber) => {
@@ -54,9 +47,6 @@ function MyOrder(props) {
     };
 
     let myuser = reduxState?.user?.data?.token ? reduxState?.user : null ;
-
-    console.log('MyOrder line 52 -----', myuser);
-
     const [searchText, updateSearchText] = useState('');
 
     const onRefreshHandler = () => {};
@@ -67,7 +57,6 @@ function MyOrder(props) {
     };
 
     const renderItem = ({item, index}) => {
-        console.log('****',index);
         return (
             <CListItem
                 activeOpacity={1}

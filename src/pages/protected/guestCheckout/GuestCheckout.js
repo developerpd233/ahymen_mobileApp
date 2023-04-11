@@ -17,7 +17,6 @@ function GuestCheckout(props) {
     const dispatch = useDispatch()
 
     const reduxState = useSelector(({auth, global}) => {
-        console.log("🚀 ~ file: GuestCheckout.js ~ line 20 ~ reduxState ~ auth", auth)
         return {
             loading: auth.guestLoading,
             currentCountry: global.currentCountry,

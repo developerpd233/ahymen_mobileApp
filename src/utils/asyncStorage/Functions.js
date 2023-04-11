@@ -32,8 +32,6 @@ export const getTokenAndSetIntoHeaders = async (token) => {
         // axios.defaults.headers.common['Authorization'] = `${token}`;
     } else {
         let accessToken = await getValueIntoLocalStorage(TOKEN);
-        console.log("🚀 ~ file: Functions.js ~ line 35 ~ getTokenAndSetIntoHeaders ~ accessToken", accessToken)
-
         if (accessToken) {
             axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
 

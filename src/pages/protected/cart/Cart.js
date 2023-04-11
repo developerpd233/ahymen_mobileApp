@@ -36,15 +36,11 @@ function Cart(props) {
   const [productData, setProductData] = useState([]);
   const [addCard, setAddCard] = useState([]);
 
-  console.log('data-card-show', addCard);
-  console.log(props?.route?.params);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [isModal, updateIsModal] = useState(false);
   const [productId, setProductId] = useState('');
-  console.log('🚀 ~ file: Cart.js:46 ~ Cart ~ productId', productId);
   const reduxState = useSelector(({auth, root, cart, language, products}) => {
-    console.log('🚀 ~ file: Cart.js:36 ~ reduxState ~ reduxState', reduxState);
 
     return {
       loading: false,
@@ -54,18 +50,15 @@ function Cart(props) {
       products: products,
     };
   });
-  const abc = useSelector(state => console.log('hhhhhhhhhhhhhhhhhhhhh', state));
+  const abc = useSelector(state => {});
   const Mydata = reduxState;
-  console.log('my-dat4555555555555555555555555555555a-46', Mydata);
   const langCheck = reduxState.language;
-  console.log('my--langauage', langCheck);
   let totalSum = 0;
   reduxState?.data?.forEach(obj => {
     let objSum = obj.ProductPrice
       ? obj.ProductPrice * obj.quantity
       : obj?.price * obj.quantity;
     totalSum += objSum;
-    console.log('🚀 ~ file: Cart.js:54 ~ Cart ~ objSum', objSum);
   });
 
   const headerProps = {
@@ -95,7 +88,6 @@ function Cart(props) {
   };
 
   const renderItem = (item, index) => {
-    console.log('🚀 ~ file: Cart.js:96 ~ renderItem ~ item', item?.ProductId);
     return (
       <View style={Styles.orderListItem}>
         <CListItem
@@ -178,7 +170,6 @@ function Cart(props) {
     try {
       const data = await ApiSauce.getWithoutToken(FEATURE_CAT_AND_PRODUCT);
       setProductData(data.data);
-      console.log('data---', data);
     } catch (e) {
       console.log('e---', e);
     }
@@ -199,8 +190,6 @@ function Cart(props) {
     );
   };
   const cartItemRender = ({item}) => {
-    console.log('vddal-', item);
-
     return (
       <View style={{flex: 1, alignItems: 'center', marginVertical: 10}}>
         <CCard
@@ -214,7 +203,6 @@ function Cart(props) {
     );
   };
   const addCardShowFunc = ({item}) => {
-    console.log('i344444444444444444444444444444444444444ii-', item);
     return (
       <View style={{flex: 1, alignItems: 'center', marginVertical: 10}}>
         <CCard
@@ -266,10 +254,6 @@ function Cart(props) {
               iconName={'arrow-forward'}
               title={t('Proceed_to_checkout')}
               onPress={() => {
-                console.log(
-                  'line 141 ----------',
-                  reduxState?.user?.data?.token,
-                );
                 !reduxState?.user?.data?.token
                   ? navigation.navigate('proceed', {
                       isGoBack: true,
@@ -369,16 +353,12 @@ function Cart(props) {
               iconName={'arrow-forward'}
               title={t('Proceed_to_checkout')}
               onPress={() => {
-                console.log(
-                  'line 141 ----------',
-                  reduxState?.user?.data?.token,
-                );
                 !reduxState?.user?.data?.token
                   ? navigation.navigate('proceed', {
                       isGoBack: true,
                     })
                   : navigation.navigate('checkout', {
-                      isGoBack: true,
+                      isGoBack: true, totalSum
                     });
               }}
             />

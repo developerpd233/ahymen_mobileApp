@@ -17,7 +17,6 @@ import WebView from 'react-native-webview';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 const addAddressFrom = props => {
   const reduxStates = useSelector(({auth, global}) => {
-    console.log('🚀 ~ file: Signup.js ~ line 22 ~ reduxState ~ auth', auth);
     return {
       loading: auth.isLoggedIn,
       currentCountry: global.currentCountry,
@@ -28,24 +27,11 @@ const addAddressFrom = props => {
   const [apiErrMsg, setApiErrMsg] = useState(false);
   const [isSelected, setSelection] = useState(0);
   const [location, setLocation] = useState('');
-  console.log(
-    '🚀 ~ file: addAddressFrom.js:16 ~ addAddressFrom ~ isSelected',
-    isSelected,
-  );
   const [isSelected2, setSelection2] = useState(0);
   const [addressData, setAdressData] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState({});
   const [isDropDown, setIsDropDown] = useState(false);
  const [timer, setTimer] = useState(false);
-  console.log(
-    '🚀 ~ file: addAddressFrom.js:35 ~ addAddressFrom ~ selectedAddress',
-    selectedAddress,
-  );
-
-  console.log(
-    '🚀 ~ file: addAddressFrom.js:17 ~ addAddressFrom ~ isSelected2',
-    isSelected2,
-  );
 
   const [countryModalIsOpen, updateCountryModalIsOpen] = useState(false);
   const [selectedCountry, updateSelectedCountry] = useState(
@@ -55,7 +41,6 @@ const addAddressFrom = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  console.log('state-----01', isSelected);
   const headerProps = {
     showCenterLogo: true,
     showCart: true,
@@ -84,7 +69,6 @@ const addAddressFrom = props => {
   const languageTrans = reduxState.language;
 
   const countryOnSelect = item => {
-    console.log('country-code', item);
     updateSelectedCountry(item);
     toggleCountryModal();
   };
@@ -104,10 +88,8 @@ const addAddressFrom = props => {
      formData.append('auto_address_json', JSON.stringify(selectedAddress));
     formData.append('specialRequest[0][addressPrivate]', isSelected);
     formData.append('specialRequest[0][senderPrivate]', isSelected2);
-    console.log('payload-56666666666666666666666--data', formData);
     try {
       const res = await ApiSauce.postWithToken(SAVE_ADDRESS, formData, token);
-      console.log('api-data-sent', res);
       Toast.show(res?.message, Toast.LONG);
 
       if (res?.success) {
@@ -123,7 +105,6 @@ const addAddressFrom = props => {
     // dispatch(saveAddress(values, callback))
   };
   const handleSubmit = val => {
-    console.log('🚀 ~ file: addAddressFrom.js:123 ~ handleSubmit ~ val', val);
     setLocation(val);
     if (val.length > 3) {
       const payload = {
@@ -164,7 +145,6 @@ const addAddressFrom = props => {
   };
 
   const callBack = res => {
-    console.log('🚀 ~ file: addAddressFrom.js:117 ~ callBack ~ res', res);
     setAdressData(res.data);
     setIsDropDown(true)
     // renderDropDown(res.data)
@@ -210,10 +190,6 @@ const addAddressFrom = props => {
               }}
               showsVerticalScrollIndicator={false}>
               {addressData.map(val => {
-                console.log(
-                  '🚀 ~ file: addAddressFrom.js:158 ~ addAddressFrom ~ val',
-                  val,
-                );
                 return (
                   <TouchableOpacity
                     style={{

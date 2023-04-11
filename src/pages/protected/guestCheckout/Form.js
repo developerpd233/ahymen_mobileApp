@@ -24,7 +24,6 @@ function CForm(props) {
 });
 
 const languageTrans = reduxState.language
-console.log('reduxState--------------', languageTrans)
   const form = useRef(null);
   const fullName = useRef(null);
   const email = useRef(null);

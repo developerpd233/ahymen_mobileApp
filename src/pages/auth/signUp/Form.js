@@ -80,11 +80,6 @@ function CForm(props) {
             validationSchema={Validations(selectedCountry)}
         >
             {({ handleChange, values, handleSubmit, errors }) => {
-                console.log(
-                    "🚀 ~ file: Form.js ~ line 28 ~ CForm ~ values",
-                    values,
-                    errors
-                );
                 return (
                     <View>
                         <View style={AuthStyle.card}>

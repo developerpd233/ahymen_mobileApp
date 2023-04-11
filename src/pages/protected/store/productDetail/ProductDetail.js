@@ -24,29 +24,14 @@ import '../../../../utils/i18n/lan';
 import {useTranslation} from 'react-i18next';
 
 function ProductDetail({ route }) {
-console.log("🚀 ~ file: ProductDetail.js:27 ~ ProductDetail ~ route", route?.params?.ProductId)
-
-    console.log('id-dddd', )
     const {t, i18n} = useTranslation();
-    
     const [currentLanguage,setLanguage] = useState('ar');
-
-
-
-
-    
     const { item } = route?.params || '';
     // const { ProductId } = route?.params ;
     // console.log("🚀 ~ file: ProductDetail.js:40 ~ ProductDetail ~ ProductId", ProductId)
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [wishlistData , setWishlistData] = useState([])
     const dispatch = useDispatch()
-
-    console.log(
-        "🚀 ~ file: ProductDetail.js ~ line 21 ~ ProductDetail ~ item",
-        item
-    );
-
     const navigation = useNavigation();
     const headerProps = {
         headerTitle: t('Flower'),
@@ -95,7 +80,6 @@ console.log("🚀 ~ file: ProductDetail.js:27 ~ ProductDetail ~ route", route?.p
     let myuser = reduxState?.user?.data?.token ? reduxState?.user : null ;
 
     useEffect(()=>{
-        console.log(myuser);
         if (myuser != null) {
             getWishlist()
         }
@@ -105,9 +89,6 @@ console.log("🚀 ~ file: ProductDetail.js:27 ~ ProductDetail ~ route", route?.p
 
         try {
             const res = await ApiSauce.getWithToken(GET_WISHLIST , myuser?.data?.token);
-            //  setData(res)
-            console.log('MyWishlist  ----- 94   ', item)
-
             if (res.success == true && res?.data?.wishlist?.length > 0) {
 
                 setWishlistData(res?.data?.wishlist)
@@ -126,7 +107,6 @@ console.log("🚀 ~ file: ProductDetail.js:27 ~ ProductDetail ~ route", route?.p
 
     };
 
-    console.log('favProducts',reduxState?.favProducts);
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);

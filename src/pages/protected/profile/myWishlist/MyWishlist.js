@@ -13,8 +13,6 @@ function MyWishlist(props) {
     const [wishlistData , setWishlistData] = useState()
     const navigation = useNavigation();
 
-    console.log("🚀 ~ file: myWishlist.js ~ line 13 ~ MyWishlist ~ wishlistData", wishlistData)
-    
     const headerProps = {
         headerTitle: 'My Wishlist',
         backOnPress:false
@@ -35,9 +33,6 @@ function MyWishlist(props) {
 
         try {
             const res = await ApiSauce.getWithToken(GET_WISHLIST , reduxState?.user?.data?.token);
-            //  setData(res)
-            console.log('MyWishlist  ----- 35   ', res)
-
             if (res.success == true && res?.data?.wishlist?.length > 0) {
                 setWishlistData(res?.data?.wishlist) 
             }
@@ -50,8 +45,6 @@ function MyWishlist(props) {
     };
 
     let myuser = reduxState?.user?.data?.token ? reduxState?.user : null ;
-
-    console.log('MyProduct line 52 -----', myuser);
 
     const [searchText, updateSearchText] = useState('');
 
@@ -67,7 +60,6 @@ function MyWishlist(props) {
     };
 
     const renderItem = ({item, index}) => {
-        console.log('****',item?.ProductImage?.[0]);
         return (
             <CListItem
                 activeOpacity={1}

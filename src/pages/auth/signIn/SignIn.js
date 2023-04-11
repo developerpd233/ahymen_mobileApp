@@ -55,19 +55,16 @@ function SignIn(props) {
         let payload = _.omit(values, ["phone"]);
         payload.phone =  selectedCountry.detail.code+values.phone;
         payload.loginType =  'user';
-        console.log(payload);
         handleCode(payload)
    
     };
 
     const handleCode = async (payload) => {
-        console.log("🚀 ~ file: SignIn.js ~ line 79 ~ handleCode ~ payload", payload)
         setIsLoading(true);
         try {
             const sendCodeRes = await ApiSauce.post(SEND_CODE, {
                phone: `${payload.phone}`
             });
-            console.log(sendCodeRes,'85');
             if (sendCodeRes.success) {
                 showTowst(
                     "success",
@@ -101,7 +98,6 @@ function SignIn(props) {
         try {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
-            console.log("🚀 ~ file: SignIn.js:118 ~ RequestGoogleLogin ~ userInfo", userInfo)
             handleCreate("google", userInfo)
         } catch (error) {
             console.log("🚀 ~ file: index.js ~ line 144 ~ handleGoogle ~ error", error)
@@ -133,7 +129,6 @@ function SignIn(props) {
         }
         try {
             const res = await ApiSauce.post(LOGIN, formData);
-            console.log("🚀 ~ file: SignIn.js:136 ~ handleCreate ~ res", res)
             handleCheckUserData(res);
         } catch (error) {
             console.log("🚀 ~ file: SignIn.js:138 ~ handleCreate ~ error", error)
@@ -150,7 +145,6 @@ function SignIn(props) {
     };
 
     const handleCheckUserData = (loginRes) => {
-        console.log("🚀 ~ file: SignIn.js:153 ~ handleCheckUserData ~ loginRes", loginRes)
         if (loginRes) {
             setIsLoading(false)
             dispatch({
@@ -164,7 +158,6 @@ function SignIn(props) {
     const onFBButtonPress = async () => {
         try {
             const result = await LoginManager.logInWithPermissions(['email', "public_profile"]);
-            console.log("🚀 ~ file: SignIn.js:167 ~ onFBButtonPress ~ result", result)
             const data = await AccessToken.getCurrentAccessToken();
             const currentProfile = await Profile.getCurrentProfile();
         } catch (error) {

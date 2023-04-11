@@ -288,14 +288,12 @@ export const orderCheckout = (payload, CB) => async (dispatch) => {
 };
 
 export const autoComplete = (payload, CB) => async (dispatch) => {
-    console.log("🚀 ~ file: Root.action.js:291 ~ autoComplete ~ payload", payload)
     dispatch({
         type: Root.AUTOCOMPLETE,
         loading: true,
     });
     try {
         let response = await post(AUTOCOMPLETE, payload);
-        console.log("🚀 ~ file: Root.action.js:297 ~ autoComplete ~ response", response)
 
         if (response?.data?.error) {
             handleError(response?.data?.message || "");

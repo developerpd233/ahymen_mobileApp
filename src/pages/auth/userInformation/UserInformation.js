@@ -12,10 +12,6 @@ import { REGISTER } from "../../../config/webservices";
 import Auth from '../../../store/constants/Auth.constant'
 function UserInformation({ route }) {
     const { phone } = route?.params || {};
-    console.log(
-        "🚀 ~ file: UserInformation.js ~ line 13 ~ UserInformation ~ route?.params",
-        route?.params
-    );
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
@@ -24,11 +20,6 @@ function UserInformation({ route }) {
             loading: auth.signUpLoading,
         };
     });
-    console.log(
-        "🚀 ~ file: UserInformation.js ~ line 20 ~ reduxState ~ reduxState",
-        reduxState
-    );
-
     const submit = async (values) => {
         
 
@@ -41,26 +32,14 @@ function UserInformation({ route }) {
             registerType:'user',
             bypassPhone:true
         };
-
-        console.log("values", payload);
-
-        
-
         try {
         const rep  = await ApiSauce.post(REGISTER, payload)
-        // alert(rep)
-        console.log("🚀 ~ file: UserInformation.js ~ line 52 ~ submit ~ rep", rep)
-
-
         dispatch({
                     type: Auth.LOGIN_USER_API,
                     loading: false,
                     user: rep?.data,
                     isLoggedIn: true,
                 });
-            // console.log("🚀 ~ file: UserInformation.js ~ line 44 ~ submit ~ rep", rep)
-            // console.log("🚀 ~ line 35 phone eeeeeeeeeeeeeeeeeee",phone)
-            
         } catch (error) {
         alert(error.data)
         console.log("🚀 ~ file: UserInformation.js ~ line 64 ~ submit ~ error", error)
@@ -72,8 +51,6 @@ function UserInformation({ route }) {
             //         isLoggedIn: true,
             //     });
             // alert(error.data);    
-            console.log("🚀 ~ file: UserInformation.js ~ line 47 ~ submit ~ error", error)
-            
         }
         // dispatch(signUp(payload));
     };

@@ -15,7 +15,6 @@ import {
 const Tab = createBottomTabNavigator();
 
 const Root = ({initial}) => {
-    console.log("🚀 ~ file: Root.js ~ line 17 ~ Root ~ rootIntial", initial)
     return (
         <Tab.Navigator
             initialRouteName={!initial ? "Home" : "Cart"}

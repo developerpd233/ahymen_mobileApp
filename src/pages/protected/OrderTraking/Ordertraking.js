@@ -4,7 +4,6 @@ import { WebView } from 'react-native-webview';
 import {CButton} from "../../../uiComponents"
 const Ordertraking = (props) => {
     const data = props?.route?.params?.abc?.order_view
-    console.log("🚀 ~ file: Ordertraking.js:7 ~ Ordertraking ~ data", data)
   return (
     <View style={{flex:1 , marginBottom:50}}>
 

@@ -17,7 +17,6 @@ const App = () => {
     const dispatch = useDispatch();
 
         const reduxState = useSelector(({ auth  , root , language}) => {
-            console.log("🚀 ~ file: App.js ~ line 13 ~ reduxState ~ auth", auth);
             return {
                 getUserProfileLoading: auth.getUserProfileLoading,
                 isLoggedIn: auth.isLoggedIn,

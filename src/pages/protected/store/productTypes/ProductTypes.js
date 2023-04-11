@@ -22,10 +22,6 @@ function ProductTypes({ route }) {
 
 
     const { item } = route?.params;
-    console.log(
-        "🚀 ~ file: ProductTypes.js ~ line 17 ~ ProductTypes ~ item",
-        item
-    );
 
     const dispatch = useDispatch();
     useLayoutEffect(() => {
@@ -107,7 +103,6 @@ function ProductTypes({ route }) {
             item,
         });
     };
-console.log('flower-type---', item)
     const renderItem = ({ item, index }) => {
         return (
             <CListItem

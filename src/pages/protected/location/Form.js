@@ -10,12 +10,6 @@ import { useSelector } from 'react-redux'
 import '../../../utils/i18n/lan';
 import { useTranslation } from 'react-i18next';
 function CForm(props) {
-
-
-
-    console.log("🚀 ~ file: Form.js:15 ~ CForm ~ isSelected2", isSelected2)
-
-
     const {
 
         selectedCountry,
@@ -30,7 +24,6 @@ function CForm(props) {
   
    
     const { submit, loading, form, checkBoxTwo, checkboxOne, isSelected2, isSelected ,data} = props;
-    console.log("🚀 ~ file: Form.js:35 ~ CForm ~ data", data)
 
     const reduxState = useSelector(({ root, auth, language }) => {
         return {
@@ -43,7 +36,6 @@ function CForm(props) {
     });
 
     const languageTrans = reduxState.language
-    console.log('reduxState--------------', languageTrans)
     const name = useRef(null);
     const address = useRef(null);
     const postalCode = useRef(null);
@@ -66,7 +58,6 @@ function CForm(props) {
         >
 
             {({ handleChange, values, handleSubmit, errors }) => {
-                console.log('firstfirstfirst', errors)
                 return (
                     <View style={[Styles.section, { marginHorizontal: 0 }]}>
                         <CText style={Styles.sectionTitle}>{data.label}</CText>
@@ -136,7 +127,6 @@ function CForm(props) {
                             placeholder={"000-000-0000"}
                             value={data?.phone}
                             onChangeText={(val) => {
-                                console.log("🚀 ~ file: Form.js:139 ~ CForm ~ val", val)
                                 let phone = val;
                                 let reg = /^0+/gi;
                                 if (phone.match(reg)) {

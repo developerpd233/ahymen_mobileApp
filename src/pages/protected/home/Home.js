@@ -30,8 +30,6 @@ function Home(props) {
         { uri: require('../../../assets/videos/2.mp4') },
         { uri: require('../../../assets/videos/3.mp4') },
     ]
-    console.log("🚀 ~ file: Home.js ~ line 16 ~ Home ~ data", data)
-
     const dispatch = useDispatch();
     useLayoutEffect(() => {
         handleTrending();
@@ -54,22 +52,17 @@ function Home(props) {
         try {
             const trendData = await ApiSauce.getWithoutToken(GET_TRENDING)
             setData(trendData.data.trending)
-            console.log("🚀 ~ file: Home.js ~ line 45 ~ handleApi ~ trendData", trendData)
-
         }
         catch (err) {
             console.log("🚀 ~ file: Home.js ~ line 46 ~ handleApi ~ err", err)
         }
     }
- console.log('video-74', videosData)
 
     const renderSlides = () => {
         if (videosData?.length > 0) {
             return (
                 videosData?.map((val, index) => {
-                    console.log("🚀 ~ file: Home.js ~ line 59 ~ returndata?.map ~ valUri", val)
                     const link = val?.uri
-                    console.log('my-app-82', val.uri)
                     return (
                         <VideoPlayer
                             source={link}

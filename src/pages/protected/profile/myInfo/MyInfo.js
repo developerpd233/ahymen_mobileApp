@@ -21,9 +21,6 @@ function MyInfo(props) {
     });
 
     let myuser = reduxState?.user?.data?.token ? reduxState?.user : null ;
-
-    console.log('Myinfo line 23 -----', myuser);
-
     return(
         <Container bottomSpace edges={['left', 'right']}
                    scrollView={true}

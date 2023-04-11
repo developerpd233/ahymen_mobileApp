@@ -28,13 +28,10 @@ function Profile(props) {
     });
   const languageStyle = reduxState.language;
   
-  console.log("🚀 ~ file: Profile.js:28 ~ Profile ~ languageStyle", languageStyle)
     const [currentLanguage, setLanguage] = useState('ar');
     const [isEnabled, setIsEnabled] = useState(reduxState?.language !== 'ar' ? true : false);
-    console.log("🚀 ~ file: Profile.js:30 ~ Profile ~ reduxState", reduxState)
     const toggleSwitch = () => {
         if(reduxState?.language == 'ar'){
-            console.log("🚀 ~ file: Profile.js:33 ~ toggleSwitch ~ reduxState", reduxState)
             setIsEnabled(true)
             dispatch(changeLanguage({lan:'en'}));
         }else{
@@ -76,13 +73,9 @@ function Profile(props) {
     };
 
     const myProfile = () => {
-
-        console.log('line 42 myProfile ------------', reduxState?.user?.data?.token)
-        console.log("🚀 ~ file: Profile.js:86 ~ myProfile ~ reduxState", reduxState)
         reduxState?.user?.data?.token ? navigation.navigate("my_info", {
             isGoBack: true,
         }) :
-            console.log("🚀 ~ file: Profile.js:90 ~ myProfile ~ reduxState", reduxState)
             dispatch({
                 type: Auth.LOGOUT_USER_API,
                 loading: false
@@ -90,13 +83,9 @@ function Profile(props) {
     };
 
     const myOrder = () => {
-
-        console.log('line 54 myOrder ------------', reduxState?.user?.data?.token)
-        console.log("🚀 ~ file: Profile.js:100 ~ myOrder ~ reduxState", reduxState)
         reduxState?.user?.data?.token ? navigation.navigate("my_order", {
             isGoBack: true,
         }) :
-            console.log("🚀 ~ file: Profile.js:104 ~ myOrder ~ reduxState", reduxState)
             dispatch({
                 type: Auth.LOGOUT_USER_API,
                 loading: false
@@ -104,9 +93,6 @@ function Profile(props) {
     };
 
     const myWishlist = () => {
-
-        console.log('line 66 myWishlist ------------', reduxState?.user?.data?.token)
-        console.log("🚀 ~ file: Profile.js:114 ~ myWishlist ~ reduxState", reduxState)
         reduxState?.user?.data?.token ? navigation.navigate("my_wishlist", {
             isGoBack: true,
         }) :

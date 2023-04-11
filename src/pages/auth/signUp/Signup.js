@@ -19,7 +19,6 @@ function Signup(props) {
     const dispatch = useDispatch()
 
     const reduxState = useSelector(({ auth, global }) => {
-        console.log("🚀 ~ file: Signup.js ~ line 22 ~ reduxState ~ auth", auth)
         return {
             loading: auth.isLoggedIn,
             currentCountry: global.currentCountry,
@@ -57,7 +56,6 @@ function Signup(props) {
         
         // navigation.navigate("otp_verification");
 
-        console.log("-------------------payload", payload);
     };
 
     const handleCode = async (payload) => {

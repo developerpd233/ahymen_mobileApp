@@ -11,7 +11,6 @@ import { SEND_CODE, VERIFY_CODE } from "../../../config/webservices";
 import  Auth  from "../../../store/constants/Auth.constant";
 function OtpVerification({ route }) {
     const { phone } = route?.params || {};
-    console.log("🚀 ~ file: OtpVerification.js ~ line 13 ~ OtpVerification ~ phone", phone)
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
@@ -23,7 +22,6 @@ function OtpVerification({ route }) {
     });
 
     const submit = async  (values) => {
-        console.log("values", values);
         const payload = {
             local_storage_phone: phone,
             verification: values.otp,
@@ -39,9 +37,6 @@ function OtpVerification({ route }) {
         //             user: response?.data
         //             isLoggedIn: true,
         //         });
-        console.log('respresprespresprespresprespresprespresp', resp)
-
-            
         } catch (error) {
         alert(error.message.response);
 
