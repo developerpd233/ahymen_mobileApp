@@ -5,11 +5,11 @@ import {name as appName} from './app.json';
 import {store} from "./src/store/store";
 import {Provider} from "react-redux";
 import {initialWindowMetrics, SafeAreaProvider} from "react-native-safe-area-context";
+import 'react-native-gesture-handler';
 import {interceptor} from "./src/utils/intercepter";
 import Toast from "react-native-toast-message";
 import {navigationRef} from "./src/routing/Ref";
 import { NavigationContainer } from '@react-navigation/native';
-import 'react-native-gesture-handler';
 LogBox.ignoreAllLogs();
 
 interceptor();

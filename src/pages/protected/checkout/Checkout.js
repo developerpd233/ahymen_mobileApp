@@ -220,7 +220,7 @@ function Checkout({ route }) {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     GetAddressApi();
   }, [isFocused]);
   const GetAddressApi = async () => {

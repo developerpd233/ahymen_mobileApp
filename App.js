@@ -24,7 +24,7 @@ const App = () => {
                 language:language?.language?.lan
             };
         });
-       const dY = useSelector((state)=>console.log('============',state))
+       const dY = useSelector((state)=>{})
 
     useEffect(() => {
         setTimeout(() => {
