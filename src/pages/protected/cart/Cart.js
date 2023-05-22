@@ -256,10 +256,10 @@ function Cart(props) {
               onPress={() => {
                 !reduxState?.user?.data?.token
                   ? navigation.navigate('proceed', {
-                      isGoBack: true,
+                      isGoBack: true, totalSum
                     })
                   : navigation.navigate('checkout', {
-                      isGoBack: true,
+                      isGoBack: true, totalSum
                     });
               }}
             />
@@ -313,6 +313,7 @@ function Cart(props) {
         </View>}
 
         {reduxState?.data.length > 0 ? (
+          <>
           <View style={[Styles.paymentInfo]}>
             <View
               style={[
@@ -343,6 +344,8 @@ function Cart(props) {
               </CText>
             </View>
           </View>
+          <Text style={Styles.includeText}>{t('The_vat_is_include')}</Text>
+          </>
         ) : (
           <CEmpty text={t('No_any_product_in_cart')} />
         )}

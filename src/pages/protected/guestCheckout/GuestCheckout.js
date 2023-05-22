@@ -14,6 +14,8 @@ import { guestCheckout } from '../../../store/actions/Auth.action';
 function GuestCheckout(props) {
 
     const navigation = useNavigation();
+    const { values, totalSum } = props?.route?.params || '';
+
     const dispatch = useDispatch()
 
     const reduxState = useSelector(({auth, global}) => {
@@ -51,7 +53,9 @@ function GuestCheckout(props) {
     };
 
     const callbacl  = () =>{
-        navigation.navigate('checkout')
+        navigation.navigate('checkout', {
+           totalSum
+          })
     }
 
     const registerGuestUser = (values)=>{

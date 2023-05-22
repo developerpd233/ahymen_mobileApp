@@ -290,8 +290,8 @@ function Location(props) {
       scrollView={true}
       headerProps={headerProps}>
       <View style={Styles.container}>
-        {/* <View style={Styles.mapContainer}> */}
-          {/* <MapView
+        {/* <View style={Styles.mapContainer}>
+          <MapView
             provider={PROVIDER_GOOGLE} // remove if not using Google Maps
             style={Styles.map}
             customMapStyle={customStyle}
@@ -300,23 +300,23 @@ function Location(props) {
               longitude: 67.032971,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
-            }}> */}
-            {/* <PolylineDirection
+            }}>
+            <PolylineDirection
                            origin={origin}
                            destination={destination}
                            apiKey={GOOGLE_MAPS_APIKEY}
                            strokeWidth={4}
                            strokeColor="#12bc00"
-                        /> */}
-          {/* </MapView> */}
-        {/* </View> */}
+                        />
+          </MapView>
+        </View>
 
         <View style={Styles.buttonContainer}>
           <TouchableOpacity style={Styles.button}>
             <Icons style={Styles.buttonIcon} name={'pin-location'} />
             <CText style={Styles.buttonText}>{t('Choose_on_map')}</CText>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View style={Styles.addLocationContainer}>
           <CText style={Styles.addLocationTitle}>{t('Add_new_address')}</CText>

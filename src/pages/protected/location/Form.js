@@ -64,7 +64,7 @@ function CForm(props) {
                         <CInput
                         editable={false}
                             ref={name}
-                            inputLabel={t('Name')}
+                            inputLabel={t('Reciver_name')}
                             placeholder={t('Ahyman')}
                             value={data.name}
                             onChangeText={handleChange('name')}

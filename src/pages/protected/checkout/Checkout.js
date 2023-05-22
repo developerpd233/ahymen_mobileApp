@@ -39,6 +39,7 @@ const methodsConst = ['VISA', 'PAYPAL', 'MASTER'];
 function Checkout({ route }) {
   const { t, i18n } = useTranslation();
   const { values, totalSum } = route?.params || '';
+  console.log("🚀 ~ file: Checkout.js:42 ~ Checkout ~ totalSum:", totalSum)
   const dispatch = useDispatch();
   const form = useRef(null);
   const cardNumber = useRef(null);
@@ -77,6 +78,7 @@ function Checkout({ route }) {
   const [billing_name_last, setBilling_name_last] = React.useState(last_name || 'none');
 
   const [tran_amount, setTran_amount] = React.useState(totalSum);
+  console.log("🚀 ~ file: Checkout.js:81 ~ Checkout ~ tran_amount:", tran_amount)
 
   const headerProps = {
     showCenterLogo: true,
@@ -306,7 +308,7 @@ function Checkout({ route }) {
       app_version: '1.0', //app version
       app_user: '12345633', //app user
       app_id: '102863o777', //app user id
-      tran_test: '1', //1=test, 0=production
+      tran_test: '0', //1=test, 0=production
       tran_type: 'sale', //sale
       tran_class: 'paypage',
       tran_cartid: `${Math.floor(Math.random() * 100) + 6}`, //enter cart id it shoud be unique for every transaction //1234567890

@@ -14,6 +14,7 @@
       "Home":"Home",
       "Ahyman":"Ayham",
       "Name":"Name",
+      "Reciver_name":"Receiver Name",
       "Address":"Address",
       "Pincode":"Pincode",
       "Add_address":"Add Address",
@@ -65,6 +66,7 @@
       "Shipping":"Shipping",
       "Total":"Total",
       "Continue_shopping":"Continue Shopping",
+      "The_vat_is_include":"The vat is include",
       "Legal_&_Privacy":"Legal & Privacy",
       "Save":"Save",
 

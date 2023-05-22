@@ -22,8 +22,13 @@ const Styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 15,
         borderRadius: 10,
-        marginVertical: 25,
+        margintop: 25,
+        // marginBottom: 25,
         
+    },
+    includeText:{
+     marginVertical:5,
+     paddingHorizontal:15
     },
     paymentInfoItem: {
         paddingVertical: 5,

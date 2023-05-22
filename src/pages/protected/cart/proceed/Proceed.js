@@ -16,6 +16,7 @@ import {useTranslation} from 'react-i18next';
 
 function Proceed(props) {
     const {t, i18n} = useTranslation();
+    const { values, totalSum } = props?.route?.params || '';
     
     const [currentLanguage,setLanguage] = useState('ar');
 
@@ -40,7 +41,7 @@ function Proceed(props) {
 
     const next = (routeName) => {
         navigation.navigate(routeName, {
-            isGoBack: true,
+            isGoBack: true,totalSum
         });
     };
 
