@@ -1,4 +1,4 @@
-package com.angelica;
+package com.gift_app;
 import android.os.Bundle; // here
 
 import com.facebook.react.ReactActivity;

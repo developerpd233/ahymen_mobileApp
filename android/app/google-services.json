@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:803774630900:android:643ed55cfc72cc0e0f47a1",
         "android_client_info": {
-          "package_name": "com.angelica"
+          "package_name": "com.gift_app"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "803774630900-p45dr1q3tj5nkr7nd13q52i0k1ai6hj4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.angelica",
+            "package_name": "com.gift_app",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },

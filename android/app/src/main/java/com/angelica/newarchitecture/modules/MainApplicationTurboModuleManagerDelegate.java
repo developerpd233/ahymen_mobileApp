@@ -1,4 +1,4 @@
-package com.angelica.newarchitecture.modules;
+package com.gift_app.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

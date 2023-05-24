@@ -1,4 +1,4 @@
-package com.angelica.newarchitecture;
+package com.gift_app.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.angelica.BuildConfig;
-import com.angelica.newarchitecture.components.MainComponentsRegistry;
-import com.angelica.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.gift_app.BuildConfig;
+import com.gift_app.newarchitecture.components.MainComponentsRegistry;
+import com.gift_app.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
